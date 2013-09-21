@@ -75,6 +75,7 @@ _ Emmiter Client
 - [Storm](http://storm-project.net/)
 - [HBase](http://hbase.apache.org/)
 - [Flume](http://flume.apache.org/)
+- [Kibana](http://www.elasticsearch.org/overview/kibana/)
 
 [ To investigate ]
 - Nginx -> Kafka
