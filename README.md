@@ -61,6 +61,11 @@ _ Emmiter Client
 - Process management
 - Annual Data Assessment
 
+[ Dependencies ]
+- <http://www.cacti.net/>
+- 
+
+[ To investigate ]
 - Nginx -> Kafka
 - Nginx -> Logrotate
 - Nginx -> module timestamp
