@@ -32,8 +32,25 @@ High Availability and Performant  Log Collection
 
 [Concept/Abstraction]
 _ Emmiter Client
- - 
+ - Zero Conf - module to -> zookeeper
+ - async
+ - persistence
+ - send 
+ - spillover
+ - spillover recovery agent
 - LogEmitter
+- LogFormat
+- LogVersion
+- LogType
+- WatchDogEmitter
+- WatchDog Register
+- WatchDog Monitor and Alerts
+
+[Reporting]
+- Summary Report
+- LogType Report
+- Key Coverage Report
+- Value Coverage Report
 
 [Consulting]
 - Data Processing Assesment
