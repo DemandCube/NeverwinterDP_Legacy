@@ -61,9 +61,20 @@ _ Emmiter Client
 - Process management
 - Annual Data Assessment
 
-[ Dependencies ]
-- http://www.cacti.net/
-- 
+[Dependencies]
+- [OpenResty](http://openresty.org/)
+- [Nginx](http://nginx.com/)
+- [Kafka](http://kafka.apache.org/)
+- [Hadoop](http://hadoop.apache.org/)
+- [Ganglia](http://ganglia.sourceforge.net/)
+- [Cacti](http://www.cacti.net/)
+- [ElasticSearch](http://www.elasticsearch.org/)
+- [LogStash](http://logstash.net/)
+- [HCatalog](http://hive.apache.org/hcatalog/)
+- [Hive](http://hive.apache.org/)
+- [Storm](http://storm-project.net/)
+- [HBase](http://hbase.apache.org/)
+- [Flume](http://flume.apache.org/)
 
 [ To investigate ]
 - Nginx -> Kafka
@@ -73,6 +84,8 @@ _ Emmiter Client
 - Logrotate frequency mod
 - Logtail - find reference to old project that I looked at
 - Filehandle monitor
+ - fuser
+ - inotify-tools
 
 Capabilities
 - file handle monitor
