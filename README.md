@@ -23,6 +23,7 @@ High Availability and Performant  Log Collection
 - Log Alerting
 
 ![NWD-HighLevel](https://raw.github.com/DemandCube/NeverwinterDP/master/diagrams/images/NWD-HighLevel.png "A Highlevel Diagram")
+![NWD-HighLevel](diagrams/images/NWD-HighLevel.png?raw=true "A Highlevel Diagram")
 
 [Nginx] -> Openresty, libkafka with spillover buffer, spillagent, window registration and monitoring
 - Nginx -> Kafka -> Flume -> Hcatalog -> Hive
