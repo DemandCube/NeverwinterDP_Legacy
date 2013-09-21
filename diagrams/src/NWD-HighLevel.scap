@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ScappleDocument Version="1.1" ID="A8F7C960-0549-49F6-AED5-1010248E2571">
+    <Notes>
+        <Note ID="8" FontSize="15.085" Position="65.585565,331.47247" Width="104.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Nginx Cluster</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,13</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="14" FontSize="15.085" Position="290.520089,331.206101" Width="48.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Kafka</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,5</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="16" FontSize="15.085" Position="560.21503,115.06622" Width="106.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Storm Cluster</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,13</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="24" FontSize="15.085" Position="761.493304,114.594494" Width="135.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>HBase Cluster</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,13</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="26" FontSize="15.085" Position="560.316964,544.829613" Width="39.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Hive</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,4</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="28" FontSize="15.085" Position="761.227679,545.005952" Width="132.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Hadoop/HCatalog
+ Cluster</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,24</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="30" FontSize="15.085" Position="560.547247,330.136905" Width="115.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Ganglia/Cactus</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,14</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="32" FontSize="15.085" Position="761.227679,330.005952" Width="132.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>LogStash/Elastic Search</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,23</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="36" FontSize="13.085" Position="544.0,69.0" Width="200.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Real-time</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,9</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="38" FontSize="13.085" Position="548.0,290.0" Width="76.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Operations</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,10</FormatRange>
+            </Formatting>
+        </Note>
+        <Note ID="40" FontSize="13.085" Position="546.0,506.0" Width="43.0">
+            <Appearance>
+                <Alignment>Left</Alignment>
+            </Appearance>
+            <String>Batch</String>
+            <Formatting>
+                <FormatRange Bold="Yes">0,5</FormatRange>
+            </Formatting>
+        </Note>
+    </Notes>
+    <BackgroundShapes>
+        <Shape ID="11" Sticky="Yes" Position="51.59747,321.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+            <PointsToNoteIDs>15</PointsToNoteIDs>
+        </Shape>
+        <Shape ID="15" Sticky="Yes" Position="279.388393,323.026786" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+            <ConnectedNoteIDs>11, 34, 37, 39</ConnectedNoteIDs>
+            <PointsToNoteIDs>34, 37, 39</PointsToNoteIDs>
+        </Shape>
+        <Shape ID="34" Sticky="No" Position="536.59747,63.0" Width="376.899554" Height="211.03125">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Shape>
+        <Shape ID="17" Sticky="Yes" Position="548.59747,106.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="25" Sticky="Yes" Position="750.005208,106.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="39" Sticky="No" Position="537.0,498.0" Width="376.899554" Height="206.455357">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Shape>
+        <Shape ID="27" Sticky="Yes" Position="548.612351,536.508929" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="29" Sticky="Yes" Position="750.005208,536.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="37" Sticky="No" Position="537.0,283.0" Width="376.899554" Height="206.455357">
+            <Appearance>
+                <Border Weight="1"></Border>
+            </Appearance>
+            <ConnectedNoteIDs>15</ConnectedNoteIDs>
+        </Shape>
+        <Shape ID="31" Sticky="Yes" Position="548.59747,321.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+        <Shape ID="33" Sticky="Yes" Position="750.005208,321.575893" Width="151.899554" Height="148.455357" Shadow="Yes">
+            <Appearance>
+                <Border Weight="2"></Border>
+            </Appearance>
+        </Shape>
+    </BackgroundShapes>
+    <NoteStyles>
+        <Style Name="Title Text" ID="064099E6-453A-4B3A-85CE-CF41683A683B" AffectFontStyle="Yes" AffectAlignment="Yes" AffectTextColor="No" AffectNoteBody="No" AffectFade="No">
+            <FontSize>28.0</FontSize>
+            <IsBold>Yes</IsBold>
+        </Style>
+        <Style Name="Red Text" ID="E85D51C9-148D-4C0B-B9AB-1F6191ED9872" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="Yes" AffectNoteBody="No" AffectFade="No">
+            <TextColor>1.0 0.0 0.0</TextColor>
+        </Style>
+        <Style Name="Brown Bubble" ID="A76D5B76-7C5F-4C4A-8E08-23C556AB9FC7" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.293752 0.151734 0.181439</BorderColor>
+            <FillColor>0.943196 0.894486 0.774677</FillColor>
+        </Style>
+        <Style Name="Yellow Bubble" ID="AD286DFD-D621-44EC-9F58-852FB58BD8CE" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.760728 0.790274 0.352228</BorderColor>
+            <FillColor>0.910279 0.91416 0.622582</FillColor>
+        </Style>
+        <Style Name="Green Bubble" ID="CA427C0D-931A-4F53-B604-8BA78858839D" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.323612 0.613125 0.348207</BorderColor>
+            <FillColor>0.787817 0.883563 0.799877</FillColor>
+        </Style>
+        <Style Name="Blue Bubble" ID="B33B0879-36B3-44B5-90D9-9311C0E8AF9E" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.469841 0.553753 0.771462</BorderColor>
+            <FillColor>0.838966 0.866047 0.928091</FillColor>
+        </Style>
+        <Style Name="Pink Bubble" ID="96DD4F88-16E5-427A-BF02-6FD10A73C2C6" AffectFontStyle="No" AffectAlignment="No" AffectTextColor="No" AffectNoteBody="Yes" AffectFade="No">
+            <BorderThickness>1</BorderThickness>
+            <BorderColor>0.756916 0.36322 0.543994</BorderColor>
+            <FillColor>0.921415 0.806468 0.864086</FillColor>
+        </Style>
+    </NoteStyles>
+    <UISettings>
+        <BackgroundColor>1.0 0.987174 0.928961</BackgroundColor>
+        <DefaultFont>Helvetica</DefaultFont>
+        <DefaultTextColor>0.0 0.0 0.0</DefaultTextColor>
+    </UISettings>
+    <PrintSettings PaperSize="612.0,792.0" LeftMargin="72.0" RightMargin="72.0" TopMargin="90.0" BottomMargin="90.0" PaperType="na-letter" Orientation="Portrait" HorizontalPagination="Clip" VerticalPagination="Auto" ScaleFactor="1.0" HorizontallyCentered="Yes" VerticallyCentered="Yes" Collates="Yes" PagesAcross="1" PagesDown="1"></PrintSettings>
+</ScappleDocument>
