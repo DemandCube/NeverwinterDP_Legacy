@@ -31,6 +31,8 @@ High Availability and Performant  Log Collection
 - Type, Lines, Size per minute per process per server
 
 [Concept/Abstraction]
+_ Emmiter Client
+ - 
 - LogEmitter
 
 [Consulting]
