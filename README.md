@@ -14,11 +14,13 @@ Providing
 - with ZeroConf
 
 High Availability and Performant  Log Collection
-- Log Distribution
+- Log Distribution - Multi-data center
 - Log Replay
-- Log Monitor
+- Log Monitoring
 - Log Search
-- Log Watchdog
+- Log Operational Watchdog
+- Log Reporting
+- Log Alerting
 
 
 [Nginx] -> Openresty, libkafka with spillover buffer, spillagent, window registration and monitoring
