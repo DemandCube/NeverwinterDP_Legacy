@@ -8,10 +8,11 @@ Problem - Data Collection
 
 Neverwinter - The real-time log/data pipeline. The Nginx, Kafka, Hadoop and Storm Data pipeline with Logstash, Cacti and Ganglia
 
+
 Providing
 - High Availability and Scalable Data Collection
 - Framework and Data Monitoring
-- with ZeroConf
+- with ZeroConf - Stored in Zookeeper?
 
 High Availability and Performant  Log Collection
 - Log Distribution - Multi-data center
@@ -21,6 +22,14 @@ High Availability and Performant  Log Collection
 - Log Operational Watchdog
 - Log Reporting
 - Log Alerting
+
+Logs are fed into
+- HDFS
+- Elastic Search
+- Hive
+- Mysql
+- HBase
+- Vertica
 
 ![NWD-HighLevel](https://raw.github.com/DemandCube/NeverwinterDP/master/diagrams/images/NWD-HighLevel.png "A Highlevel Diagram")
 ![NWD-HighLevel](diagrams/images/NWD-HighLevel.png?raw=true "A Highlevel Diagram")
@@ -49,6 +58,7 @@ _ Emmiter Client
 - WatchDogEmitter
 - WatchDog Register
 - WatchDog Monitor and Alerts
+
 
 [Reporting]
 - Summary Report
