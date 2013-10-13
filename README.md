@@ -115,14 +115,36 @@ Capabilities
   |  - Json    |    |           |    |            |    |                |
   |  - Avro    |    |           |    |            |    |                |
   +------------+    +-----------+    +------------+    +----------------+
+
+
+
+  +-----------+     +-----+     +-----+    +--------+
+  | Log Stash |     |Nginx|     |Kafka|    |Hadoop  |
+  |-----------|     |-----|     |-----|    |--------|
+  |           |+--->|     |+--->|     |+-->|HCatalog|
+  |           |     |     |     |     |    |HBase   |
+  +-----------+     +-----+     +-----+    +--------+
+                                  +
+                                  |        +--------+
+                                  +------->|Storm   |
+                                           |--------|
+                                           |        |
+                                           |        |
+                                           +--------+
   
   http://www.asciiflow.com/#Draw
 ```
 
-- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
+TODO
+====
+- [ ] Log Stash to Neverwinter Plugin
+- [ ] Log Collection Standard
+- [ ] Neverwinter Nginx Plugin to Kafka
+- [ ] Neverwinter Kafka Queue Monitor in Kibana
+- [ ] Develop NW Distributed Data Pump -> HCatalog - Think can be distributed framework for managing a cluster of writers to Flume or Logstash
+
+
+
 
 [ Front End Emmiter ]
 - The concept is to have a nginx front end that will ship logs to 
