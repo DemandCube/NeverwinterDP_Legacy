@@ -143,6 +143,11 @@ TODO
 - [ ] Neverwinter Kafka Queue Monitor in Kibana
 - [ ] Develop NW Distributed Data Pump -> HCatalog - Think can be distributed framework for managing a cluster of writers to Flume or Logstash
 
+QUESTIONS
+=========
+Should a distributed fault tolerant data transport layer from Kafka to hadoop be build on 
+- 1) Storm
+- 2) Yarn
 
 
 
