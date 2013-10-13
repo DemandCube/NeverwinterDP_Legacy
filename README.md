@@ -103,3 +103,17 @@ Capabilities
 - file process monitor
 - file tail
 - Kafka efficient socket to file transfer
+
+  +------------+    +-----------+    +------------+    +----------------+
+  |NW          |    |NW         |    |NW          |    |                |
+  |            |    |           |    |            |    |                |
+  |  Front End |    |  Data Bus |    |  Data Pump |    | End Point      |
+  |   Emitter  |+-->|           |+-->|            |+-->|- HDFS          |
+  |  - Http Get|    |           |    |            |    |- Elastic Search|
+  |  - Json    |    |           |    |            |    |                |
+  |  - Avro    |    |           |    |            |    |                |
+  +------------+    +-----------+    +------------+    +----------------+
+
+[ Front End Emmiter ]
+The concept is to have a nginx front end that will ship logs to 
+
