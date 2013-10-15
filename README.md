@@ -155,5 +155,4 @@ Should a distributed fault tolerant data transport layer from Kafka to hadoop be
 - The concept is to have a nginx front end that will ship logs to 
 - 
 
-[rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data transport/connector (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
-
+[ log collection (logstash] -> [rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data transport/connector (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
