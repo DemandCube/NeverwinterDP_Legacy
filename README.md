@@ -152,6 +152,7 @@ TODO
 - [ ] Neverwinter Nginx Plugin to Kafka
 - [ ] Neverwinter Kafka Queue Monitor in Kibana
 - [ ] Develop NW Distributed Data Pump -> HCatalog - Think can be distributed framework for managing a cluster of writers to Flume or Logstash
+- [ ] Add other main github projects
 
 QUESTIONS
 =========
