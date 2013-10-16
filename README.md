@@ -16,7 +16,7 @@ Neverwinter is the combination of three major open source project that leverage 
 - https://github.com/DemandCube/SparknginP
 2) Data Bus
 - ????
-3) Data Transport
+3) Data Pump/Transport
 - ????
 
 Providing
@@ -165,4 +165,4 @@ Should a distributed fault tolerant data transport layer from Kafka to hadoop be
 - The concept is to have a nginx front end that will ship logs to 
 - 
 
-[ log collection (logstash] -> [rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data transport/connector (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
+[ log collection (logstash] -> [rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data pump/transport (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
