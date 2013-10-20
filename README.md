@@ -167,3 +167,6 @@ Should a distributed fault tolerant data transport layer from Kafka to hadoop be
 - 
 
 [ log collection (logstash] -> [rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data pump/transport (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
+
+Look at developing the protocol prototype with a Avro Producer using zmq and a Avro Consumer communicating through kafka.
+-Version/Lineage,Heartbeat,Source,Header/Footer
