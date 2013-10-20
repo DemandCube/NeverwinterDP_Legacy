@@ -14,8 +14,11 @@ Neverwinter is the combination of three major open source project that leverage 
 
 1) Rest Log Collection Endpoint - SparknginP
 - [SparknginP - Nginx](Phttps://github.com/DemandCube/SparknginP)
+
 2) Data Bus
 - [Kafka](http://kafka.apache.org/)
+
+
 3) Data Pump/Transport
 - ????
 
