@@ -44,6 +44,39 @@ Logs are fed into
 - HBase
 - Vertica
 
+TODO
+====
+- [ ] Put in contributor information and update projects to reference (Kafka and Flume)
+- [ ] Log Stash to Neverwinter Plugin
+- [ ] Log Collection Standard
+- [ ] Neverwinter Nginx Plugin to Kafka
+- [ ] Neverwinter Kafka Queue Monitor in Kibana
+- [ ] Develop NW Distributed Data Pump -> HCatalog - Think can be distributed framework for managing a cluster of writers to Flume or Logstash
+- [ ] Add other main github projects
+
+Areas to flush out
+====
+Prototype framework with zmq in python
+
+Topics
+- Registry
+- Heartbeat
+- Stats
+- LogTopics
+
+- [ ] Develop - Protocol
+
+Main development
+====
+Sparkngin
+Connector Component
+
+Monitoring Outof the box
+====
+Out of the box super easy plugin to
+Nagios
+Ganglia
+
 ![NWD-HighLevel](https://raw.github.com/DemandCube/NeverwinterDP/master/diagrams/images/NWD-HighLevel.png "A Highlevel Diagram")
 ![NWD-HighLevel](diagrams/images/NWD-HighLevel.png?raw=true "A Highlevel Diagram")
 
@@ -151,14 +184,7 @@ Capabilities
   http://www.asciiflow.com/#Draw
 ```
 
-TODO
-====
-- [ ] Log Stash to Neverwinter Plugin
-- [ ] Log Collection Standard
-- [ ] Neverwinter Nginx Plugin to Kafka
-- [ ] Neverwinter Kafka Queue Monitor in Kibana
-- [ ] Develop NW Distributed Data Pump -> HCatalog - Think can be distributed framework for managing a cluster of writers to Flume or Logstash
-- [ ] Add other main github projects
+
 
 QUESTIONS
 =========
