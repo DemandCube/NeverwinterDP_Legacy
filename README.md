@@ -96,6 +96,9 @@ _ Emmiter Client
 - [HBase](http://hbase.apache.org/)
 - [Flume](http://flume.apache.org/)
 - [Kibana](http://www.elasticsearch.org/overview/kibana/)
+- [Doxygen](http://www.stack.nl/~dimitri/doxygen/index.html)
+- [Zeromq](http://zeromq.org)
+
 
 [ To investigate ]
 - Nginx -> Kafka
@@ -169,7 +172,7 @@ Should a distributed fault tolerant data transport layer from Kafka to hadoop be
 [ log collection (logstash] -> [rest end point (nginx) ] ->  [ data bus (kafka) ] -> [ data pump/transport (storm or yarn) ] -> [ rdbms (hive - data registration live) |  file system (hdfs)  | key store (hbase) ]
 
 Look at developing the protocol prototype with a Avro Producer using zmq and a Avro Consumer communicating through kafka.
--Version/Lineage,Heartbeat,Source,Header/Footer.  Take design aspects from https://github.com/linkedin/camus, must provide built monitoring.  There
+-Version/Lineage,Heartbeat,Source,Header/Footer.  Take design aspects from [Camus](https://github.com/linkedin/camus) , must provide built monitoring.  There
 needs to be a messaging (source timestamp, system timestamp) and a way to inspect where hour boundries exist on the queue.  Additionally need a way
 to register servers and when they come on and offline for log registration.  
 
