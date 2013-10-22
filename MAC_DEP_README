@@ -44,3 +44,11 @@ make install
 
 # pkg-config
 # http://www.freedesktop.org/wiki/Software/pkg-config/
+cd $build 
+curl -OL http://pkgconfig.freedesktop.org/releases/pkg-config-0.28.tar.gz
+tar zxvf pkg-config-0.28.tar.gz
+cd pkg-config-0.28
+./configure --prefix=$build/autotools-bin --with-internal-glib
+make 
+make install
+
