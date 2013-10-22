@@ -15,8 +15,8 @@ export PATH=$PATH:$build/autotools-bin/bin
 
 cd $build
 curl -OL http://ftpmirror.gnu.org/automake/automake-1.11.tar.gz
-tar xzf automake-1.11.tar.gz
-cd automake-1.11
+tar xzf automake-1.14.tar.gz
+cd automake-1.14
 ./configure --prefix=$build/autotools-bin
 make
 make install
