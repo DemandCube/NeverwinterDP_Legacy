@@ -52,3 +52,25 @@ cd pkg-config-0.28
 make 
 make install
 
+
+# zeromq
+# http://zeromq.org/area:download
+cd $build
+curl -OL http://download.zeromq.org/zeromq-4.0.1.tar.gz
+tar zxvf zeromq-4.0.1.tar.gz
+cd zeromq-4.0.1
+./configure 
+make
+sudo make install
+
+# jzmq
+# http://zeromq.org/bindings:java
+
+cd $build
+git clone https://github.com/zeromq/jzmq
+cd jzmq
+./autogen.sh
+./configure 
+make
+sudo make install
+
