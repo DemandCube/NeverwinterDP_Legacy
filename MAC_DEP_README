@@ -1,30 +1,46 @@
 #Install Build Tools Mac
 
+# Updated 10/21/2013
+# http://en.wikipedia.org/wiki/GNU_build_system
 
 export build=~/bin/gnubuildtools # or wherever you'd like to build
 mkdir -p $build
 
+
+# autoconf
+# http://www.gnu.org/savannah-checkouts/gnu/autoconf/
 cd $build
-curl -OL http://ftpmirror.gnu.org/autoconf/autoconf-2.68.tar.gz
-tar xzf autoconf-2.68.tar.gz
-cd autoconf-2.68
+curl -OL http://ftpmirror.gnu.org/autoconf/autoconf-2.69.tar.gz
+tar xzf autoconf-2.69.tar.gz
+cd autoconf-2.69
 ./configure --prefix=$build/autotools-bin
 make
 make install
 export PATH=$PATH:$build/autotools-bin/bin
 
+
+# automake
+# http://www.gnu.org/savannah-checkouts/gnu/automake/
+
 cd $build
-curl -OL http://ftpmirror.gnu.org/automake/automake-1.11.tar.gz
+curl -OL http://ftpmirror.gnu.org/automake/automake-1.4.tar.gz
 tar xzf automake-1.14.tar.gz
 cd automake-1.14
 ./configure --prefix=$build/autotools-bin
 make
 make install
 
+
+# libtool
+# http://www.gnu.org/savannah-checkouts/gnu/libtool/
+
 cd $build
-curl -OL http://ftpmirror.gnu.org/libtool/libtool-2.4.tar.gz
-tar xzf libtool-2.4.tar.gz
-cd libtool-2.4
+curl -OL http://ftpmirror.gnu.org/libtool/libtool-2.4.2.tar.gz
+tar xzf libtool-2.4.2.tar.gz
+cd libtool-2.4.2
 ./configure --prefix=$build/autotools-bin
 make
 make install
+
+# pkg-config
+# http://www.freedesktop.org/wiki/Software/pkg-config/
