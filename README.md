@@ -13,7 +13,7 @@ Neverwinter - The real-time log/data pipeline. SparknginP,Nginx, Kafka, Hadoop a
 Neverwinter is the combination of three major open source project that leverage the best in open source.
 
 1) Rest Log Collection Endpoint - SparknginP
-- [SparknginP - Nginx](Phttps://github.com/DemandCube/SparknginP)
+- [SparknginP - Nginx](https://github.com/DemandCube/SparknginP)
 
 2) Data Bus
 - [Kafka](http://kafka.apache.org/)
