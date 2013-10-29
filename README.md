@@ -212,3 +212,8 @@ Should there be a mapping and general payload support.  Json support
 
 Should Avro / Thrift / Protobuff / HBase / Hive / Storm - Type Mappings be maintained?
 
+Kafka Resources
+=====
+- https://github.com/criteo/kafka-ganglia
+- Creating Author:  Maxime Brugidou <maxime.brugidou@gmail.com>
+- Interested Potential Contributor: Andrew Otto <otto@wikimedia.org>
