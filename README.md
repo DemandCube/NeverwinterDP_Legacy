@@ -217,7 +217,7 @@ Kafka Resources
 - https://github.com/criteo/kafka-ganglia
 - Creating Author:  Maxime Brugidou <maxime.brugidou@gmail.com>
 - Interested Potential Contributor: Andrew Otto <otto@wikimedia.org>
-- 
+
 
 Two Level Protocol Stack
 ===== 
