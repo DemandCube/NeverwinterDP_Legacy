@@ -8,7 +8,7 @@ Neverwinter Realtime Data Platform
 
 Problem - Data Collection
 
-Neverwinter - The real-time log/data pipeline. SparknginP,Nginx, Kafka, Hadoop and Storm Data pipeline with Logstash, Cacti and Ganglia
+Neverwinter - The real-time log/data pipeline. Sparkngin,Nginx, Kafka, Hadoop and Storm Data pipeline with Logstash, Cacti and Ganglia
 
 Neverwinter is the combination of three major open source project that leverage the best in open source.
 
