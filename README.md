@@ -9,7 +9,7 @@ Neverwinter Realtime Data Platform
 
 WHAT IS NEVERWINTER DP?
 =======================
-Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts (ranging from gigabytes to petabytes) of data to be processed or saved in real-time to one or more down data repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm)
+Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts of data  (ranging from gigabytes to petabytes) to be (processed or saved in real-time) to one or more down databases / repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm)
 
 Neverwinter was designed and written from the ground up for scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
 
