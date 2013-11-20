@@ -16,6 +16,7 @@ Neverwinter was designed and written from the ground up for scalability, and ope
 Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm Data pipeline with Logstash, Ganglia and Nagios Integration
 
 Neverwinter is the combination of three major open source project that leverage the best in open source. 
+
 1. Sparkngin (Nginx)
 2. Kafka
 3. Scribengin
