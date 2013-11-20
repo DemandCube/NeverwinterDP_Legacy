@@ -27,9 +27,16 @@ Components
 
 Architecture
 ------------
-1. 
-2.
-3.
+1. High Level
+```
+    +-----------+    +-------------+    +---------+    +------------+    +------------+
+    |Submission |    |Rest         |    |Transport|    |Streaming   |    |Data        |
+    | Client    |+-->| Endpoint    |+-->| Queue   |+-->| Adapter    |+-->| Repository |
+    |           |    |(Sparkngin)  |    |(Kafka)  |    |(Scribengin)|    |(Hive/Hbase)|
+    +-----------+    +-------------+    +---------+    +------------+    +------------+
+```
+2. Mid Level
+3. Features Included
 
 Transport Protocol Levels
 --------
