@@ -300,3 +300,5 @@ Site Examples
 - http://hyde.github.io/
 - http://www.crossroads.io/
 - Maybe use http://jekyllrb.com/
+- http://graphite.wikidot.com/
+- http://graphite.readthedocs.org/en/1.0/tools.html
