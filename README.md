@@ -47,6 +47,7 @@ Components
 Architecture
 ------------
 1. High Level
+
 ```
     +-----------+    +-------------+    +---------+    +------------+    +------------+
     |Submission |    |Rest         |    |Transport|    |Streaming   |    |Data        |
