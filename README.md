@@ -12,6 +12,9 @@ Neverwinter - The real-time log/data pipeline. Sparkngin,Nginx, Kafka, Hadoop an
 
 Neverwinter is the combination of three major open source project that leverage the best in open source.
 
+Components
+----------
+
 1) Rest Log Collection Endpoint - Sparkngin
 - [Sparkngin - Nginx](https://github.com/DemandCube/Sparkngin)
 
@@ -21,12 +24,40 @@ Neverwinter is the combination of three major open source project that leverage 
 3) Data Pump/Transport
 - [Scribengin](https://github.com/DemandCube/Scribengin)
 
-Providing
-- High Availability and Scalable Data Collection
-- Framework and Data Monitoring
-- with ZeroConf - Stored in Zookeeper?
 
-High Availability and Performant  Log Collection
+Architecture
+------------
+1. 
+2.
+3.
+
+Transport Protocol Levels
+--------
+1. Binary
+2. Framework
+3. Schema
+4. Encryption
+
+<dl>
+  <dt>Binary</dt>
+  <dd>This level transports any arbitrary data</dd>
+  <dt>Framework</dt>
+  <dd>This level transports any data wrapped in fields of data needed by the framework for monitorying</dd>
+  <dt>Schema</dt>
+  <dd>This level adds schemas to the data being transported in the framework layer</dd>
+  <dt>Encryption</dt>
+  <dd>This level adds encrytion around the data in schemas or the framework transport</dd>
+</dl>
+
+
+Providing
+- Data Steaming/Collection Framework
+- High Availability and Scalable Data Collection
+- Data Monitoring
+- Autoconfiguration - with ZeroConf - Stored in Zookeeper?
+- Data Partition Notification
+
+Additional Features: High Availability and Performant  Log Collection
 - Log Distribution - Multi-data center
 - Log Replay
 - Log Monitoring
