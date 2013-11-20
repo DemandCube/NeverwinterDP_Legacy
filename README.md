@@ -6,11 +6,26 @@ Neverwinter Realtime Data Platform
 
 
 
-Problem - Data Collection
 
-Neverwinter - The real-time log/data pipeline. Sparkngin,Nginx, Kafka, Hadoop and Storm Data pipeline with Logstash, Cacti and Ganglia
+WHAT IS NEVERWINTER DP?
+=======================
+Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts (ranging from gigabytes to petabytes) of data to be processed or saved in real-time to one or more down data repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm)
+
+Neverwinter was designed and written from the ground up for scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
+
+Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm Data pipeline with Logstash, Ganglia and Nagios Integration
 
 Neverwinter is the combination of three major open source project that leverage the best in open source.
+
+WHAT CAN NEVERWINTER DO?
+========================
+Neverwinter allows data ingestion from any system that can emit rest calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
+
+Neverwinter is targeted at data and analytics engineering teams who expect response times ranging from sub-second to minutes. Neverwinter breaks the false choice between having  a batch or real-time system. Also the false choice between having a fast or maintainable system.
+
+Use-Cases
+---------
+Problem - Data Collection
 
 Components
 ----------
@@ -36,7 +51,12 @@ Architecture
     +-----------+    +-------------+    +---------+    +------------+    +------------+
 ```
 2. Mid Level
-3. Features Included
+  1. Submission Client
+  2. Endpoint Collector
+  3. Collector Producer
+  4. Transport Queue
+  5. Stream Processor (CEP - Complex Event Processing)
+  6. Destination Adapter
 
 Transport Protocol Levels
 --------
