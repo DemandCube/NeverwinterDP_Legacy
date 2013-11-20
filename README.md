@@ -289,7 +289,14 @@ Two Level Protocol Stack
 Site Examples
 -------------
 - http://brew.sh/
-- http://stedolan.github.io/jq/
-- http://showterm.io/
-- http://www.sparkjava.com/
 - http://flask.pocoo.org/
+- http://phantomjs.org/
+- http://showterm.io/
+- http://stedolan.github.io/jq/
+- http://www.sparkjava.com/
+- http://leiningen.org/
+- http://vertx.io/
+- http://nodejs.org/
+- http://hyde.github.io/
+- http://www.crossroads.io/
+- Maybe use http://jekyllrb.com/
