@@ -284,4 +284,12 @@ Two Level Protocol Stack
 - Level 1 Generic Protocol Stack (Leverage Avro/Protocol Buffers/Thrift)
 - Level 2 Framework Stack
 - Events configured to flow by topic and get partitioned by either server timestamp or application supplied
-- Sparknginx in-memory encryption layer. (Pro version)
+- Sparknginx in-memory encryption layer. 
+
+Site Examples
+-------------
+- http://brew.sh/
+- http://stedolan.github.io/jq/
+- http://showterm.io/
+- http://www.sparkjava.com/
+- http://flask.pocoo.org/
