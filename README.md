@@ -31,6 +31,8 @@ Use-Cases
 ---------
 Problem - Data Collection
 
+Open-Source version of [Amazon Kinesis](http://aws.amazon.com/kinesis/)
+
 Components
 ----------
 
