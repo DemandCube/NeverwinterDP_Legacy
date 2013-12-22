@@ -281,12 +281,20 @@ Kafka Resources
 - Interested Potential Contributor: Andrew Otto <otto@wikimedia.org>
 
 
-Two Level Protocol Stack
-===== 
-- Level 1 Generic Protocol Stack (Leverage Avro/Protocol Buffers/Thrift)
-- Level 2 Framework Stack
+Four Level Protocol Stack
+=====
+- Level 0 Raw
+- Level 1 Envelop Framework (Leverage Avro/Protocol Buffers/Thrift)
+- Level 2 Event Payload
+- Level 3 Encrypted Payload
 - Events configured to flow by topic and get partitioned by either server timestamp or application supplied
 - Sparknginx in-memory encryption layer. 
+
+Preferred Development Tools
+- [Ansible] (http://www.ansibleworks.com/)
+- [Vangrant] (http://www.vagrantup.com/)
+- [Virtualbox] (https://www.virtualbox.org/)
+- [Gradle] (http://www.gradle.org/)
 
 Site Examples
 -------------
