@@ -296,6 +296,10 @@ Preferred Development Tools
 - [Virtualbox] (https://www.virtualbox.org/)
 - [Gradle] (http://www.gradle.org/)
 
+Github Pages
+-------------
+- <http://24ways.org/2013/get-started-with-github-pages/>
+
 Site Examples
 -------------
 - http://brew.sh/
