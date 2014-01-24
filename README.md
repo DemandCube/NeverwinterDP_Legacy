@@ -1,7 +1,7 @@
 NeverwinterDP
 =============
 
-Neverwinter Realtime Data Platform
+Neverwinter Realtime Data Pipeline
 
 
 
