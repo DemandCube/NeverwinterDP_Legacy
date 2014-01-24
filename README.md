@@ -21,6 +21,8 @@ Neverwinter is the combination of three major open source project that leverage 
 2. Kafka
 3. Scribengin
 
+Now that we have used enough buzz words.  Neverwinter reliably captures lots of data and saves it to hadoop and other systems.
+
 WHAT CAN NEVERWINTER DO?
 ========================
 Neverwinter allows data ingestion from any system that can emit rest calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
@@ -29,9 +31,7 @@ Neverwinter is targeted at data and analytics engineering teams who expect respo
 
 Use-Cases
 ---------
-Problem - Data Collection
-
-Open-Source version of [Amazon Kinesis](http://aws.amazon.com/kinesis/)
+Problem - Data Collection and Saving
 
 Components
 ----------
@@ -40,7 +40,7 @@ Components
 - [Sparkngin - Nginx](https://github.com/DemandCube/Sparkngin)
 
 2) Data Bus
-- [Kafka](http://kafka.apache.org/)
+- [Kafka](http://kafka.apache.org/) or [Amazon Kinesis](http://aws.amazon.com/kinesis/) (Version 2)
 
 3) Data Pump/Transport
 - [Scribengin](https://github.com/DemandCube/Scribengin)
@@ -51,11 +51,11 @@ Architecture
 1. High Level
 
 ```
-    +-----------+    +-------------+    +---------+    +------------+    +------------+
-    |Submission |    |Rest         |    |Transport|    |Streaming   |    |Data        |
-    | Client    |+-->| Endpoint    |+-->| Queue   |+-->| Adapter    |+-->| Repository |
-    |           |    |(Sparkngin)  |    |(Kafka)  |    |(Scribengin)|    |(Hive/Hbase)|
-    +-----------+    +-------------+    +---------+    +------------+    +------------+
+    +-----------+    +-------------+    +---------------+    +------------+    +------------+
+    |Submission |    |Rest         |    |Transport      |    |Streaming   |    |Data        |
+    | Client    |+-->| Endpoint    |+-->| Queue         |+-->| Adapter    |+-->| Repository |
+    |           |    |(Sparkngin)  |    |(Kafka/Kinesis)|    |(Scribengin)|    |(Hive/Hbase)|
+    +-----------+    +-------------+    +---------------+    +------------+    +------------+
 ```
 2. Mid Level
   1. Submission Client
