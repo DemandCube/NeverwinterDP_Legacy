@@ -2,7 +2,7 @@ NeverwinterDP
 =============
 - A [DemandCube](https://github.com/DemandCube) Project
 
-Neverwinter Realtime BigData Distributed Data Pipeline for Hadoop
+NeverwinterDP the Big Data Pipeline for Hadoop
 
 
 
