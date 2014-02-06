@@ -2,7 +2,7 @@ NeverwinterDP
 =============
 - A [DemandCube](https://github.com/DemandCube) Project
 
-Neverwinter Realtime Distributed Data Pipeline
+Neverwinter Realtime BigData Distributed Data Pipeline for Hadoop
 
 
 
@@ -10,7 +10,7 @@ Neverwinter Realtime Distributed Data Pipeline
 
 WHAT IS NEVERWINTER DP?
 =======================
-Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts of data  (ranging from gigabytes to petabytes) to be (processed or saved in real-time) to one or more down databases / repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm)
+Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts of data  (ranging from gigabytes to petabytes) to be (processed or saved in real-time) to one or more down databases / repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm).
 
 Neverwinter was designed and written from the ground up for scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
 
