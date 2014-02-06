@@ -12,13 +12,13 @@ WHAT IS NEVERWINTER DP?
 =======================
 Neverwinter is an open source distributed data ingestion system/framework for capturing large amounts of data  (ranging from gigabytes to petabytes) to be (processed or saved in real-time) to one or more down databases / repositories (i.e. Hadoop, HDFS, S3, Mysql, Hbase, Storm).
 
-Neverwinter was designed and written from the ground up for scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
+Neverwinter was designed and written from the ground up for reliability, scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
 
-Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm Data pipeline with Logstash, Ganglia and Nagios Integration
+Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm the Data pipeline integrates with Logstash, Ganglia and Nagios Integration.  It's a replacement for flume but also can be integrated with it.
 
 Neverwinter is the combination of three major open source project that leverage the best in open source. 
 
-1. Sparkngin (Nginx)
+1. Sparkngin (powered by Nginx)
 2. Kafka
 3. Scribengin
 
@@ -26,7 +26,7 @@ Now that we have used enough buzz words.  Neverwinter reliably captures lots of 
 
 WHAT CAN NEVERWINTER DO?
 ========================
-Neverwinter allows data ingestion from any system that can emit rest calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
+Neverwinter allows data ingestion from any system that can emit http/rest (or zeromq) calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
 
 Neverwinter is targeted at data and analytics engineering teams who expect response times ranging from sub-second to minutes. Neverwinter breaks the false choice between having  a batch or real-time system. Also the false choice between having a fast or maintainable system.
 
@@ -37,7 +37,7 @@ Problem - Data Collection and Saving
 Components
 ----------
 
-1) Rest/ZeroMQ Log Collection Endpoint - Sparkngin
+1) Http/Rest/ZeroMQ Log Collection Endpoint - Sparkngin
 - [Sparkngin - Nginx](https://github.com/DemandCube/Sparkngin)
 
 2) Data Bus
