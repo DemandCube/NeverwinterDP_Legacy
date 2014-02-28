@@ -306,6 +306,7 @@ Github Pages
 Site Examples
 -------------
 - http://brew.sh/
+- http://www.shinken-monitoring.org/
 - http://flask.pocoo.org/
 - http://phantomjs.org/
 - http://showterm.io/
