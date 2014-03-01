@@ -55,7 +55,7 @@ Architecture
     +-----------+    +-------------+    +---------------+    +------------+    +------------+
     |Submission |    |Rest         |    |Transport      |    |Streaming   |    |Data        |
     | Client    |+-->| Endpoint    |+-->| Queue         |+-->| Adapter    |+-->| Repository |
-    |           |    |(Sparkngin)  |    |(Kafka/Kinesis)|    |(Scribengin)|    |(Hive/Hbase)|
+    |           |    |(Sparkngin)  |    |(Kafka/Kinesis)|    |(Scribengin)|    |(HDFS/Hbase)|
     +-----------+    +-------------+    +---------------+    +------------+    +------------+
 ```
 2. Mid Level
