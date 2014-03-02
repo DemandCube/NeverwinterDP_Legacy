@@ -84,6 +84,15 @@ Transport Protocol Levels
   <dd>This level adds encrytion around the data in schemas or the framework transport</dd>
 </dl>
 
+Community
+======
+- [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- IRC channel #neverwinterdp on irc.freenode.net
+
+
+Other
+======
+
 HA Testing
  - Testing using [SimianArmy](https://github.com/Netflix/SimianArmy/wiki) and [Chaos Monkey](https://github.com/Netflix/SimianArmy/wiki/Chaos-Home), and [Jenkins](http://jenkins-ci.org/)
 
