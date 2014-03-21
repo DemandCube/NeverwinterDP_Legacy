@@ -359,3 +359,44 @@ git checkout master
 git merge upstream/master
 ```
 
+Git Workflow to Develop a new Feature
+====
+
+- Step 1(New Fork): 
+  - # Hit the "Fork" Icon in Github.com web site when on the Repository Page e.g. "DemandCube/NeverwinterDP"
+
+- Step 1(Existing Fork e.g. "YourUserName/NeverwinterDP"):
+  - # pull in changes from the master upstream/parent repo
+  - # No ff is the way you should since it won't automatically commit and you can comment the merge commit
+  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
+  - # Now fix any merge conflicts if they exist
+   
+- Step 2:
+  - # Create a branch todo your development "feature/featurename"
+  - `git checkout -b feature/featurename master`
+
+- Step 3: 
+  - # Do any development that you need todo
+
+- Step 4:
+  - # make sure your still in the feature branch
+  - `git checkout feature/featurename`
+
+- Step 5 (Optional - but recommended):
+  - # squash commits in the feature/featurename when your done and ready to commit
+  - # This is in Repo => "YourUserName/NeverwinterDP" on branch "feature/featurename"
+  - # Assumes your branch is made from "master"
+  - `git rebase -i master`
+
+- Step 6:
+  - # Now merge into the master
+  - `git checkout master`
+  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
+  - # resolve any dependency conflicts
+  
+- Step 7:
+  - # Now merge into local master
+  - `git checkout master`
+  - `git merge feature/featurename`
+  - `git push origin master`
+
