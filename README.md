@@ -402,6 +402,8 @@ Git Workflow to Develop a new Feature
   - `git merge feature/featurename`
   - `git push origin master`
 
+How to Contribute
+======
 
 There are many ways you can contribute towards the project. A few of these are:
 
