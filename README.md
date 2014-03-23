@@ -38,13 +38,22 @@ Components
 ----------
 
 1) Http/Rest/ZeroMQ Log Collection Endpoint - Sparkngin
-- [Sparkngin - Nginx](https://github.com/DemandCube/Sparkngin)
+- [Sparkngin](https://github.com/DemandCube/Sparkngin)
 
 2) Data Bus
 - [Kafka](http://kafka.apache.org/) or [Amazon Kinesis](http://aws.amazon.com/kinesis/) (Version 2)
 
 3) Data Pump/Transport
 - [Scribengin](https://github.com/DemandCube/Scribengin)
+
+Related Project
+----------
+1. [vagrant-flow](https://github.com/DemandCube/vagrant-flow) Vagrant Plugin allows for a better ansible flow also generates ansible inventory files, and runs playbooks
+1. [ansible-flow](https://github.com/DemandCube/ansible-flow) Ansible modules to make working with ansible easier
+2. [DeveloperPlayBooks](https://github.com/DemandCube/DeveloperPlayBooks) Ansible Playbooks to quickly setup and install DemandCube projects
+3. [DemandSpike](https://github.com/DemandCube/DemandSpike) Load Testing Framework for Distributed Applications
+4. [KafkaSphere](https://github.com/DemandCube/KafkaSphere) Web console for Kafka that has a Web tier that talks to a REST Api tier
+
 
 
 Architecture
