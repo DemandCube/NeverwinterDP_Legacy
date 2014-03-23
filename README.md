@@ -95,13 +95,13 @@ How to Contribute
 
 There are many ways you can contribute towards the project. A few of these are:
 
-**Jump in on discussions**: It is possible that someone initiates a thread on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin) describing a problem that you have dealt with in the past. You can help the project by chiming in on that thread and guiding that user to overcome or workaround that problem or limitation.
+**Jump in on discussions**: It is possible that someone initiates a thread on the [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp) describing a problem that you have dealt with in the past. You can help the project by chiming in on that thread and guiding that user to overcome or workaround that problem or limitation.
 
-**File Bugs**: If you notice a problem and are sure it is a bug, then go ahead and file a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open). If however, you are not very sure that it is a bug, you should first confirm it by discussing it on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin).
+**File Bugs**: If you notice a problem and are sure it is a bug, then go ahead and file a [GitHub Issue](https://github.com/DemandCube/NeverwinterDP/issues?state=open). If however, you are not very sure that it is a bug, you should first confirm it by discussing it on the [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp).
 
-**Review Code**: If you see that a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) has a "patch available" status, go ahead and review it. The other way is to review code submited with a [pull request](https://github.com/DemandCube/Sparkngin/pulls), it is the prefered way.  It cannot be stressed enough that you must be kind in your review and explain the rationale for your feedback and suggestions. Also note that not all review feedback is accepted - often times it is a compromise between the contributor and reviewer. If you are happy with the change and do not spot any major issues, then +1 it.
+**Review Code**: If you see that a [GitHub Issue](https://github.com/DemandCube/NeverwinterDP/issues?state=open) has a "patch available" status, go ahead and review it. The other way is to review code submited with a [pull request](https://help.github.com/articles/using-pull-requests), it is the prefered way.  It cannot be stressed enough that you must be kind in your review and explain the rationale for your feedback and suggestions. Also note that not all review feedback is accepted - often times it is a compromise between the contributor and reviewer. If you are happy with the change and do not spot any major issues, then +1 it.
 
-**Provide Patches**: We encourage you to assign the relevant [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) to yourself and supply a patch or [pull request](https://github.com/DemandCube/Sparkngin/pulls) for it. The patch you provide can be code, documentation, tests, configs, build changes, or any combination of these.
+**Provide Patches**: We encourage you to assign the relevant [GitHub Issue](https://github.com/DemandCube/NeverwinterDP/issues?state=open) to yourself and supply a patch or [pull request](https://help.github.com/articles/using-pull-requests) for it. The patch you provide can be code, documentation, tests, configs, build changes, or any combination of these.
 
 
 Workflow
