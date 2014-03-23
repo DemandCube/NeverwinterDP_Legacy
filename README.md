@@ -90,6 +90,169 @@ Community
 - IRC channel #neverwinterdp on irc.freenode.net
 
 
+How to Contribute
+======
+
+There are many ways you can contribute towards the project. A few of these are:
+
+**Jump in on discussions**: It is possible that someone initiates a thread on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin) describing a problem that you have dealt with in the past. You can help the project by chiming in on that thread and guiding that user to overcome or workaround that problem or limitation.
+
+**File Bugs**: If you notice a problem and are sure it is a bug, then go ahead and file a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open). If however, you are not very sure that it is a bug, you should first confirm it by discussing it on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin).
+
+**Review Code**: If you see that a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) has a "patch available" status, go ahead and review it. The other way is to review code submited with a [pull request](https://github.com/DemandCube/Sparkngin/pulls), it is the prefered way.  It cannot be stressed enough that you must be kind in your review and explain the rationale for your feedback and suggestions. Also note that not all review feedback is accepted - often times it is a compromise between the contributor and reviewer. If you are happy with the change and do not spot any major issues, then +1 it.
+
+**Provide Patches**: We encourage you to assign the relevant [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) to yourself and supply a patch or [pull request](https://github.com/DemandCube/Sparkngin/pulls) for it. The patch you provide can be code, documentation, tests, configs, build changes, or any combination of these.
+
+
+Workflow
+======
+
+
+1. Create issue on NeverwinterDP for the work (linking only be convention)
+2. Announce issue on mailinglist and discuss design on the mailinglist
+3. Sign CLA if you haven't yet - request from neema ( at ) demandcube.com 
+4. Do development according Git Workflow Summary
+5. Request Code Review on NeverwinterDP mailinglist e.g. "Review Request Issue #111: Title" Followed by link to pull request
+6. A Commiter reviews the issue, and changes in the pull request (Accepting or requesting changes first)
+
+**Git Workflow Summary**
+
+1. **Fork the Repository or Update Fork**
+1. **Create a branch for your feature development - off of master or appropriate branch **
+1. **Do your Development**
+1. **Stay in your feature branch**
+1. **Squash commit on your feature branch (Optional)**
+1. **Update local master from upstream repository**
+1. **Merge from feature branch onto your local master branch**
+1. **Issue pull request on github**
+1. **Stop making changes on the master branch till merged**
+
+
+Git Workflow to Develop a new Feature
+====
+
+- Step 1(New Fork): 
+  - # Hit the "Fork" Icon in Github.com web site when on the Repository Page e.g. "DemandCube/NeverwinterDP"
+
+- Step 1(Existing Fork e.g. "YourUserName/NeverwinterDP"):
+  - # pull in changes from the master upstream/parent repo
+  - # No ff is the way you should since it won't automatically commit and you can comment the merge commit
+  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
+  - # Now fix any merge conflicts if they exist
+   
+- Step 2:
+  - # Create a branch todo your development "feature/featurename"
+  - `git checkout -b feature/featurename master`
+
+- Step 3: 
+  - # Do any development that you need todo
+
+- Step 4 (Optional - but recommended):
+  - # make sure your still in the feature branch
+  - `git checkout feature/featurename`
+  - # squash commits in the feature/featurename when your done and ready to commit
+  - # This is in Repo => "YourUserName/NeverwinterDP" on branch "feature/featurename"
+  - # Assumes your branch is made from "master"
+  - `git rebase -i master`
+
+- Step 5:
+  - # Now merge updates into the master
+  - `git checkout master`
+  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
+  - # resolve any dependency conflicts
+  
+- Step 6:
+  - # Now merge your feature into your local master
+  - `git checkout master`
+  - `git merge feature/featurename`
+  - # Push to github
+  - `git push origin master`
+
+- Step 7:
+  - # Issue pull request on Github
+
+Keep your fork updated
+====
+[Github Fork a Repo Help](https://help.github.com/articles/fork-a-repo)
+
+
+- Add the remote, call it "upstream":
+
+```
+git remote add upstream git@github.com:DemandCube/NeverwinterDP.git
+```
+- Fetch all the branches of that remote into remote-tracking branches,
+- such as upstream/master:
+
+```
+git fetch upstream
+```
+- Make sure that you're on your master branch:
+
+```
+git checkout master
+```
+- Merge upstream changes to your master branch
+
+```
+git merge upstream/master
+```
+
+
+
+How to Submit - Patches/Code
+======
+
+1. **Create a patch**
+  * Make sure it applies cleanly against trunk
+1. **Test**
+  * If code supply tests and unit test
+1. **Propose New Features or API**
+  * Document the new Feature or API in the Wiki, the get consensus by discussing on the mailing list
+1. **Open a GitHub Ticket**
+  * Create the patch or pull request, attach your patch or pull request to the Issue.
+    * Your changes should be well-formated, readable and lots of comments
+    * Add tests
+    * Add to documentation, especially if it changes configs
+    * Add documentation so developers, can understand the feature or API to continue to contribute
+  * Document information about the issue and approach you took to fix it and put it in the issue.
+  * Send a message on the mailing list requesting a commiter review it.
+  * Nag the list if we (commiters) don't review it and followup with us.
+
+1. **How to create a patch file**: 
+  * The preferred naming convention for Sparkngin patches is `SPARKNGIN-12345-0.patch` where `12345` is the Issue number and `0` is the version of the patch. 
+  * Patch Command:
+    * `$ git diff > /path/to/SPARKNGIN-1234-0.patch`
+
+1. **How to apply someone else's patch file**: 
+```
+$ cd ~/src/Sparkngin # or wherever you keep the root of your Sparkngin source tree 
+$ patch -p1 < SPARKNGIN-1234-0.patch # Default when using git diff
+$ patch -p0 < SPARKNGIN-1234-0.patch # When using git diff --no-prefix
+```
+
+1. Reviewing Patches
+  * [Find issues with label "Patch Available"](https://github.com/DemandCube/Sparkngin/issues?labels=patch+avaliable&page=1&state=open), look over and give your feedback in the issue as necessary.  If there are questions discuss in the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin).
+
+
+1. Pull Request
+  - Issue pull request
+    - https://help.github.com/articles/merging-a-pull-request
+  - Announce on the mailing list and request code review
+
+
+## Github Help
+  * [How push from your local repo to github](https://help.github.com/articles/pushing-to-a-remote#pushing-a-branch)
+  * [How to send a pull request](https://help.github.com/articles/using-pull-requests)
+  * [How to sync a forked repo on github](https://help.github.com/articles/syncing-a-fork)
+  * [Other Suggested Git Workflows](https://cwiki.apache.org/confluence/display/KAFKA/Git+Workflow)
+
+
+
+* * *
+
+
+
 Other
 ======
 
@@ -334,149 +497,6 @@ Site Examples
 
 
 
-Keep your fork updated
-====
-[Github Fork a Repo Help](https://help.github.com/articles/fork-a-repo)
 
-
-- Add the remote, call it "upstream":
-
-```
-git remote add upstream git@github.com:DemandCube/NeverwinterDP.git
-```
-- Fetch all the branches of that remote into remote-tracking branches,
-- such as upstream/master:
-
-```
-git fetch upstream
-```
-- Make sure that you're on your master branch:
-
-```
-git checkout master
-```
-- Merge upstream changes to your master branch
-
-```
-git merge upstream/master
-```
-
-Git Workflow to Develop a new Feature
-====
-
-- Step 1(New Fork): 
-  - # Hit the "Fork" Icon in Github.com web site when on the Repository Page e.g. "DemandCube/NeverwinterDP"
-
-- Step 1(Existing Fork e.g. "YourUserName/NeverwinterDP"):
-  - # pull in changes from the master upstream/parent repo
-  - # No ff is the way you should since it won't automatically commit and you can comment the merge commit
-  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
-  - # Now fix any merge conflicts if they exist
-   
-- Step 2:
-  - # Create a branch todo your development "feature/featurename"
-  - `git checkout -b feature/featurename master`
-
-- Step 3: 
-  - # Do any development that you need todo
-
-- Step 4:
-  - # make sure your still in the feature branch
-  - `git checkout feature/featurename`
-
-- Step 5 (Optional - but recommended):
-  - # squash commits in the feature/featurename when your done and ready to commit
-  - # This is in Repo => "YourUserName/NeverwinterDP" on branch "feature/featurename"
-  - # Assumes your branch is made from "master"
-  - `git rebase -i master`
-
-- Step 6:
-  - # Now merge into the master
-  - `git checkout master`
-  - `git pull --no-ff https://github.com/DemandCube/NeverwinterDP.git master`
-  - # resolve any dependency conflicts
-  
-- Step 7:
-  - # Now merge into local master
-  - `git checkout master`
-  - `git merge feature/featurename`
-  - `git push origin master`
-
-How to Contribute
-======
-
-There are many ways you can contribute towards the project. A few of these are:
-
-**Jump in on discussions**: It is possible that someone initiates a thread on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin) describing a problem that you have dealt with in the past. You can help the project by chiming in on that thread and guiding that user to overcome or workaround that problem or limitation.
-
-**File Bugs**: If you notice a problem and are sure it is a bug, then go ahead and file a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open). If however, you are not very sure that it is a bug, you should first confirm it by discussing it on the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin).
-
-**Review Code**: If you see that a [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) has a "patch available" status, go ahead and review it. The other way is to review code submited with a [pull request](https://github.com/DemandCube/Sparkngin/pulls), it is the prefered way.  It cannot be stressed enough that you must be kind in your review and explain the rationale for your feedback and suggestions. Also note that not all review feedback is accepted - often times it is a compromise between the contributor and reviewer. If you are happy with the change and do not spot any major issues, then +1 it.
-
-**Provide Patches**: We encourage you to assign the relevant [GitHub Issue](https://github.com/DemandCube/Sparkngin/issues?state=open) to yourself and supply a patch or [pull request](https://github.com/DemandCube/Sparkngin/pulls) for it. The patch you provide can be code, documentation, tests, configs, build changes, or any combination of these.
-
-Workflow
-======
-
-1. **Fork the Repository**
-1. **Create a branch off of master or if you know right branch**
-  * `git branch feature/master/my_contribution master`
-  * `git branch fix/master/my_contribution master`
-  * `git branch issue/master/my_contribution master`
-1. **Then checkout the new branch with** 
-  *  `git	checkout fix/master/my_contribution`
-1. **Do your coding**
-1. **Issue Pull Request(On Github website) to the Main Repo**
-1. **Stop making changes on that branch** 
-
-How to Submit - Patches/Code
-======
-
-1. **Create a patch**
-  * Make sure it applies cleanly against trunk
-1. **Test**
-  * If code supply tests and unit test
-1. **Propose New Features or API**
-  * Document the new Feature or API in the Wiki, the get consensus by discussing on the mailing list
-1. **Open a GitHub Ticket**
-  * Create the patch or pull request, attach your patch or pull request to the Issue.
-    * Your changes should be well-formated, readable and lots of comments
-    * Add tests
-    * Add to documentation, especially if it changes configs
-    * Add documentation so developers, can understand the feature or API to continue to contribute
-  * Document information about the issue and approach you took to fix it and put it in the issue.
-  * Send a message on the mailing list requesting a commiter review it.
-  * Nag the list if we (commiters) don't review it and followup with us.
-
-1. **How to create a patch file**: 
-  * The preferred naming convention for Sparkngin patches is `SPARKNGIN-12345-0.patch` where `12345` is the Issue number and `0` is the version of the patch. 
-  * Patch Command:
-    * `$ git diff > /path/to/SPARKNGIN-1234-0.patch`
-
-1. **How to apply someone else's patch file**: 
-```
-$ cd ~/src/Sparkngin # or wherever you keep the root of your Sparkngin source tree 
-$ patch -p1 < SPARKNGIN-1234-0.patch # Default when using git diff
-$ patch -p0 < SPARKNGIN-1234-0.patch # When using git diff --no-prefix
-```
-
-1. Reviewing Patches
-  * [Find issues with label "Patch Available"](https://github.com/DemandCube/Sparkngin/issues?labels=patch+avaliable&page=1&state=open), look over and give your feedback in the issue as necessary.  If there are questions discuss in the [Mailing List](https://groups.google.com/forum/#!forum/sparkngin).
-
-
-1. Pull Request
-TODO: add in documentation on how todo this.
-https://help.github.com/articles/merging-a-pull-request
-
-## Git Workflow
-  * [Suggested Git Workflows](https://cwiki.apache.org/confluence/display/KAFKA/Git+Workflow)
-
-## Github Help
-  * [How push from your local repo to github](https://help.github.com/articles/pushing-to-a-remote#pushing-a-branch)
-  * [How to send a pull request](https://help.github.com/articles/using-pull-requests)
-  * [How to sync a forked repo on github](https://help.github.com/articles/syncing-a-fork)
-
-## TODO Document the recommended workflow in Github 
-  * fork repo -> make changes -> sync forked repo local -> push to github forked repo -> do pull request
 
 
