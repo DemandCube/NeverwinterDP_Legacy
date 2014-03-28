@@ -9,7 +9,7 @@ Community
 - [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
 - IRC channel #neverwinterdp on irc.freenode.net
 - [Google Hangout] (http://www.google.com/hangouts/)
-  - It's what commiters use to chat but have to connect with us first on the mailing list.
+  - It's what commiters use to chat directly but have to connect with us first on the mailing list.
 
 
 
