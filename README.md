@@ -4,7 +4,11 @@ NeverwinterDP
 
 NeverwinterDP the Big Data Pipeline for Hadoop
 
-
+Community
+======
+- [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- IRC channel #neverwinterdp on irc.freenode.net
+- [Google Hangout] (http://www.google.com/hangouts/)
 
 
 
@@ -93,10 +97,6 @@ Transport Protocol Levels
   <dd>This level adds encrytion around the data in schemas or the framework transport</dd>
 </dl>
 
-Community
-======
-- [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
-- IRC channel #neverwinterdp on irc.freenode.net
 
 
 How to Contribute
