@@ -67,18 +67,18 @@ Architecture
 
 ```
     +-----------+    +-------------+    +---------------+    +------------+    +------------+
-    |Submission |    |Rest         |    |Transport      |    |Streaming   |    |Data        |
-    | Client    |+-->| Endpoint    |+-->| Queue         |+-->| Adapter    |+-->| Repository |
-    |           |    |(Sparkngin)  |    |(Kafka/Kinesis)|    |(Scribengin)|    |(HDFS/Hbase)|
+    |Source     |    |Rest         |    |Persistent     |    |Data        |    |Data        |
+    | Client    |+-->| Endpoint    |+-->| Queue/Buffer  |+-->| Distributor|+-->| Sink       |
+    |           |    |(Sparkngin)  |    |(Kafka/Kinesis)|    |(Scribengin)|    |(Hive/Hbase)|
     +-----------+    +-------------+    +---------------+    +------------+    +------------+
 ```
 2. Mid Level
-  1. Submission Client
-  2. Endpoint Collector
+  1. Source Client
+  2. Collector Endpoint
   3. Collector Producer
-  4. Transport Queue
-  5. Stream Processor (CEP - Complex Event Processing)
-  6. Destination Adapter
+  4. Persistent Queue/Buffer
+  5. Data Distributor / Stream Processor (CEP - Complex Event Processing)
+  6. Data Sink
 
 Transport Protocol Levels
 --------
@@ -98,6 +98,10 @@ Transport Protocol Levels
   <dd>This level adds encrytion around the data in schemas or the framework transport</dd>
 </dl>
 
+
+![NeverwinterDP Architecture](diagrams/images/NeverwinterDP-Abstract-v1.png?raw=true "NeverwinterDP Architecture")
+![NeverwinterDP Architecture with Use-cases](diagrams/images/NeverwinterDP-Conceptual-v1.png?raw=true "NeverwinterDP Architecture with Use-cases")
+![NeverwinterDP Architecture with concrete integrations](diagrams/images/NeverwinterDP-Concrete-v1.png?raw=true "NeverwinterDP Architecture with concrete integrations")
 
 
 How to Contribute
@@ -273,8 +277,9 @@ Providing
 - Data Steaming/Collection Framework
 - High Availability and Scalable Data Collection
 - Data Monitoring
-- Autoconfiguration - with ZeroConf - Stored in Zookeeper?
+- Autoconfiguration - with ZeroConf - Stored in Zookeeper
 - Data Partition Notification
+
 
 Additional Features: High Availability and Performant  Log Collection
 - Log Distribution - Multi-data center
