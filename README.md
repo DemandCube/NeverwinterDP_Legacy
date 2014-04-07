@@ -264,6 +264,17 @@ $ patch -p0 < SPARKNGIN-1234-0.patch # When using git diff --no-prefix
   * [Other Suggested Git Workflows](https://cwiki.apache.org/confluence/display/KAFKA/Git+Workflow)
 
 
+## Kanban Board
+If you can't actually move issues around let me (Steve) know.
+
+- "Accepted" - are tickets you plan to start working on this week.
+- "Working on" - are tickets your actively working on
+- "In code review" - are tickets that need a code review ( You should have put a code review request on the mailinglist ) (If no one responded it's up to you to followup)
+- "Working on documentation and automated tests" - are tickets your finishing the documentation and creating, unit, integration, configuration management/deployment (Ansible) installation tests.
+- "In documentation and automated test review" - review specifically of the documentation and test.  Follows the same process as code reviews.  A review should be requested on the mailinglist.
+- "Done" - The task should pass the automated integration test review from Jenkins
+
+
 
 * * *
 
