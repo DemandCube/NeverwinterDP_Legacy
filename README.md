@@ -42,9 +42,10 @@ Neverwinter allows data ingestion from any system that can emit http/rest (or ze
 
 Neverwinter is targeted at data and analytics engineering teams who expect response times ranging from sub-second to minutes. Neverwinter breaks the false choice between having  a batch or real-time system. Also the false choice between having a fast or maintainable system.
 
-Use-Cases
+Use-Cases / Examples
 ---------
-Example - [Twitch's Data Pipeline] (http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
+- [Twitch's Data Pipeline] (http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
+- [Linkedin's Data Pipeline] (http://sites.computer.org/debull/A12june/pipeline.pdf)
 
 Components
 ----------
