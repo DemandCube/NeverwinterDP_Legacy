@@ -60,7 +60,7 @@ Components
 3) Data Pump/Transport
 - [Scribengin](https://github.com/DemandCube/Scribengin)
 
-Related Project
+Related Projects
 ----------
 1. [vagrant-flow](https://github.com/DemandCube/vagrant-flow) Vagrant Plugin allows for a better ansible flow also generates ansible inventory files, and runs playbooks
 1. [ansible-flow](https://github.com/DemandCube/ansible-flow) Ansible modules to make working with ansible easier
@@ -68,7 +68,9 @@ Related Project
 3. [DemandSpike](https://github.com/DemandCube/DemandSpike) Load Testing Framework for Distributed Applications
 4. [KafkaSphere](https://github.com/DemandCube/KafkaSphere) Web console for Kafka that has a Web tier that talks to a REST Api tier
 
-
+Copy all Repositories
+----------
+`curl -s https://api.github.com/orgs/DemandCube/repos | ruby -rubygems -e "require 'json'; JSON.load(STDIN.read).each {|repo| %x[git clone #{repo['ssh_url']} ]}"`
 
 Architecture
 ------------
