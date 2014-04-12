@@ -12,6 +12,7 @@ Community
   - It's what commiters use to chat directly but have to connect with us first on the mailing list, then request an invite there.
 - [List of Issues] (https://github.com/DemandCube/NeverwinterDP/issues?labels=&state=open)
 - [Kanban Board of Issues] (https://huboard.com/DemandCube/NeverwinterDP/#/)
+- [Repo Listing] (http://demandcube.github.io/)
 
 
 
