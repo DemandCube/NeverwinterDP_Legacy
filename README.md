@@ -151,6 +151,18 @@ Workflow
 1. **Issue pull request on github**
 1. **Stop making changes on the master branch till merged**
 
+If you have a issue that needs a code review:
+
+  1. Announce it on the mailing list according to  
+  2. label the issue with "* needs a code review *"
+
+If you did a code review, your requested changes from the submitter have been fixed then:
+
+  1. remove the label "* needs a code review *"
+  1. label the issue with "* ready to merge *"
+  1. comment on the ticket "ready-to-merge:@yourgithubusername"
+  1. If your a commiter then merge in the changes
+
 
 Git Workflow to Develop a new Feature
 ====
