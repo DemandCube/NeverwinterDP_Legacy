@@ -6,6 +6,8 @@ NeverwinterDP the Big Data Pipeline for Hadoop and Data Systems
 
 Community
 ======
+  Join us if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
+
 - [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
 - IRC channel #neverwinterdp on irc.freenode.net
 - [Google Hangout] (http://www.google.com/hangouts/)
@@ -114,6 +116,16 @@ Transport Protocol Levels
 ![NeverwinterDP Architecture with Use-cases](diagrams/images/NeverwinterDP-Conceptual-v1.png?raw=true "NeverwinterDP Architecture with Use-cases")
 ![NeverwinterDP Architecture with concrete integrations](diagrams/images/NeverwinterDP-Concrete-v1.png?raw=true "NeverwinterDP Architecture with concrete integrations")
 
+Join us if
+======
+- You have **[Grit] (http://en.wikipedia.org/wiki/Grit_(personality_trait))** like us. **perseverance and passion for long-term goals**
+- You have **Grit** and know what [Grit Means] (http://www.fastcompany.com/1722712/why-true-grit-matters-face-adversity)
+- You have a passion of great engineering
+- You love data systems engineering
+- You love the challenge of building highly scalable highly avaliable systems that just work
+- You want to make a difference
+
+Then make friends with us on the mailing list and start by making a contribution and solving a [Issue] ()
 
 How to Contribute
 ======
