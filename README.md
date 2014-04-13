@@ -151,6 +151,8 @@ Workflow
 4. Do development according Git Workflow Summary
 5. Request Code Review on NeverwinterDP mailinglist e.g. "Review Request Issue #111: Title" Followed by link to pull request.
   - Additionally include a short summary of what feature/bug/enhancement this pull request addresses.
+  - put a link to the pull request in the issue
+  - label the issue with "* needs a code review *"
 6. A Commiter reviews the issue, and changes in the pull request (Accepting or requesting changes first)
 
 **Git Workflow Summary**
@@ -167,8 +169,9 @@ Workflow
 
 If you have a issue that needs a code review:
 
-  1. Announce it on the mailing list according to  
+  1. Announce it on the mailing list according to 
   2. label the issue with "* needs a code review *"
+  3. put a link to the pull request in the issue
 
 If you did a code review, your requested changes from the submitter have been fixed then:
 
@@ -220,6 +223,10 @@ Git Workflow to Develop a new Feature
 
 - Step 7:
   - # Issue pull request on Github
+    -  Request Code Review on NeverwinterDP mailinglist e.g. "Review Request Issue #111: Title" Followed by link to pull request.
+    - include a short summary of what feature/bug/enhancement this pull request addresses.
+    - put a link to the pull request in the issue
+    - label the issue with "* needs a code review *"
 
 Keep your fork updated
 ====
