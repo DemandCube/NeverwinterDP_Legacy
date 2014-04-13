@@ -124,6 +124,7 @@ Join us if
 - You love data systems engineering
 - You love the challenge of building highly scalable highly avaliable systems that just work
 - You want to make a difference
+- [You want to code every day] (http://ejohn.org/blog/write-code-every-day/)
 
 Then make friends with us on the mailing list and start by making a contribution and solving a [Issue] ()
 
