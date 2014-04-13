@@ -6,7 +6,7 @@ NeverwinterDP the Big Data Pipeline for Hadoop and Data Systems
 
 Community
 ======
-  Join us if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
+  [Join us] (https://github.com/DemandCube/NeverwinterDP/blob/master/README.md#join-us-if) if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
 
 - [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
 - IRC channel #neverwinterdp on irc.freenode.net
