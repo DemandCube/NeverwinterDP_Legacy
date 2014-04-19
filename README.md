@@ -116,6 +116,17 @@ Transport Protocol Levels
 ![NeverwinterDP Architecture with Use-cases](diagrams/images/NeverwinterDP-Conceptual-v1.png?raw=true "NeverwinterDP Architecture with Use-cases")
 ![NeverwinterDP Architecture with concrete integrations](diagrams/images/NeverwinterDP-Concrete-v1.png?raw=true "NeverwinterDP Architecture with concrete integrations")
 
+Yarn
+=====
+- [What is Yarn] (http://hortonworks.com/hadoop/yarn/)
+- [Introducing Yarn Blog Series] (http://hortonworks.com/blog/introducing-apache-hadoop-yarn/)
+- [Yarn Issues] (http://issues.apache.org/jira/browse/YARN)
+- [Yarn Mailing list] (http://hadoop.apache.org/mailing_lists.html#YARN)
+- [Yarn Book] (http://my.safaribooksonline.com/book/databases/hadoop/9780133441925)
+- [Slider Project] (https://wiki.apache.org/incubator/SliderProposal)
+- [Slider Codebase] (https://github.com/hortonworks/slider)
+- Issue - [Support Docker containers in YARN] (https://issues.apache.org/jira/browse/YARN-1964)
+
 Join us if
 ======
 - You have **[Grit] (http://en.wikipedia.org/wiki/Grit_(personality_trait))** like us. **perseverance and passion for long-term goals**
