@@ -49,6 +49,7 @@ Use-Cases / Examples
 ---------
 - [Twitch's Data Pipeline] (http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
 - [Linkedin's Data Pipeline] (http://sites.computer.org/debull/A12june/pipeline.pdf)
+- [Pod Cast] (http://wp.me/pTu1i-b5)
 - Usertracking and Profiling
 - Ad data tracking
 - System Event Capture
