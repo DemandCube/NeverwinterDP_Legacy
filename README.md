@@ -49,6 +49,11 @@ Use-Cases / Examples
 ---------
 - [Twitch's Data Pipeline] (http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
 - [Linkedin's Data Pipeline] (http://sites.computer.org/debull/A12june/pipeline.pdf)
+- Usertracking and Profiling
+- Ad data tracking
+- System Event Capture
+- Game activity data
+- Mobile App User Behavior
 
 Components
 ----------
