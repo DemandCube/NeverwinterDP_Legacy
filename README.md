@@ -126,6 +126,9 @@ Yarn
 =====
 - [What is Yarn] (http://hortonworks.com/hadoop/yarn/)
 - [Introducing Yarn Blog Series] (http://hortonworks.com/blog/introducing-apache-hadoop-yarn/)
+- [Getting started with Yarn] (http://hortonworks.com/get-started/yarn/)
+- [Running Applications on Yarn] (http://hortonworks.com/blog/running-existing-applications-on-hadoop-2-yarn/)
+- [Dependency Management] (http://hortonworks.com/blog/management-of-application-dependencies-in-yarn/)
 - [Yarn Issues] (http://issues.apache.org/jira/browse/YARN)
 - [Yarn Mailing list] (http://hadoop.apache.org/mailing_lists.html#YARN)
 - [Yarn Book] (http://my.safaribooksonline.com/book/databases/hadoop/9780133441925)
