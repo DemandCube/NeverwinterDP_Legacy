@@ -48,11 +48,13 @@ Neverwinter is targeted at data and analytics engineering teams who expect respo
 Goals
 ---------
 - Provide Automatic Failover
+- Reliable data delivery under single node failures in any tier
 - Horizontal Scalability
 - Ability to reliably work in a environment running [Chaos Monkey] (https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey) and the [Simian Army] (https://github.com/Netflix/SimianArmy/wiki)
 - Easy operational maintainability
 - High performance and low cost pipeline
 - Data flow connectors to multiple destination systems (HDFS, HBase, Oracle, Teradata, Netteza) 
+- Symantics that support back pressure on extreme load 
 
 Use-Cases / Examples
 ---------
