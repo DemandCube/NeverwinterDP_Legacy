@@ -2,7 +2,7 @@ NeverwinterDP - NDP
 =============
 - A [DemandCube](https://github.com/DemandCube) Project
 
-NeverwinterDP the Big Data Pipeline for Hadoop and Data Systems, designed to reliably scale to billions of events.
+NeverwinterDP (NDP) the Big Data Pipeline for Hadoop and Data Systems, designed to reliably scale to billions of events.
 
 Community
 ======
@@ -29,7 +29,7 @@ Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengi
 It Supports:
 
 1. Batch Analytics
-2. Realtime Analytics
+2. Realtime Analytics (Storm and Spark-Streaming)
 
 Neverwinter is the combination of three major open source project that leverage the best in open source. 
 
@@ -44,6 +44,15 @@ WHAT CAN NEVERWINTER DO?
 Neverwinter allows data ingestion from any system that can emit http/rest (or zeromq) calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
 
 Neverwinter is targeted at data and analytics engineering teams who expect response times ranging from sub-second to minutes. Neverwinter breaks the false choice between having  a batch or real-time system. Also the false choice between having a fast or maintainable system.
+
+Goals
+---------
+- Provide Automatic Failover
+- Horizontal Scalability
+- Ability to reliably work in a environment running [Chaos Monkey] (https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey) and the [Simian Army] (https://github.com/Netflix/SimianArmy/wiki)
+- Easy operational maintainability
+- High performance and low cost pipeline
+- Data flow connectors to multiple destination systems (HDFS, HBase, Oracle, Teradata, Netteza) 
 
 Use-Cases / Examples
 ---------
