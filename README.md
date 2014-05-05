@@ -181,7 +181,7 @@ Workflow
 2. Announce issue on mailinglist and discuss design on the mailinglist
 3. Sign CLA if you haven't yet - request from neema ( at ) demandcube.com 
 4. Do development according Git Workflow Summary
-5. Request Code Review on NeverwinterDP mailinglist e.g. "Review Request Issue #111: Title" Followed by link to pull request.
+5. Request Code Review on NeverwinterDP mailinglist e.g. "[Code] Review Request Issue #111: Title" Followed by link to pull request.
   - Additionally include a short summary of what feature/bug/enhancement this pull request addresses.
   - put a link to the pull request in the issue
   - label the issue with "* needs a code review *"
