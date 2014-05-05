@@ -187,6 +187,8 @@ Workflow
   - label the issue with "* needs a code review *"
 6. A Commiter reviews the issue, and changes in the pull request (Accepting or requesting changes first)
 
+(Remember to update Kanban during this process)
+
 **Git Workflow Summary**
 
 1. **Fork the Repository or Update Fork**
