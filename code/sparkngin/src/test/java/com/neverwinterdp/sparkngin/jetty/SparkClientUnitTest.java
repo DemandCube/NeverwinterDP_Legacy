@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin;
+package com.neverwinterdp.sparkngin.jetty;
 
 import junit.framework.Assert;
 
@@ -8,8 +8,8 @@ import com.neverwinterdp.queue.JSONMessage;
 import com.neverwinterdp.queue.JSONMessageConsumerHandler;
 import com.neverwinterdp.queue.JSONMessage.Log;
 import com.neverwinterdp.queue.kafka.KafkaJSONMessageConsumerConnector;
-import com.neverwinterdp.sparkngin.SparkAcknowledge;
-import com.neverwinterdp.sparkngin.SparknginClient;
+import com.neverwinterdp.sparkngin.jetty.SparkAcknowledge;
+import com.neverwinterdp.sparkngin.jetty.SparknginClient;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class SparkClientUnitTest extends ClusterUnitTest {

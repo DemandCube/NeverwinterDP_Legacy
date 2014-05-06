@@ -1,10 +1,10 @@
-package com.neverwinterdp.sparkngin;
+package com.neverwinterdp.sparkngin.jetty;
 
 import org.junit.After;
 import org.junit.Before;
 
 import com.neverwinterdp.queue.kafka.KafkaCluster;
-import com.neverwinterdp.sparkngin.SparknginCluster;
+import com.neverwinterdp.sparkngin.jetty.SparknginCluster;
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ZookeeperCluster;
 import com.neverwinterdp.util.FileUtil;
