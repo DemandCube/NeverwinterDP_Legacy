@@ -1,4 +1,5 @@
 include 'lib/common'
+include 'lib/test-framework'
 include 'queuengin'
 include 'sparkngin'
 include 'scribengin'

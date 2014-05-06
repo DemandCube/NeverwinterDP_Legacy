@@ -1,4 +1,4 @@
-package com.demandcube.neverwinterdp;
+package com.neverwinterdp.testframework.event;
 
 public class SampleEvent {
   private String name ;

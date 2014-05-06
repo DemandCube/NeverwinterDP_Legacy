@@ -12,6 +12,8 @@ subprojects {
     }
   }
 
+  eclipse.classpath.defaultOutputDir = file( 'build/classes' )
+
   group = 'com.neverwinterdp'
   sourceCompatibility = 1.7
   version = '1.0'

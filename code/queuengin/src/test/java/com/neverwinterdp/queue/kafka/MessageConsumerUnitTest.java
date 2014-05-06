@@ -1,4 +1,4 @@
-package com.demandcube.neverwinterdp;
+package com.neverwinterdp.queue.kafka;
 
 import junit.framework.Assert;
 
@@ -18,7 +18,7 @@ public class MessageConsumerUnitTest extends ClusterUnitTest {
   
   public void testMessageConsumer() throws Exception {
     String topic = "MessageConsumer" ;
-    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, cluster.getKafkaCluster().getConnectionURLs()) ;
+    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, kafkaCluster.getConnectionURLs()) ;
     producer.send("first",  "first message") ;
     producer.send("second", "second message") ;
     Thread.sleep(1000) ;
@@ -37,7 +37,7 @@ public class MessageConsumerUnitTest extends ClusterUnitTest {
   public void testMessageConsumerConnector() throws Exception {
     String topic = "MessageConsumerConnector" ;
     int numOfMessages = 10 ;
-    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, cluster.getKafkaCluster().getConnectionURLs()) ;
+    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, kafkaCluster.getConnectionURLs()) ;
     for(int i = 0 ; i < numOfMessages; i++) {
       producer.send("key " + i, "message " + i) ;
     }

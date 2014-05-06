@@ -1,6 +1,7 @@
 
 dependencies {
   compile project(':lib/common')
+  compile project(':lib/test-framework')
   compile project(':queuengin')
   compile group: 'org.eclipse.jetty', name: 'jetty-server', version: project.jettyVersion
   compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: project.jettyVersion

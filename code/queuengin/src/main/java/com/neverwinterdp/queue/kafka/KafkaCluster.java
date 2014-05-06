@@ -1,37 +1,45 @@
-package com.neverwinterdp.cluster;
+package com.neverwinterdp.queue.kafka;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.neverwinterdp.testframework.cluster.ServiceCluster;
 import com.neverwinterdp.util.FileUtil;
 
 
-public class KafkaCluster {
+public class KafkaCluster implements ServiceCluster {
   final static public String KAFKA_LOG_DIR       = "target" + File.separator + "kafka";
   final static public int    KAFKA_PORT   = 9090;
   
   private String baseDir ;
+  int port;
+  int numOfInstances ;
+  String zookeeperConnectUrls ;
   private List<KafkaServerInstance> servers ;
   
-  public KafkaCluster() throws Exception {
-    this(KAFKA_LOG_DIR, KAFKA_PORT, 1) ;
-  }
-
-  public KafkaCluster(int numOfInstances) throws Exception {
-    this(KAFKA_LOG_DIR, KAFKA_PORT, numOfInstances) ;
+  public KafkaCluster(int port, int numOfInstances) throws Exception {
+    this.port = port ;
+    this.numOfInstances = numOfInstances; 
   }
   
-  public KafkaCluster(String baseDir, int port, int numOfInstances) throws Exception {
-    this.baseDir = baseDir ;
+  public void init() throws Exception {
     servers = new ArrayList<KafkaServerInstance>() ;
     for(int i = 0; i < numOfInstances; i++) {
       int id = i + 1; 
       String serverName = "kserver-" + id ;
       String logDir = baseDir + "/" + serverName ;
       logDir = logDir.replace("/", File.separator) ;
-      servers.add(new KafkaServerInstance(id, logDir, (port + i)));
+      KafkaServerInstance server = new KafkaServerInstance(id, logDir, (port + i)) ;
+      server.setZookeeperConnectURL(this.zookeeperConnectUrls);
+      servers.add(server);
     }
+  }
+  
+  public String getName() { return "kafka" ; }
+  
+  public void setBaseDir(String baseDir) {
+    this.baseDir = baseDir ;
   }
   
   public String[] getConnectionURL() {
@@ -53,9 +61,7 @@ public class KafkaCluster {
   }
   
   public KafkaCluster setZookeeperConnectURL(String url) {
-    for(KafkaServerInstance server : servers) {
-      server.setZookeeperConnectURL(url);
-    }
+    this.zookeeperConnectUrls = url ;
     return this ;
   }
   

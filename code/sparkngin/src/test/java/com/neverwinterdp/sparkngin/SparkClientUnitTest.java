@@ -1,17 +1,16 @@
-package com.demandcube.neverwinterdp.sparkngin;
+package com.neverwinterdp.sparkngin;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.demandcube.neverwinterdp.ClusterUnitTest;
-import com.demandcube.neverwinterdp.SampleEvent;
 import com.neverwinterdp.queue.JSONMessage;
 import com.neverwinterdp.queue.JSONMessageConsumerHandler;
 import com.neverwinterdp.queue.JSONMessage.Log;
 import com.neverwinterdp.queue.kafka.KafkaJSONMessageConsumerConnector;
 import com.neverwinterdp.sparkngin.SparkAcknowledge;
 import com.neverwinterdp.sparkngin.SparknginClient;
+import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class SparkClientUnitTest extends ClusterUnitTest {
   

@@ -1,4 +1,4 @@
-package com.demandcube.neverwinterdp;
+package com.neverwinterdp.queue.kafka;
 
 import junit.framework.Assert;
 
@@ -8,13 +8,14 @@ import com.neverwinterdp.queue.JSONMessage;
 import com.neverwinterdp.queue.JSONMessageConsumerHandler;
 import com.neverwinterdp.queue.kafka.KafkaJSONMessageConsumerConnector;
 import com.neverwinterdp.queue.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class JSONMessageConsumerUnitTest extends ClusterUnitTest {
   @Test
   public void testJSONMessageConsumer() throws Exception {
     String topic = "JSONMessageConsumerConnector" ;
     int numOfMessages = 3 ;
-    KafkaJSONMessageProducer producer = new KafkaJSONMessageProducer(cluster.getKafkaCluster().getConnectionURLs()) ;
+    KafkaJSONMessageProducer producer = new KafkaJSONMessageProducer(kafkaCluster.getConnectionURLs()) ;
     for(int i = 0 ; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
       JSONMessage<SampleEvent> jsonMessage = new JSONMessage<SampleEvent>("m" + i, event, false) ;

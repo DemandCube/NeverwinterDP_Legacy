@@ -1,4 +1,4 @@
-package com.neverwinterdp.cluster;
+package com.neverwinterdp.queue.kafka;
 
 import java.util.Properties;
 

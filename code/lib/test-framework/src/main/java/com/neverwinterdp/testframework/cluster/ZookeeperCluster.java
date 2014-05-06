@@ -1,4 +1,4 @@
-package com.neverwinterdp.cluster;
+package com.neverwinterdp.testframework.cluster;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,15 +6,21 @@ import java.util.List;
 
 import com.neverwinterdp.util.FileUtil;
 
-public class ZookeeperCluster {
+public class ZookeeperCluster implements ServiceCluster {
   final static public int    ZK_CLIENT_PORT = 2181 ;
   
   private List<ZookeeperServerInstance> servers ;
   
+  private int port ;
+  private int numberOfInstances ;
   private String baseDir ;
   
-  public ZookeeperCluster(String baseDir, int port, int numberOfInstances) throws Exception {
-    this.baseDir = baseDir ;
+  public ZookeeperCluster(int port, int numberOfInstances) throws Exception {
+    this.port = port ;
+    this.numberOfInstances = numberOfInstances ;
+  }
+  
+  public void init() throws Exception {
     servers = new ArrayList<ZookeeperServerInstance>() ;
     for(int i = 0; i < numberOfInstances; i++) {
       int id = i + 1 ;
@@ -22,6 +28,12 @@ public class ZookeeperCluster {
       String dir = baseDir + "/" + serverName ;
       servers.add( new ZookeeperServerInstance(id, dir, port + i)) ;
     }
+  }
+  
+  public String getName() { return "zookeeper" ; } 
+  
+  public void setBaseDir(String baseDir) {
+    this.baseDir = baseDir ;
   }
   
   public String[] getConnectURL() {

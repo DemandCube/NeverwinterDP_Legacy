@@ -1,21 +1,33 @@
-package com.neverwinterdp.cluster;
+package com.neverwinterdp.sparkngin;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.neverwinterdp.sparkngin.HttpServer;
+import com.neverwinterdp.testframework.cluster.ServiceCluster;
 
-public class SparknginCluster {
+public class SparknginCluster implements ServiceCluster {
   final static public int HTTP_PORT   = 8080;
   
   private List<HttpServer> servers ;
+  int port;
+  int numberOfInstances ;
   
   public SparknginCluster(int port, int numberOfInstances) {
+    this.port = port ;
+    this.numberOfInstances = numberOfInstances ;
+  }
+
+  public void init() throws Exception {
     servers = new ArrayList<HttpServer>() ;
     for(int i = 0; i < numberOfInstances; i++) {
       HttpServer server = new HttpServer(port + i);
       servers.add(server) ;
     }
+  }
+  
+  public String getName() { return "sparkngin"; }
+
+  public void setBaseDir(String baseDir) {
   }
   
   public void startup() throws Exception {
@@ -28,5 +40,8 @@ public class SparknginCluster {
     for(HttpServer server : servers) {
       server.stop();
     }
+  }
+
+  public void cleanup() throws Exception {
   }
 }

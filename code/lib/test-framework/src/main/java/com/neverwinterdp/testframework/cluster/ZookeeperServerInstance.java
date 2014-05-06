@@ -1,4 +1,4 @@
-package com.neverwinterdp.cluster;
+package com.neverwinterdp.testframework.cluster;
 
 import java.io.File;
 import java.io.IOException;
