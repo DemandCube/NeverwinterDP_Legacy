@@ -1,6 +1,3 @@
-NeverwinterDP - CODE
-=============
-
 Code Organization
 ======
 
