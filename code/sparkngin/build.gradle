@@ -1,0 +1,9 @@
+
+dependencies {
+  compile project(':lib/common')
+  compile project(':queuengin')
+  compile group: 'org.eclipse.jetty', name: 'jetty-server', version: project.jettyVersion
+  compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: project.jettyVersion
+  compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3'
+}
+

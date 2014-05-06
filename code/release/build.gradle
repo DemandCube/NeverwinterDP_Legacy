@@ -1,0 +1,13 @@
+dependencies {
+  compile project(':lib/common')
+  compile project(':queuengin')
+  compile project(':sparkngin')
+  compile project(':scribengin')
+
+  //compile group: 'org.apache.kafka', name: 'kafka_2.10', version: project.kafkaVersion
+  //compile group: 'org.apache.zookeeper', name: 'zookeeper', version: project.zookeeperVersion
+  //compile group: 'org.eclipse.jetty', name: 'jetty-server', version: project.jettyVersion
+  //compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: project.jettyVersion
+  //compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.3'
+}
+
