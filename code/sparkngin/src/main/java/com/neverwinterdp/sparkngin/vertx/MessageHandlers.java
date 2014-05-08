@@ -6,17 +6,17 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
 
-import com.neverwinterdp.queuengin.JSONMessage;
-import com.neverwinterdp.queuengin.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
 import com.neverwinterdp.sparkngin.SparkAcknowledge;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class MessageHandlers  {
-  private KafkaJSONMessageProducer producer ;
+  private KafkaMessageProducer producer ;
   
   public void configure(RouteMatcher matcher, JsonObject config) {
     String kafkaConnectionUrls = "127.0.0.1:9090,127.0.0.1:9091" ; 
-    producer = new KafkaJSONMessageProducer(kafkaConnectionUrls) ;
+    producer = new KafkaMessageProducer(kafkaConnectionUrls) ;
     matcher.post("/message/:topic", new Post()) ;
   }
   
@@ -31,7 +31,7 @@ public class MessageHandlers  {
           SparkAcknowledge ack = new SparkAcknowledge() ;
           byte[] bytes = buf.getBytes() ;
           try {
-            JSONMessage<?> jsonMessage = JSONSerializer.INSTANCE.fromBytes(bytes, JSONMessage.class) ;
+            Message<?> jsonMessage = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
             if(jsonMessage.isLogEnable()) {
               int port = req.localAddress().getPort() ;
               String addr = req.localAddress().getHostString() ;
@@ -44,7 +44,6 @@ public class MessageHandlers  {
             ack.setMessage(e.getMessage()) ;
           }
           req.response().end(JSONSerializer.INSTANCE.toString(ack));
-          System.out.println(buf.toString());
         }
       });
     }

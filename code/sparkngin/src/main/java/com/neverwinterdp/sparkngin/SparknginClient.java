@@ -2,23 +2,23 @@ package com.neverwinterdp.sparkngin;
 
 public class SparknginClient {
   private int currentIdx ;
-  private SimpleSparknginClient[] client ;
+  private SimpleSparknginHttpClient[] client ;
   
   public SparknginClient(String[] urls) {
-    client = new SimpleSparknginClient[urls.length] ;
+    client = new SimpleSparknginHttpClient[urls.length] ;
     for(int i = 0; i < urls.length; i++) {
-      client[i] = new SimpleSparknginClient(urls[i]) ;
+      client[i] = new SimpleSparknginHttpClient(urls[i]) ;
     }
   }
   
-  public <T> SparkAcknowledge sendJSONMessage(String topic, String key, T obj, boolean logEnable) throws Exception {
+  public <T> SparkAcknowledge send(String topic, String key, T obj, boolean logEnable) throws Exception {
     //TODO: if the client fail to send, remove the client from the list
     //      retry another one
-    SimpleSparknginClient client = next() ;
-    return client.sendJSONMessage(topic, key, obj, logEnable) ;
+    SimpleSparknginHttpClient client = next() ;
+    return client.send(topic, key, obj, logEnable) ;
   }
   
-  synchronized SimpleSparknginClient next() {
+  synchronized SimpleSparknginHttpClient next() {
     if(currentIdx == client.length) currentIdx = 0;
     return client[currentIdx++] ;
   }

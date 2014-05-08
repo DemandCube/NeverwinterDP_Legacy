@@ -14,7 +14,7 @@ public class JettyHttpServer {
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
     context.setContextPath("/");
-    context.addServlet(new ServletHolder(new JSONMessageServlet()), "/message/*");
+    context.addServlet(new ServletHolder(new MessageServlet()), "/message/*");
 
     ContextHandlerCollection contexts = new ContextHandlerCollection();
     contexts.setHandlers(new Handler[] { context });

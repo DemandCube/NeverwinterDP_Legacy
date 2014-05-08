@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.neverwinterdp.queuengin.JSONMessage;
-import com.neverwinterdp.queuengin.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
 import com.neverwinterdp.sparkngin.SparkAcknowledge;
 import com.neverwinterdp.util.IOUtil;
 import com.neverwinterdp.util.JSONSerializer;
 
-public class JSONMessageServlet extends HttpServlet {
-  private KafkaJSONMessageProducer producer ;
+public class MessageServlet extends HttpServlet {
+  private KafkaMessageProducer producer ;
   
   public void init(ServletConfig config) throws ServletException {
     super.init(config) ;
     String kafkaConnectionUrls = "127.0.0.1:9090,127.0.0.1:9091" ; 
-    producer = new KafkaJSONMessageProducer(kafkaConnectionUrls) ;
+    producer = new KafkaMessageProducer(kafkaConnectionUrls) ;
   }
   
   protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,7 +36,7 @@ public class JSONMessageServlet extends HttpServlet {
       String topic = getTopic(req) ;
       InputStream is = req.getInputStream() ;
       String json = IOUtil.getStreamContentAsString(is, "UTF-8") ;
-      JSONMessage<?> jsonMessage = JSONSerializer.INSTANCE.fromString(json, JSONMessage.class) ;
+      Message<?> jsonMessage = JSONSerializer.INSTANCE.fromString(json, Message.class) ;
       if(jsonMessage.isLogEnable()) {
         req.getLocalPort() ;
         jsonMessage.addLog("JSONMessageServlet", "forward by http server, ip = " + req.getLocalAddr() + ", port " + req.getLocalPort()) ;

@@ -5,9 +5,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.neverwinterdp.queuengin.DummyJSONMessageConsumerHandler;
+import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
 import com.neverwinterdp.queuengin.kafka.KafkaCluster;
-import com.neverwinterdp.queuengin.kafka.KafkaJSONMessageConsumerConnector;
+import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
 import com.neverwinterdp.sparkngin.SparkAcknowledge;
 import com.neverwinterdp.sparkngin.SparknginClient;
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
@@ -59,16 +59,16 @@ abstract public class ClusterUnitTest {
     for(int i = 0; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
       try {
-        SparkAcknowledge ack = client.sendJSONMessage(topic, "m" + i, event, true) ;
+        SparkAcknowledge ack = client.send(topic, "m" + i, event, true) ;
         System.out.println("ack = " + ack);
       } catch(Throwable t) {
         t.printStackTrace(); 
       }
     }
     
-    DummyJSONMessageConsumerHandler handler = new DummyJSONMessageConsumerHandler() ;
-    KafkaJSONMessageConsumerConnector<SampleEvent> consumer = 
-        new KafkaJSONMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
+    ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;
+    KafkaMessageConsumerConnector<SampleEvent> consumer = 
+        new KafkaMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
     consumer.consume("test-topic", handler, 1) ;
     Thread.sleep(3000) ;
     Assert.assertEquals(numOfMessages, handler.messageCount()) ;
