@@ -1,10 +1,10 @@
 
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import com.neverwinterdp.queue.StringMessageConsumerHandler;
+import com.neverwinterdp.queuengin.StringMessageConsumerHandler;
 
 import kafka.api.FetchRequest;
 import kafka.api.FetchRequestBuilder;

@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -1,11 +1,10 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import org.junit.After;
 import org.junit.Before;
 
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ZookeeperCluster;
-import com.neverwinterdp.util.FileUtil;
 
 abstract public class ClusterUnitTest {
   protected NeverwinterDPCluster cluster ;

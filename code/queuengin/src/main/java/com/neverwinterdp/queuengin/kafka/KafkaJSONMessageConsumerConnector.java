@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue.kafka ;
+package com.neverwinterdp.queuengin.kafka ;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,9 +14,9 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
-import com.neverwinterdp.queue.JSONMessage;
-import com.neverwinterdp.queue.JSONMessageConsumerConnector;
-import com.neverwinterdp.queue.JSONMessageConsumerHandler;
+import com.neverwinterdp.queuengin.JSONMessage;
+import com.neverwinterdp.queuengin.JSONMessageConsumerConnector;
+import com.neverwinterdp.queuengin.JSONMessageConsumerHandler;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class KafkaJSONMessageConsumerConnector<T> implements JSONMessageConsumerConnector<T>{

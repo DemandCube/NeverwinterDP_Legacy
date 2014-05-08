@@ -1,13 +1,13 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.neverwinterdp.queue.StringMessageConsumerHandler;
-import com.neverwinterdp.queue.kafka.KafkaMessageConsumer;
-import com.neverwinterdp.queue.kafka.KafkaStringMessageConsumerConnector;
-import com.neverwinterdp.queue.kafka.KafkaStringMessageProducer;
+import com.neverwinterdp.queuengin.StringMessageConsumerHandler;
+import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumer;
+import com.neverwinterdp.queuengin.kafka.KafkaStringMessageConsumerConnector;
+import com.neverwinterdp.queuengin.kafka.KafkaStringMessageProducer;
 
 public class MessageConsumerUnitTest extends ClusterUnitTest {
   @Test

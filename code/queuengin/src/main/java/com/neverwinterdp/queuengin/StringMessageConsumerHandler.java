@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue ;
+package com.neverwinterdp.queuengin ;
 
 
 public interface StringMessageConsumerHandler {

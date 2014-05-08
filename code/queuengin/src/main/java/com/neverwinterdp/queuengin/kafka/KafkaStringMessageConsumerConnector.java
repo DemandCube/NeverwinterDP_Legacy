@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue.kafka ;
+package com.neverwinterdp.queuengin.kafka ;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import com.neverwinterdp.queue.StringMessageConsumerHandler;
+import com.neverwinterdp.queuengin.StringMessageConsumerHandler;
 
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;

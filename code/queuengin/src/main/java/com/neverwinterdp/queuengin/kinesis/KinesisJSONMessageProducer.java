@@ -1,9 +1,9 @@
-package com.neverwinterdp.queue.kinesis;
+package com.neverwinterdp.queuengin.kinesis;
 
 import java.util.List;
 
-import com.neverwinterdp.queue.JSONMessage;
-import com.neverwinterdp.queue.JSONMessageProducer;
+import com.neverwinterdp.queuengin.JSONMessage;
+import com.neverwinterdp.queuengin.JSONMessageProducer;
 
 public class KinesisJSONMessageProducer implements JSONMessageProducer {
   public void send(String topic, JSONMessage<?> msg) throws Exception {

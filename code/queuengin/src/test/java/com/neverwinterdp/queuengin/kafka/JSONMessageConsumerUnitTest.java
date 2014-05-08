@@ -1,13 +1,10 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.neverwinterdp.queue.JSONMessage;
-import com.neverwinterdp.queue.JSONMessageConsumerHandler;
-import com.neverwinterdp.queue.kafka.KafkaJSONMessageConsumerConnector;
-import com.neverwinterdp.queue.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.queuengin.DummyJSONMessageConsumerHandler;
+import com.neverwinterdp.queuengin.JSONMessage;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class JSONMessageConsumerUnitTest extends ClusterUnitTest {
@@ -22,24 +19,11 @@ public class JSONMessageConsumerUnitTest extends ClusterUnitTest {
       producer.send(topic,  jsonMessage) ;
     }
    
-    JSONMessageConsumerHandlerImpl handler = new JSONMessageConsumerHandlerImpl() ;
+    DummyJSONMessageConsumerHandler handler = new DummyJSONMessageConsumerHandler() ;
     KafkaJSONMessageConsumerConnector<SampleEvent> consumer = 
         new KafkaJSONMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
     consumer.consume(topic, handler, 1) ;
     Thread.sleep(1000) ;
-    Assert.assertEquals(numOfMessages, handler.count) ;
-  }
-  
-  static public class JSONMessageConsumerHandlerImpl implements JSONMessageConsumerHandler<SampleEvent> {
-    int count =  0 ;
-    public void onJSONMessage(JSONMessage<SampleEvent> jsonMessage) {
-      count++ ;
-      try {
-        SampleEvent event = jsonMessage.getDataAs(SampleEvent.class);
-        System.out.println("Consume: " + event.getDescription());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+    Assert.assertEquals(numOfMessages, handler.messageCount()) ;
   }
 }

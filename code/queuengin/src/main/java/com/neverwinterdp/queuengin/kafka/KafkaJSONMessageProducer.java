@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
-import com.neverwinterdp.queue.JSONMessage;
-import com.neverwinterdp.queue.JSONMessageProducer;
+import com.neverwinterdp.queuengin.JSONMessage;
+import com.neverwinterdp.queuengin.JSONMessageProducer;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class KafkaJSONMessageProducer implements JSONMessageProducer {

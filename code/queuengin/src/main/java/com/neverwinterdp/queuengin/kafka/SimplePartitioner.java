@@ -1,4 +1,4 @@
-package com.neverwinterdp.queue.kafka;
+package com.neverwinterdp.queuengin.kafka;
 
 import kafka.producer.Partitioner;
 import kafka.utils.VerifiableProperties;
