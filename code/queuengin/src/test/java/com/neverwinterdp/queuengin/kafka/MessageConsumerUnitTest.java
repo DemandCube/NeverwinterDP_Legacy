@@ -1,60 +1,29 @@
 package com.neverwinterdp.queuengin.kafka;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.neverwinterdp.queuengin.StringMessageConsumerHandler;
-import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumer;
-import com.neverwinterdp.queuengin.kafka.KafkaStringMessageConsumerConnector;
-import com.neverwinterdp.queuengin.kafka.KafkaStringMessageProducer;
+import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
+import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class MessageConsumerUnitTest extends ClusterUnitTest {
   @Test
-  public void testConsumer() throws Exception {
-    testMessageConsumer() ;
-    testMessageConsumerConnector() ;
-  }
-  
-  public void testMessageConsumer() throws Exception {
-    String topic = "MessageConsumer" ;
-    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, kafkaCluster.getConnectionURLs()) ;
-    producer.send("first",  "first message") ;
-    producer.send("second", "second message") ;
-    Thread.sleep(1000) ;
-    
-    KafkaMessageConsumer consumer = new KafkaMessageConsumer("SimpleMessageConsumer1", "127.0.0.1", 9090) ;
-    MessageConsumerHandlerImpl handler = new MessageConsumerHandlerImpl() ;
-    consumer.consume(topic, handler) ;
-    Assert.assertEquals(2, handler.count) ;
-    
-    handler = new MessageConsumerHandlerImpl() ;
-    consumer = new KafkaMessageConsumer("SimpleMessageConsumer2", "127.0.0.1", 9090) ;
-    consumer.consume(topic, handler) ;
-    Assert.assertEquals(2, handler.count) ;
-  }
-  
-  public void testMessageConsumerConnector() throws Exception {
-    String topic = "MessageConsumerConnector" ;
-    int numOfMessages = 10 ;
-    KafkaStringMessageProducer producer = new KafkaStringMessageProducer(topic, kafkaCluster.getConnectionURLs()) ;
+  public void testJSONMessageConsumer() throws Exception {
+    String topic = "JSONMessageConsumerConnector" ;
+    int numOfMessages = 3 ;
+    KafkaMessageProducer producer = new KafkaMessageProducer(kafkaCluster.getConnectionURLs()) ;
     for(int i = 0 ; i < numOfMessages; i++) {
-      producer.send("key " + i, "message " + i) ;
+      SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
+      Message<SampleEvent> jsonMessage = new Message<SampleEvent>("m" + i, event, false) ;
+      producer.send(topic,  jsonMessage) ;
     }
-    
-    KafkaStringMessageConsumerConnector connector = new KafkaStringMessageConsumerConnector("consumer", zkCluster.getConnectURLs()) ;
-    MessageConsumerHandlerImpl handler = new MessageConsumerHandlerImpl() ;
-    connector.consume(topic, handler, 1) ;
+   
+    ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;
+    KafkaMessageConsumerConnector<SampleEvent> consumer = 
+        new KafkaMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
+    consumer.consume(topic, handler, 1) ;
     Thread.sleep(1000) ;
-    Assert.assertEquals(numOfMessages, handler.count) ;
-  }
-  
-  static public class MessageConsumerHandlerImpl implements StringMessageConsumerHandler {
-    int count = 0 ;
-    
-    public void onMessage(String key, String message) {
-      count++ ;
-      System.out.println("Consume key = " + key + ", message = " + message);
-    }
+    Assert.assertEquals(numOfMessages, handler.messageCount()) ;
   }
 }

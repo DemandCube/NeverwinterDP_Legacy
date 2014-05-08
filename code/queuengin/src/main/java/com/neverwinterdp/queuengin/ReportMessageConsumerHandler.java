@@ -1,14 +1,14 @@
 package com.neverwinterdp.queuengin;
 
-import com.neverwinterdp.queuengin.JSONMessage.Log;
+import com.neverwinterdp.queuengin.Message.Log;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
-public class DummyJSONMessageConsumerHandler implements JSONMessageConsumerHandler<SampleEvent> {
+public class ReportMessageConsumerHandler implements MessageConsumerHandler<SampleEvent> {
   private int count =  0 ;
  
   public int messageCount() { return count ; }
   
-  public void onJSONMessage(JSONMessage<SampleEvent> jsonMessage) {
+  public void onMessage(Message<SampleEvent> jsonMessage) {
     count++ ;
     try {
       SampleEvent event = jsonMessage.getDataAs(SampleEvent.class);

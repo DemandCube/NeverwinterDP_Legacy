@@ -11,17 +11,17 @@ import org.codehaus.jackson.type.TypeReference;
 
 import com.neverwinterdp.util.JSONSerializer;
 
-public class JSONMessage<T> {
+public class Message<T> {
   private String       key ;
-  private String       jsonData;
+  private byte[]       data;
   
   private boolean      logEnable ;
   private List<Log>    logs;
 
-  public JSONMessage() {
+  public Message() {
   }
   
-  public JSONMessage(String key, T obj, boolean logEnable) throws IOException {
+  public Message(String key, T obj, boolean logEnable) throws IOException {
     this.key = key ;
     setDataAs(obj) ;
     this.logEnable = logEnable ;
@@ -35,31 +35,31 @@ public class JSONMessage<T> {
     this.key = key;
   }
 
-  public String getJsonData() {
-    return jsonData;
+  public byte[] getData() {
+    return data;
   }
 
-  public void setData(String data) {
-    this.jsonData = data;
+  public void setData(byte[] data) {
+    this.data = data;
   }
 
   @JsonIgnore
   public T getDataAs(Class<T> type) throws Exception {
-    if(jsonData == null) return null ;
-    return JSONSerializer.INSTANCE.fromString(jsonData, type);
+    if(data == null) return null ;
+    return JSONSerializer.INSTANCE.fromBytes(data, type);
   }
   
   @JsonIgnore
   public List<T> getDataAs(TypeReference<List<T>> tref) throws Exception {
-    return JSONSerializer.INSTANCE.fromString(jsonData, tref);
+    return JSONSerializer.INSTANCE.fromBytes(data, tref);
   }
   
   @JsonIgnore
   public void setDataAs(T obj) throws IOException {
     if(obj == null) {
-      jsonData = null; 
+      data = null; 
     } else {
-      jsonData = JSONSerializer.INSTANCE.toString(obj);
+      data = JSONSerializer.INSTANCE.toBytes(obj);
     }
   }
 
