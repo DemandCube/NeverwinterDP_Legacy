@@ -55,6 +55,11 @@ public class JSONSerializer {
     StringReader reader = new StringReader(new String(data, UTF8)) ;
     return mapper.readValue(reader , type);
   }
+  
+  public <T> T fromBytes(byte[] data, TypeReference<T> typeRef) throws IOException {
+    StringReader reader = new StringReader(new String(data, UTF8)) ;
+    return mapper.readValue(reader , typeRef);
+  }
 
   public <T> String toString(T idoc) {
     try  {
