@@ -29,7 +29,7 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
     props.put("zookeeper.session.timeout.ms", "400");
     props.put("zookeeper.sync.time.ms", "200");
     props.put("auto.commit.interval.ms", "1000");
-    props.put("auto.commit.enable", "false");
+    //props.put("auto.commit.enable", "false");
     props.put("auto.offset.reset", "smallest");
 
     ConsumerConfig config = new ConsumerConfig(props);

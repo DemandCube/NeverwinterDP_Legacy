@@ -23,7 +23,7 @@ public class MessageConsumerUnitTest extends ClusterUnitTest {
     KafkaMessageConsumerConnector<SampleEvent> consumer = 
         new KafkaMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
     consumer.consume(topic, handler, 1) ;
-    Thread.sleep(1000) ;
+    Thread.sleep(2000) ;
     Assert.assertEquals(numOfMessages, handler.messageCount()) ;
   }
 }
