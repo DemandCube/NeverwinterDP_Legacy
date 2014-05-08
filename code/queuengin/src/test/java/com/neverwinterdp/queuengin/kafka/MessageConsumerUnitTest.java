@@ -9,9 +9,9 @@ import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class MessageConsumerUnitTest extends ClusterUnitTest {
   @Test
-  public void testJSONMessageConsumer() throws Exception {
-    String topic = "JSONMessageConsumerConnector" ;
-    int numOfMessages = 3 ;
+  public void testMessageConsumer() throws Exception {
+    String topic = "test-topic" ;
+    int numOfMessages = 5 ;
     KafkaMessageProducer producer = new KafkaMessageProducer(kafkaCluster.getConnectionURLs()) ;
     for(int i = 0 ; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;

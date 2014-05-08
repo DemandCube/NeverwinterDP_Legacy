@@ -64,10 +64,9 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
         try {
           MessageAndMetadata<byte[], byte[]> data = it.next() ;
           byte[] mBytes = data.message() ;
-          Message<T> jsonMessage = 
+          Message<T> message = 
             (Message<T>)JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
-          handler.onMessage(jsonMessage) ;
-          it.reversed() ;
+          handler.onMessage(message) ;
         } catch (IOException e) {
           //TODO: use log4j or any log wrapper
           e.printStackTrace();
