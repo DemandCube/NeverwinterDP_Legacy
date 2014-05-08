@@ -1,5 +1,4 @@
-package com.neverwinterdp.sparkngin.jetty;
-
+package com.neverwinterdp.sparkngin;
 
 public class SparknginClient {
   private int currentIdx ;

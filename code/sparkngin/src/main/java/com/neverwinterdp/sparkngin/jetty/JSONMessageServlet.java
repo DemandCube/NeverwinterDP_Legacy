@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.neverwinterdp.queue.JSONMessage;
-import com.neverwinterdp.queue.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.queuengin.JSONMessage;
+import com.neverwinterdp.queuengin.kafka.KafkaJSONMessageProducer;
+import com.neverwinterdp.sparkngin.SparkAcknowledge;
 import com.neverwinterdp.util.IOUtil;
 import com.neverwinterdp.util.JSONSerializer;
 

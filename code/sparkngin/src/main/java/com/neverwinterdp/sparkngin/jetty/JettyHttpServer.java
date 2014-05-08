@@ -6,10 +6,10 @@ import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-public class HttpServer {
+public class JettyHttpServer {
   Server server ;
   
-  public HttpServer(int port) {
+  public JettyHttpServer(int port) {
     server = new Server(port);
 
     ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -35,7 +35,7 @@ public class HttpServer {
   }
   
   public static void main(String[] args) throws Exception {
-    HttpServer server = new HttpServer(8080);
+    JettyHttpServer server = new JettyHttpServer(8080);
     server.start() ;
     System.out.println("Start.....................");
   }

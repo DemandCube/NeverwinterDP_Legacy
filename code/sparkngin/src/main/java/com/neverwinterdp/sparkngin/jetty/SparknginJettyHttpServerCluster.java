@@ -5,22 +5,22 @@ import java.util.List;
 
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 
-public class SparknginCluster implements ServiceCluster {
+public class SparknginJettyHttpServerCluster implements ServiceCluster {
   final static public int HTTP_PORT   = 8080;
   
-  private List<HttpServer> servers ;
+  private List<JettyHttpServer> servers ;
   int port;
   int numberOfInstances ;
   
-  public SparknginCluster(int port, int numberOfInstances) {
+  public SparknginJettyHttpServerCluster(int port, int numberOfInstances) {
     this.port = port ;
     this.numberOfInstances = numberOfInstances ;
   }
 
   public void init() throws Exception {
-    servers = new ArrayList<HttpServer>() ;
+    servers = new ArrayList<JettyHttpServer>() ;
     for(int i = 0; i < numberOfInstances; i++) {
-      HttpServer server = new HttpServer(port + i);
+      JettyHttpServer server = new JettyHttpServer(port + i);
       servers.add(server) ;
     }
   }
@@ -31,13 +31,13 @@ public class SparknginCluster implements ServiceCluster {
   }
   
   public void startup() throws Exception {
-    for(HttpServer server : servers) {
+    for(JettyHttpServer server : servers) {
       server.start();
     }
   }
   
   public void shutdown() throws Exception {
-    for(HttpServer server : servers) {
+    for(JettyHttpServer server : servers) {
       server.stop();
     }
   }

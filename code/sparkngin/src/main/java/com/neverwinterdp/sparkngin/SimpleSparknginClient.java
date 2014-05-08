@@ -1,14 +1,15 @@
-package com.neverwinterdp.sparkngin.jetty;
+package com.neverwinterdp.sparkngin;
 
 import java.io.ByteArrayOutputStream;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.neverwinterdp.queue.JSONMessage;
+import com.neverwinterdp.queuengin.JSONMessage;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class SimpleSparknginClient {
@@ -34,7 +35,12 @@ public class SimpleSparknginClient {
     StringEntity input = new StringEntity(json);
     input.setContentType("application/json");
     postRequest.setEntity(input);
-    HttpResponse response = httpClient.execute(postRequest);
+    HttpResponse response = null ;
+    try {
+      response = httpClient.execute(postRequest);
+    } finally {
+      postRequest.abort();
+    }
     ByteArrayOutputStream out = new ByteArrayOutputStream() ;
     response.getEntity().writeTo(out) ;
     SparkAcknowledge ack = JSONSerializer.INSTANCE.fromBytes(out.toByteArray(), SparkAcknowledge.class) ;

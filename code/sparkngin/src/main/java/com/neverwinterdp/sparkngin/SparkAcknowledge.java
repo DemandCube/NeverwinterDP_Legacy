@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.jetty;
+package com.neverwinterdp.sparkngin;
 
 public class SparkAcknowledge {
   static public enum Status {
