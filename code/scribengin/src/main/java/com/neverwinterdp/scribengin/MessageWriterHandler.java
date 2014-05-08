@@ -13,4 +13,7 @@ public class MessageWriterHandler<T> implements MessageConsumerHandler<T> {
   public void onMessage(Message<T> message) {
     writer.write(message) ;
   }
+
+  public void onErrorMessage(Message<T> message, Throwable error) {
+  }
 }

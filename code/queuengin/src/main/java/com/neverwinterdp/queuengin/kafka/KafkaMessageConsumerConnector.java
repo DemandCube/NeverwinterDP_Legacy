@@ -29,7 +29,9 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
     props.put("zookeeper.session.timeout.ms", "400");
     props.put("zookeeper.sync.time.ms", "200");
     props.put("auto.commit.interval.ms", "1000");
+    props.put("auto.commit.enable", "false");
     props.put("auto.offset.reset", "smallest");
+
     ConsumerConfig config = new ConsumerConfig(props);
     consumer = kafka.consumer.Consumer.createJavaConsumerConnector(config);
   }
@@ -60,17 +62,19 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
 
     public void run() {
       ConsumerIterator<byte[], byte[]> it = stream.iterator();
-      while (it.hasNext()) {
-        try {
+      try {
+        while (it.hasNext()) {
+
           MessageAndMetadata<byte[], byte[]> data = it.next() ;
           byte[] mBytes = data.message() ;
           Message<T> message = 
-            (Message<T>)JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
+              (Message<T>)JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
           handler.onMessage(message) ;
-        } catch (IOException e) {
-          //TODO: use log4j or any log wrapper
-          e.printStackTrace();
         }
+      } catch (IOException e) {
+        //it.reversed() ;
+        //TODO: use log4j or any log wrapper
+        e.printStackTrace();
       }
     }
   }

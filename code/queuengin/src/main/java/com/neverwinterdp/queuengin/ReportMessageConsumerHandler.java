@@ -5,8 +5,11 @@ import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class ReportMessageConsumerHandler implements MessageConsumerHandler<SampleEvent> {
   private int count =  0 ;
- 
+  private int errorCount = 0;
+  
   public int messageCount() { return count ; }
+  
+  public int errorMessageCount() { return errorCount ; }
   
   public void onMessage(Message<SampleEvent> jsonMessage) {
     count++ ;
@@ -21,5 +24,8 @@ public class ReportMessageConsumerHandler implements MessageConsumerHandler<Samp
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void onErrorMessage(Message<SampleEvent> message, Throwable error) {
   }
 }
