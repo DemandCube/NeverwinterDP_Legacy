@@ -14,6 +14,82 @@
  +------------+
 ```
 
+##Message and Message Service##
+
+From the overral design, we can consider each engine(client, Sparkngin, Scribengin, Data Sink) as a message service where the message is forwarded to each service , process and then forward to the next service point. At each service point, the service can reject the message due to the message error, save the message to retry later due to the next service point is not available
+
+**The message structure**
+
+The message structure should:
+
+  - The message should be generic and hold any type of event/object
+  - The message should be able to hold the log of the activities such:
+      + client send the message to http server. 
+      + http server receive the message.
+      + http server forward the message to kafka queue
+      + scribe engine dequeue the message
+      + scribe engine write message to hbase.
+        ....
+  - The message should be able to hold a list of instructions so each service point can pick up the instruction and execute the instruction before it processes the message. For example the http service can pick up an instruction and drop the message to generate a failed acknowledge and force the client to retry the message.
+
+```
+  public class Message<T> {
+    private String            key ;
+    private byte[]            data;
+    private List<MessageLog>         logs;
+    private List<MessageInstruction> instructions;
+  }
+
+  public class MessageLog {
+    private String host ;
+    private String serviceId ;
+    private long   time ;
+    private String message ;
+  }
+
+  public class MessageInstruction {
+    private String targetService ;
+    private String instruction ;
+    private Map<String, String> params ;
+  }
+
+```
+
+The message service consists of 2 main component , the MessageService itself and the MessageServicePlugin
+
+
+```
+
+  public interface MessageService {
+    String getName() ;
+    void   setName(String name);
+
+    void onInit(JSONPObject config) ;
+    void onDestroy() ;
+
+    void process(Message<?> message) ;
+  }
+
+
+  public interface MessageServicePlugin {
+    String getName() ;
+    void   setName(String name) ;
+
+    void onPreProcess(MessageService service, Message<?> message) ;
+    void onPostProcess(MessageService service, Message<?> message) ;
+
+    void onErrorMessage(MessageService service, Message<?> message) ;
+    void onRejectMessage(MessageService service, Message<?> message) ;
+    void onRetryMessage(MessageService service, Message<?> message) ;
+  }
+
+
+```
+
+The MessageService is designed to implement the logic to process the message, while the plugin is designed to reuse logic across the service, for example the plugin to log the message or monitor the message at each service point .
+
+**Question**: Should we implement the service manager ourself to allow the service configuration and manage the dependenciesor we should reuse the framework such spring , osgi....
+
 ##Rest Client##
 
 ###Requirement###
@@ -68,25 +144,8 @@ What should be othe priority ?
 
 ###Requirement###
 
-**Implement the api for the message structure.**
-  - The message should be generic and hold any type of event/object
-  - The message should be able to hold the log of the activities such:
-      + client send the message to http server. 
-      + http server receive the message.
-      + http server forward the message to kafka queue
-      + scribe engine dequeue the message
-      + scribe engine write message to hbase.
-        ....
-  - The message should be able to hold a list of instructions so each tier can pick up the instruction and execute the instruction before it processes the message. For example the http service can pick up an instruction and drop the message to generate a failed acknowledge and force the client to retry the message.
-```
-  public class Message<T> {
-    private String            key ;
-    private byte[]            data;
-    private List<Log>         logs;
-    private List<Instruction> instructions;
-  }
-```
 **The queue structure:**
+
 ```
  topic/
        config
