@@ -100,7 +100,7 @@ What should be othe priority ?
 - error: the error topic allow a tier to put back a message that it(the tier) cannot process, for example the message contains some strange encoding or not in json format
 - retry: The retry topic allow a a tier put back the message when it cannot process due to another service/tier is not available. For example, the scribengin dequeue a message, but it cannot write the message to Hbase due to the Hbase is down. In this case the scribengin can put back the message into the retry queue to process later. The problem is the message can be run out of the order. Kafka allows you to control the commit or use the auto commit mode. We can control the commit to commit the messages have been successfully processed. But I am not sure we can do the same thing with the other queuengin such kinesis.
 - message: The message queue is the real queue for the topic where the consumer can enqueue and dequeue.
-- test: use for the test purpose. For example, the demandspike can setup a test strategy with a number of error, failed, retried message for certain tier, at the end of the test, the client can send the expect statistic across the system so each tier can assert the statistic result. Maybe we can use with the config queue ? 
+- test: use for the test purpose. For example, the demandspike can setup a test strategy with a number of error, failed, retried message for certain tier, at the end of the test, the client can send the expected statistic across the system so each tier can assert the statistic result. Maybe we can use with the config queue ? 
 
 1. Implement api for the queue consumer and producer. The api is the wrapper for the kafka, kinesis queue engine 
 2. Implement the real consumer and producer for kafka
@@ -146,7 +146,7 @@ What should be othe priority ?
 
 1. Define the MessageGenerator api, the message can be read from db , batch file , db or generated automatically.
 2. Define test strategy configuration, like number of error,dropped,failed message by http service, scribengin.
-3. Engine to send the configuration and the message. The engine should collect the instruction statistic for each tier/service. At the end, the engine should send the expect statistic across the system so each tier/service can assert the result.
+3. Engine to send the configuration and the message. The engine should collect the instruction statistic for each tier/service. At the end, the engine should send the expected statistic across the system so each tier/service can assert the result.
 4. Implement the plugin to test for sparkngin , queuengin, scribengin. 
 
 ###Current implementation and status###
