@@ -1,6 +1,6 @@
 package com.neverwinterdp.sparkngin;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 
 public interface SparknginSimpleHttpClient {
   public String getConnectionUrl() ;  

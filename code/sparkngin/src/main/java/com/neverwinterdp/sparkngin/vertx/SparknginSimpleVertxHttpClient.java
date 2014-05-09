@@ -8,7 +8,7 @@ import org.vertx.java.core.http.HttpClient;
 import org.vertx.java.core.http.HttpClientRequest;
 import org.vertx.java.core.http.HttpClientResponse;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SendMessageHandler;
 import com.neverwinterdp.sparkngin.SparknginSimpleHttpClient;

@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClient {

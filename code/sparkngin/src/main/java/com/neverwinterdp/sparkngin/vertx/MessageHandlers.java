@@ -6,7 +6,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.util.JSONSerializer;

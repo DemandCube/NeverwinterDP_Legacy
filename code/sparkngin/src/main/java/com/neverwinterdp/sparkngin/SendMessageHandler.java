@@ -1,6 +1,6 @@
 package com.neverwinterdp.sparkngin;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 
 public interface SendMessageHandler {
   public void onResponse(Message<?> message, SparknginSimpleHttpClient client, SendAck ack) ;

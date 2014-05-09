@@ -5,7 +5,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
 import com.neverwinterdp.queuengin.kafka.KafkaCluster;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
@@ -24,7 +24,7 @@ abstract public class ClusterUnitTest {
   
   @Before
   public void setup() throws Exception {
-    cluster = new NeverwinterDPCluster("target/cluster") ;
+    cluster = new NeverwinterDPCluster("build/cluster") ;
     cluster.cleanup();
     
     zkCluster = new ZookeeperCluster(ZookeeperCluster.ZK_CLIENT_PORT, 1);

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.util.IOUtil;

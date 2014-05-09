@@ -1,6 +1,6 @@
 package com.neverwinterdp.sparkngin;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 
 public class SparknginHttpClient {
   private int currentIdx = 0;
