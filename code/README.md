@@ -68,7 +68,7 @@ What should be othe priority ?
 
 ###Requirement###
 
-1. Implement the api for the message structure. 
+**Implement the api for the message structure.**
   - The message should be generic and hold any type of event/object
   - The message should be able to hold the log of the activities such:
       + client send the message to http server. 
@@ -86,7 +86,7 @@ What should be othe priority ?
     private List<Instruction> instructions;
   }
 ```
-2. The queue structure:
+**The queue structure:**
 ```
  topic/
        config
@@ -101,10 +101,11 @@ What should be othe priority ?
 - retry: The retry topic allow a a tier put back the message when it cannot process due to another service/tier is not available. For example, the scribengin dequeue a message, but it cannot write the message to Hbase due to the Hbase is down. In this case the scribengin can put back the message into the retry queue to process later. The problem is the message can be run out of the order. Kafka allows you to control the commit or use the auto commit mode. We can control the commit to commit the messages have been successfully processed. But I am not sure we can do the same thing with the other queuengin such kinesis.
 - message: The message queue is the real queue for the topic where the consumer can enqueue and dequeue.
 - test: use for the test purpose. For example, the demandspike can setup a test strategy with a number of error, failed, retried message for certain tier, at the end of the test, the client can send the expect statistic across the system so each tier can assert the statistic result. Maybe we can use with the config queue ? 
-3. Implement api for the queue consumer and producer. The api is the wrapper for the kafka, kinesis queue engine 
-4. Implement the real consumer and producer for kafka
-5. Implement the real consumer and producer for kinesis
-6. Plug in, the service should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
+
+1. Implement api for the queue consumer and producer. The api is the wrapper for the kafka, kinesis queue engine 
+2. Implement the real consumer and producer for kafka
+3. Implement the real consumer and producer for kinesis
+4. Plug in, the service should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
 
 ###Current implementation and status###
 
