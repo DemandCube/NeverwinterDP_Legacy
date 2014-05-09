@@ -62,19 +62,11 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
 
     public void run() {
       ConsumerIterator<byte[], byte[]> it = stream.iterator();
-      try {
-        while (it.hasNext()) {
-
-          MessageAndMetadata<byte[], byte[]> data = it.next() ;
-          byte[] mBytes = data.message() ;
-          Message<T> message = 
-              (Message<T>)JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
-          handler.onMessage(message) ;
-        }
-      } catch (IOException e) {
-        //it.reversed() ;
-        //TODO: use log4j or any log wrapper
-        e.printStackTrace();
+      while (it.hasNext()) {
+        MessageAndMetadata<byte[], byte[]> data = it.next() ;
+        byte[] mBytes = data.message() ;
+        Message<T> message = JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
+        handler.onMessage(message) ;
       }
     }
   }
