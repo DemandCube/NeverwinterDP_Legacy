@@ -3,8 +3,8 @@ package com.neverwinterdp.queuengin.kafka;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
-import com.neverwinterdp.queuengin.Message;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class MessageConsumerUnitTest extends ClusterUnitTest {

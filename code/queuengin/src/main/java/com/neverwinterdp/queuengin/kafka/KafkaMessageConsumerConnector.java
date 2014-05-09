@@ -14,7 +14,7 @@ import kafka.consumer.KafkaStream;
 import kafka.javaapi.consumer.ConsumerConnector;
 import kafka.message.MessageAndMetadata;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.MessageConsumerConnector;
 import com.neverwinterdp.queuengin.MessageConsumerHandler;
 import com.neverwinterdp.util.JSONSerializer;

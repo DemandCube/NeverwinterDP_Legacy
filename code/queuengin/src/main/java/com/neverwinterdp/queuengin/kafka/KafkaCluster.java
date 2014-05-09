@@ -9,7 +9,6 @@ import com.neverwinterdp.util.FileUtil;
 
 
 public class KafkaCluster implements ServiceCluster {
-  final static public String KAFKA_LOG_DIR       = "target" + File.separator + "kafka";
   final static public int    KAFKA_PORT   = 9090;
   
   private String baseDir ;
@@ -79,5 +78,13 @@ public class KafkaCluster implements ServiceCluster {
   
   public void cleanup() throws Exception {
     FileUtil.removeIfExist(baseDir, false) ;
+  }
+  
+  public KafkaMessageProducer createProducer() {
+    return new KafkaMessageProducer(getConnectionURLs()) ;
+  }
+  
+  public <T> KafkaMessageConsumerConnector<T> createConnector(String group) {
+    return new KafkaMessageConsumerConnector<T>(group, zookeeperConnectUrls) ;
   }
 }

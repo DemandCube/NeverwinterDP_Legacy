@@ -8,12 +8,16 @@ import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.MessageProducer;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class KafkaMessageProducer implements MessageProducer {
+  private String name ;
   private Producer<String, String> producer;
+
+  public String getName() { return name; }
+  public void setName(String name) { this.name = name; }
 
   public KafkaMessageProducer(String kafkaBrokerUrls) {
     Properties props = new Properties() ;

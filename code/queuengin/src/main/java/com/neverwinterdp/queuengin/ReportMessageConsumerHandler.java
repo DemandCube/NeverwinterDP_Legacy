@@ -1,5 +1,7 @@
 package com.neverwinterdp.queuengin;
 
+import com.neverwinterdp.message.Message;
+import com.neverwinterdp.message.MessageLog;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class ReportMessageConsumerHandler implements MessageConsumerHandler<SampleEvent> {
