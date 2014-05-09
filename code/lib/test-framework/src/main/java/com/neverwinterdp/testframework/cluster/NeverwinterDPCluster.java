@@ -3,6 +3,8 @@ package com.neverwinterdp.testframework.cluster;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.neverwinterdp.util.FileUtil;
+
 public class NeverwinterDPCluster implements ServiceCluster {
   private String baseDir ;
   private List<ServiceCluster> serviceClusters = new ArrayList<ServiceCluster>() ;
@@ -44,6 +46,7 @@ public class NeverwinterDPCluster implements ServiceCluster {
     for(ServiceCluster sel : serviceClusters) {
       sel.cleanup() ; 
     }
+    FileUtil.removeIfExist(baseDir, true);
   }
   
 }
