@@ -1,4 +1,4 @@
-package com.neverwinterdp.scribengin.dummy;
+package com.neverwinterdp.scribengin;
 
 import org.junit.After;
 import org.junit.Before;

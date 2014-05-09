@@ -3,7 +3,7 @@ package com.neverwinterdp.scribengin.dummy;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.scribengin.MessageWriter;
 
 public class InMemoryMessageDB implements MessageWriter {

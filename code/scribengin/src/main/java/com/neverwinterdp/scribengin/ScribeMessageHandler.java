@@ -1,12 +1,12 @@
 package com.neverwinterdp.scribengin;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.MessageConsumerHandler;
 
-public class MessageWriterHandler<T> implements MessageConsumerHandler<T> {
+public class ScribeMessageHandler<T> implements MessageConsumerHandler<T> {
   private MessageWriter writer ;
   
-  public MessageWriterHandler(MessageWriter writer) {
+  public ScribeMessageHandler(MessageWriter writer) {
     this.writer = writer ;
   }
   
