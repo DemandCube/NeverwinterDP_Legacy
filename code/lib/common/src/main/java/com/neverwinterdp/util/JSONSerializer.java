@@ -44,11 +44,15 @@ public class JSONSerializer {
     mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, !b);
   }
 
-  public <T> byte[] toBytes(T idoc) throws IOException {
-    StringWriter w = new StringWriter() ;
-    mapper.writeValue(w, idoc);
-    w.close() ;
-    return w.getBuffer().toString().getBytes(UTF8) ;
+  public <T> byte[] toBytes(T idoc)  {
+    try {
+      StringWriter w = new StringWriter() ;
+      mapper.writeValue(w, idoc);
+      w.close() ;
+      return w.getBuffer().toString().getBytes(UTF8) ;
+    } catch(IOException e) {
+      throw new RuntimeException(e) ;
+    }
   }
 
   public <T> T fromBytes(byte[] data, Class<T> type)  {
