@@ -14,6 +14,56 @@
  +------------+
 ```
 
+##Rest Client##
+
+###Requirement###
+
+1. The rest client should be able to take in a list of url connection or retrieve the list of url from zookeeper.
+2. The client should be able to send a message or a batch message in the synchronous mode or asychronous mode.
+  - Synchronous: The client should be able to send a message or a batch or messages in json format to the server. The server will reply an ackknowledg in json format, depend on the acknowledge status, the client should continue , retry or give up.
+  - Asynchronous: The client should be able to send a stream  of messages or a stream of a batch messages to the server. For each set of messages or batch of messages, the server will send back an ackowledge.  Depend on the status of the acknowledge, the client should continue, retry or move the stream of message to another url handler or give up.
+3. The client shoudl select the url in round robin mode(or other algorithm) and send the message to the http server. If the the client fail to send to an url , it should pick another url and retry. 
+4. Plug in, the client should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
+5. In case the client send a message to the server, the server able to handle the message but cannot send back an acknowledge due to the system or network overloaded. How should we handle? What should be the try strategy and the max number of retry 
+ 
+###Current implementation and status###
+
+1. Implement a client that can  take in a list of url, and different http client implementation
+2. Implement http client with vertx http client and apache http client
+3. The client is able to send the message to the http server in synchronous mode and use round robin algorithm. 
+4. No retry, error handling and plugin yet.
+5. Some code for unit test and integration test.
+
+###TODO###
+
+1. handle asynchronous mode
+2. handle error and retry
+3. Implement a more sophisticated algorithm with zookeeper to remove death url or add url automatically and dynamically.
+4. Test, test... unit test, failed test, integration test, stress test!
+
+What should be othe priority ?
+
+##Sparkngin(HTTP Rest Service)##
+
+###Requirement###
+
+1. Implement an HTTP service that can handle the synchronous and asynchronous messages as describe in the client.
+2. Forward the message to the queuengin(kafka/kinesis). The service should send back an OK or FAILD acknowledge to the client for each set of messages. 
+3. Register the service and the url connection with a zookeeper server.
+4. Plug in, the service should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
+
+###Current implementation and status###
+
+1. Implement the service that can handle synchronous messages with jetty and vertx
+2. Some code to embed vertx engine and simulate the http cluster environment
+3. Some code for unit test and integration test. 
+
+###TODO###
+
+1. handle asynchronous mode
+2. register the service with zookeeper.
+3. plugin
+
 ##Queuengin##
 
 ###Requirement###
@@ -71,61 +121,6 @@
 2. Discuss and implement the queue structure
 3. Implement consumer and producer for kinesis
 4. Plugin 
-
-
-
-
-##Sparkngin(HTTP Rest Service)##
-
-###Rest Client####
-
-####Requirement####
-
-1. The rest client should be able to take in a list of url connection or retrieve the list of url from zookeeper.
-2. The client should be able to send a message or a batch message in the synchronous mode or asychronous mode.
-  - Synchronous: The client should be able to send a message or a batch or messages in json format to the server. The server will reply an ackknowledg in json format, depend on the acknowledge status, the client should continue , retry or give up.
-  - Asynchronous: The client should be able to send a stream  of messages or a stream of a batch messages to the server. For each set of messages or batch of messages, the server will send back an ackowledge.  Depend on the status of the acknowledge, the client should continue, retry or move the stream of message to another url handler or give up.
-3. The client shoudl select the url in round robin mode(or other algorithm) and send the message to the http server. If the the client fail to send to an url , it should pick another url and retry. 
-4. Plug in, the client should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
-5. In case the client send a message to the server, the server able to handle the message but cannot send back an acknowledge due to the system or network overloaded. How should we handle? What should be the try strategy and the max number of retry 
- 
-####Current implementation and status####
-
-1. Implement a client that can  take in a list of url, and different http client implementation
-2. Implement http client with vertx http client and apache http client
-3. The client is able to send the message to the http server in synchronous mode and use round robin algorithm. 
-4. No retry, error handling and plugin yet.
-5. Some code for unit test and integration test.
-
-####TODO####
-
-1. handle asynchronous mode
-2. handle error and retry
-3. Implement a more sophisticated algorithm with zookeeper to remove death url or add url automatically and dynamically.
-4. Test, test... unit test, failed test, integration test, stress test!
-
-What should be othe priority ?
-
-####Rest Service#####
-
-####Requirement####
-
-1. Implement an HTTP service that can handle the synchronous and asynchronous messages as describe in the client.
-2. Forward the message to the queuengin(kafka/kinesis). The service should send back an OK or FAILD acknowledge to the client for each set of messages. 
-3. Register the service and the url connection with a zookeeper server.
-4. Plug in, the service should be able to plug in the interceptor such debug and trace interceptor so each time a message is sent, retried or failed, the interceptor will add the log to the message.
-
-####Current implementation and status####
-
-1. Implement the service that can handle synchronous messages with jetty and vertx
-2. Some code to embed vertx engine and simulate the http cluster environment
-3. Some code for unit test and integration test. 
-
-####TODO####
-
-1. handle asynchronous mode
-2. register the service with zookeeper.
-3. plugin
 
 ##Scribengin##
 
