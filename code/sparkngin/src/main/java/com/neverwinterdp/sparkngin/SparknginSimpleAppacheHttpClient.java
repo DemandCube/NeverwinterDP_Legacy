@@ -11,11 +11,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import com.neverwinterdp.queuengin.Message;
 import com.neverwinterdp.util.JSONSerializer;
 
-public class SimpleSparknginHttpClient {
+public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClient {
   private String connectionUrl ;
   HttpClient httpClient ;
   
-  public SimpleSparknginHttpClient(String connectionUrl) {
+  public SparknginSimpleAppacheHttpClient(String connectionUrl) {
     this.connectionUrl = connectionUrl ;
     
     HttpClientBuilder httpClientBuilder = HttpClientBuilder.create() ;
@@ -26,11 +26,19 @@ public class SimpleSparknginHttpClient {
   
   public String getConnectionUrl() { return this.connectionUrl ; }
   
-  public <T> SparkAcknowledge send(String topic, String key, T obj, boolean logEnable) throws Exception {
+  public <T> void send(String topic, Message<T> message, SendMessageHandler handler) {
+    try {
+      SendAck ack = send(topic, message) ;
+      handler.onResponse(message, this, ack);
+    } catch (Exception error) {
+      handler.onError(message, this, error);
+    }
+  }
+
+  <T> SendAck send(String topic, Message<T> message) throws Exception {
     String url = connectionUrl + "/message/" + topic ;  
     HttpPost postRequest = new HttpPost(url);
-    Message<T> jsonMessage = new Message<T>(key, obj, logEnable) ;
-    String json = JSONSerializer.INSTANCE.toString(jsonMessage);
+    String json = JSONSerializer.INSTANCE.toString(message);
     StringEntity input = new StringEntity(json);
     input.setContentType("application/json");
     postRequest.setEntity(input);
@@ -42,7 +50,15 @@ public class SimpleSparknginHttpClient {
     }
     ByteArrayOutputStream out = new ByteArrayOutputStream() ;
     response.getEntity().writeTo(out) ;
-    SparkAcknowledge ack = JSONSerializer.INSTANCE.fromBytes(out.toByteArray(), SparkAcknowledge.class) ;
+    SendAck ack = JSONSerializer.INSTANCE.fromBytes(out.toByteArray(), SendAck.class) ;
     return ack ;
+  }
+  
+  static public SparknginSimpleHttpClient[] create(String[] connectionUrls) {
+    SparknginSimpleHttpClient[] instances = new SparknginSimpleHttpClient[connectionUrls.length] ;
+    for(int i = 0; i < instances.length; i++) {
+      instances[i] = new SparknginSimpleAppacheHttpClient(connectionUrls[i]) ;
+    }
+    return instances; 
   }
 }

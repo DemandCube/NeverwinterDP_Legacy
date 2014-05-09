@@ -5,11 +5,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.neverwinterdp.queuengin.Message;
 import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
 import com.neverwinterdp.queuengin.kafka.KafkaCluster;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
-import com.neverwinterdp.sparkngin.SparkAcknowledge;
-import com.neverwinterdp.sparkngin.SparknginClient;
+import com.neverwinterdp.sparkngin.SendAck;
+import com.neverwinterdp.sparkngin.SparknginHttpClient;
+import com.neverwinterdp.sparkngin.vertx.SparknginSimpleVertxHttpClient;
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 import com.neverwinterdp.testframework.cluster.ZookeeperCluster;
@@ -50,20 +52,26 @@ abstract public class ClusterUnitTest {
   public void testSend() throws Exception {
     int numOfMessages = 5 ;
     
-    String[] connectionUrls = {
-        "http://127.0.0.1:8080", "http://127.0.0.1:8081"
+    String[] connectionUrls = { "http://127.0.0.1:8080", "http://127.0.0.1:8081" };
+    SendMessageHandler sendHandler = new SendMessageHandler() {
+      public void onResponse(Message<?> message, SparknginSimpleHttpClient client, SendAck ack) {
+        System.out.println("Ack: " + ack.getStatus()) ;
+      }
+
+      public void onError(Message<?> message, SparknginSimpleHttpClient client, Throwable error) {
+      }
+
+      public void onRetry(Message<?> message, SparknginSimpleHttpClient client) {
+      }
     };
     
-    SparknginClient client = new SparknginClient(connectionUrls) ; ;
+    SparknginSimpleHttpClient[] simpleClients = SparknginSimpleVertxHttpClient.create(connectionUrls) ;
+    SparknginHttpClient client = new SparknginHttpClient(simpleClients) ; ;
     String topic = "test-topic" ;
     for(int i = 0; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
-      try {
-        SparkAcknowledge ack = client.send(topic, "m" + i, event, true) ;
-        System.out.println("ack = " + ack);
-      } catch(Throwable t) {
-        t.printStackTrace(); 
-      }
+      Message<SampleEvent> message = new Message<SampleEvent>("m" + i, event, true) ;
+      client.send(topic, message, sendHandler) ;
     }
     
     ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;

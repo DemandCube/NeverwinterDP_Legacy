@@ -8,7 +8,7 @@ import org.vertx.java.core.json.JsonObject;
 
 import com.neverwinterdp.queuengin.Message;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
-import com.neverwinterdp.sparkngin.SparkAcknowledge;
+import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class MessageHandlers  {
@@ -28,7 +28,7 @@ public class MessageHandlers  {
       final String topic = req.params().get("topic") ;
       req.bodyHandler(new Handler<Buffer>() {
         public void handle(Buffer buf) {
-          SparkAcknowledge ack = new SparkAcknowledge() ;
+          SendAck ack = new SendAck() ;
           byte[] bytes = buf.getBytes() ;
           try {
             Message<?> jsonMessage = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
@@ -38,9 +38,9 @@ public class MessageHandlers  {
               jsonMessage.addLog("JSONMessageServlet", "forward by http server, ip = " + addr + ", port " + port) ;
             }
             producer.send(topic, jsonMessage) ;
-            ack.setStatus(SparkAcknowledge.Status.OK) ;
+            ack.setStatus(SendAck.Status.OK) ;
           } catch (Exception e) {
-            ack.setStatus(SparkAcknowledge.Status.ERROR) ;
+            ack.setStatus(SendAck.Status.ERROR) ;
             ack.setMessage(e.getMessage()) ;
           }
           req.response().end(JSONSerializer.INSTANCE.toString(ack));

@@ -1,6 +1,6 @@
 package com.neverwinterdp.sparkngin;
 
-public class SparkAcknowledge {
+public class SendAck {
   static public enum Status {
     OK, ERROR, NOT_AVAIBLE
   }
