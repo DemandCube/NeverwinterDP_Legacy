@@ -1,6 +1,6 @@
 package com.neverwinterdp.demandspike;
 
-import com.neverwinterdp.queuengin.Message;
+import com.neverwinterdp.message.Message;
 
 public interface MessageGenerator<T> {
   public Message<T> next() ;
