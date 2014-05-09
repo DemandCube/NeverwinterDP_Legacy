@@ -1,6 +1,5 @@
 package com.neverwinterdp.queuengin;
 
-import com.neverwinterdp.queuengin.Message.Log;
 import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class ReportMessageConsumerHandler implements MessageConsumerHandler<SampleEvent> {
@@ -17,7 +16,7 @@ public class ReportMessageConsumerHandler implements MessageConsumerHandler<Samp
       SampleEvent event = jsonMessage.getDataAs(SampleEvent.class);
       System.out.println("Consume: " + event.getDescription());
       if(jsonMessage.getLogs() != null) {
-        for(Log log : jsonMessage.getLogs()) {
+        for(MessageLog log : jsonMessage.getLogs()) {
           System.out.println("  " + log.toString()) ;
         }
       }

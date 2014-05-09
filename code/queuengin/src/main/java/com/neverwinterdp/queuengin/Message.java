@@ -1,9 +1,7 @@
 package com.neverwinterdp.queuengin;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -16,7 +14,7 @@ public class Message<T> {
   private byte[]       data;
   
   private boolean      logEnable ;
-  private List<Log>    logs;
+  private List<MessageLog>    logs;
 
   public Message() {
   }
@@ -72,65 +70,16 @@ public class Message<T> {
     this.logEnable = logEnable;
   }
 
-  public List<Log> getLogs() {
+  public List<MessageLog> getLogs() {
     return logs;
   }
 
-  public void setLogs(List<Log> logs) {
+  public void setLogs(List<MessageLog> logs) {
     this.logs = logs;
   }
   
   public void addLog(String serviceId, String message) {
-    if(logs == null) logs = new ArrayList<Log>() ;
-    logs.add(new Log(serviceId, message)) ;
-  }
-  
-  static public class Log {
-    final static public SimpleDateFormat COMPACT_DATE_TIME = new SimpleDateFormat("dd/MM/yyyy@HH:mm:ss")  ;
-    private String serviceId ;
-    private long   time ;
-    private String message ;
-    
-    public Log() {} 
-    
-    public Log(String serviceId, String message) {
-      this.serviceId = serviceId ;
-      this.time = System.currentTimeMillis() ;
-      this.message = message ;
-    }
-    
-    public String getServiceId() {
-      return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-      this.serviceId = serviceId;
-    }
-
-    public long getTime() {
-      return time;
-    }
-
-    public void setTime(long time) {
-      this.time = time;
-    }
-
-    public String getMessage() {
-      return message;
-    }
-
-    public void setMessage(String message) {
-      this.message = message;
-    }
-    
-    public String toString() {
-      StringBuilder b = new StringBuilder("  ") ;
-      b.append(serviceId).
-        append("[").
-        append(COMPACT_DATE_TIME.format(new Date(time))).
-        append("] ").
-        append(message) ;
-      return b.toString() ;
-    }
+    if(logs == null) logs = new ArrayList<MessageLog>() ;
+    logs.add(new MessageLog(serviceId, message)) ;
   }
 }
