@@ -51,14 +51,22 @@ public class JSONSerializer {
     return w.getBuffer().toString().getBytes(UTF8) ;
   }
 
-  public <T> T fromBytes(byte[] data, Class<T> type) throws IOException {
-    StringReader reader = new StringReader(new String(data, UTF8)) ;
-    return mapper.readValue(reader , type);
+  public <T> T fromBytes(byte[] data, Class<T> type)  {
+    try {
+      StringReader reader = new StringReader(new String(data, UTF8)) ;
+      return mapper.readValue(reader , type);
+    } catch (IOException e) {
+      throw new RuntimeException(e) ;
+    }
   }
   
-  public <T> T fromBytes(byte[] data, TypeReference<T> typeRef) throws IOException {
+  public <T> T fromBytes(byte[] data, TypeReference<T> typeRef) {
     StringReader reader = new StringReader(new String(data, UTF8)) ;
-    return mapper.readValue(reader , typeRef);
+    try {
+      return mapper.readValue(reader , typeRef);
+    } catch (IOException e) {
+      throw new RuntimeException(e) ;
+    }
   }
 
   public <T> String toString(T idoc) {
@@ -82,14 +90,22 @@ public class JSONSerializer {
     return writer.toString() ;
   }
 
-  public <T> T fromString(String data, Class<T> type) throws IOException {
-    StringReader reader = new StringReader(data) ;
-    return mapper.readValue(reader , type);
+  public <T> T fromString(String data, Class<T> type) {
+    try {
+      StringReader reader = new StringReader(data) ;
+      return mapper.readValue(reader , type);
+    } catch (IOException e) {
+      throw new RuntimeException(e) ;
+    }
   }
   
-  public <T> T fromString(String data, TypeReference<T> typeRef) throws IOException {
-    StringReader reader = new StringReader(data) ;
-    return mapper.readValue(reader , typeRef);
+  public <T> T fromString(String data, TypeReference<T> typeRef) {
+    try {
+      StringReader reader = new StringReader(data) ;
+      return mapper.readValue(reader , typeRef);
+    } catch (IOException e) {
+      throw new RuntimeException(e) ;
+    }
   }
 
   public <T> T fromJsonNode(JsonNode node, Class<T> type) throws IOException {
