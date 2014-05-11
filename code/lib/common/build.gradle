@@ -1,0 +1,9 @@
+eclipse {
+  project {
+    name = 'lib.common'
+  }
+}
+dependencies {
+  compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
+  compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
+}

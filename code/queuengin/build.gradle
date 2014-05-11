@@ -1,0 +1,7 @@
+dependencies {
+  compile project(':lib/common')
+  compile project(':lib/test-framework')
+  compile group: 'org.apache.zookeeper', name: 'zookeeper', version: project.zookeeperVersion
+  compile group: 'org.apache.kafka', name: 'kafka_2.10', version: project.kafkaVersion
+}
+

@@ -1,0 +1,10 @@
+eclipse {
+  project {
+    name = 'lib.test-framework'
+  }
+}
+
+dependencies {
+  compile project(':lib/common')
+  compile group: 'org.apache.zookeeper', name: 'zookeeper', version: project.zookeeperVersion
+}

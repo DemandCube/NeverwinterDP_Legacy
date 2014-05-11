@@ -1,0 +1,46 @@
+allprojects {
+
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'eclipse' 
+
+  eclipse {
+    classpath {
+      downloadSources=true
+    }
+  }
+
+  eclipse.classpath.defaultOutputDir = file( 'build/classes' )
+
+  group = 'com.neverwinterdp'
+  sourceCompatibility = 1.7
+  version = '1.0'
+  configurations.compile.transitive = true
+
+  project.ext {
+    kafkaVersion = "0.8.0"
+    jettyVersion = "9.2.0.M0"
+    zookeeperVersion = "3.4.6"
+  }
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+  }
+
+  test {
+    forkEvery = 1
+    ignoreFailures = true
+    testLogging.showStandardStreams = true
+
+    filter {
+      includeTestsMatching "*UnitTest"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+dependencies {
+  compile project(':lib/common')
+  compile project(':queuengin')
+  compile project(':sparkngin')
+  compile project(':scribengin')
+}
+
