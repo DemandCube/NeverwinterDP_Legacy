@@ -3,6 +3,7 @@ package com.neverwinterdp.sparkngin.vertx;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
+import org.vertx.java.core.net.NetServer;
 import org.vertx.java.platform.Verticle;
 
 public class HttpServerVerticle extends Verticle {
@@ -14,7 +15,6 @@ public class HttpServerVerticle extends Verticle {
     if(listenPort == 0) listenPort = 8080 ;    
     RouteMatcher matcher = new RouteMatcher();
     new MessageHandlers().configure(matcher, config);
-    
     final HttpServer server = getVertx().createHttpServer();
     server.requestHandler(matcher);
     server.listen(listenPort);
