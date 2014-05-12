@@ -1,3 +1,5 @@
+archivesBaseName = 'lib.common'
+
 eclipse {
   project {
     name = 'lib.common'

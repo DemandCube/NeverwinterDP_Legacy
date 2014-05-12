@@ -49,6 +49,10 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
     }
   }
   
+  public void close() {
+    consumer.shutdown(); 
+  }
+  
   static public class MessageConsumer<T> implements Runnable {
     private MessageConsumerHandler<T> handler ;
     private KafkaStream<byte[], byte[]> stream;

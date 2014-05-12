@@ -280,3 +280,26 @@ What should be othe priority ?
   - Choose General > Existing Projects into Workspace
   - Check Select root directory and browse to path/NeverwinterDP/code
   - Select all the projects except the code project, then click Finish
+
+##Release##
+
+1. To build
+  - cd NeverwinterDP/code
+  - gradle clean build
+2. To Release
+  - cd NeverwinterDP/code/release
+  - gradle clean release
+  - You will find the Queuengin, Sparkngin, Scribengin in the build/release directory
+3. To Test
+  - Run Queuengin(Refer to kafka document)
+    - Open a console, cd NeverwinterDP/code/release/Queuengin/bin, run ./zookeeper-server-start.sh ../config/zookeeper.properties
+    - Open a console, cd NeverwinterDP/code/release/Queuengin/bin, run ./kafka-server-start.sh ../config/server.properties
+    - Open a console, cd NeverwinterDP/code/release/Queuengin/bin, run ./queuengin.sh hello
+    - Run ./queuengin.sh hello for more options 
+  - Run Sparkngin
+    - Keep zookeeper and kafka server running
+    - Open a console, cd NeverwinterDP/code/release/Sparkngin/bin, run ./sparkngin.sh run to start the http service
+    - Open a console, cd NeverwinterDP/code/release/Sparkngin/bin, run ./sparkngin.sh hello to send some messages to the queuengin. If the kafka server is not running, You should get some Error Ack.
+  - Run Scribengin
+    - Keep zookeeper and kafka server running
+    - Open a console, cd NeverwinterDP/code/release/Scribengin/bin, run ./scribengin run --topic=HelloSparkngin, this will consume the messages that send by sparkngin.sh hello command.

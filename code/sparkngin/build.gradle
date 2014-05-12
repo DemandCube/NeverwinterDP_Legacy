@@ -1,8 +1,7 @@
-
 dependencies {
   compile project(':lib/common')
   compile project(':lib/test-framework')
-  compile project(':queuengin')
+  compile project(path: ':queuengin')
   compile group: 'org.eclipse.jetty', name: 'jetty-server', version: project.jettyVersion
   compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: project.jettyVersion
   compile group: 'io.vertx', name: 'vertx-core', version: '2.1RC2'
@@ -12,3 +11,52 @@ dependencies {
   testCompile group: 'io.vertx', name: 'testtools', version: '2.0.3-final'
 }
 
+task release (dependsOn: 'build') << {
+  def releaseDir = "${buildDir}/release/sparkngin"
+  doRelease(releaseDir) ;
+}
+
+def doRelease(String releaseDir) {
+  println "\n\n"
+  println "*************************************************"
+  println "Preparing the release directory ${releaseDir}"
+  println "*************************************************"
+
+  println "Copy the scripts"
+  copy {
+    from "src/app"
+    into "${releaseDir}"
+  }
+
+  def jars = [ 
+    "lib.common", "test-framework", "queuengin",
+    "jackson-core-asl", "jackson-mapper-asl",
+    "kafka", "scala-library",
+    "vertx-core", "vertx-platform", "netty-all",
+    "log4j", "slf4j-api", "slf4j-simple", "slf4j-log4j12",
+    "metrics-core", "metrics-annotation"
+  ] 
+
+  println "Copy the dependency library"
+  project(':sparkngin').configurations.compile.each { File file -> 
+    if(isIn(jars, file)) {
+      println "  Copy $file.name to sparkngin/libs"
+      copy {
+        from file
+        into "${releaseDir}/libs"
+      }
+    } else {
+      //println "Ignore $file.name "
+    }
+  }
+
+  copy {
+    from "${buildDir}/libs"
+    into "${releaseDir}/libs"
+
+  }
+}
+
+task dummy << {
+  println 'Hello dummy'
+}

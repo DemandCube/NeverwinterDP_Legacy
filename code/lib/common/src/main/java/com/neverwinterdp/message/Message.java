@@ -47,7 +47,7 @@ public class Message<T> {
   }
 
   @JsonIgnore
-  public T getDataAs(Class<T> type) throws Exception {
+  public T getDataAs(Class<T> type)  {
     if(data == null) return null ;
     return JSONSerializer.INSTANCE.fromBytes(data, type);
   }

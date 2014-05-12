@@ -15,8 +15,10 @@ public class MessageHandlers  {
   private KafkaMessageProducer producer ;
   
   public void configure(RouteMatcher matcher, JsonObject config) {
-    String kafkaConnectionUrls = "127.0.0.1:9090,127.0.0.1:9091" ; 
-    producer = new KafkaMessageProducer(kafkaConnectionUrls) ;
+    String brokerList = config.getString("broker-list") ;
+    if(brokerList == null) brokerList = "127.0.0.1:9090,127.0.0.1:9091" ;
+    
+    producer = new KafkaMessageProducer(brokerList) ;
     matcher.post("/message/:topic", new Post()) ;
   }
   

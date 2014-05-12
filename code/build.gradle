@@ -1,5 +1,4 @@
 allprojects {
-
 }
 
 subprojects {
@@ -44,3 +43,12 @@ subprojects {
     }
   }
 }
+
+
+def isIn(set, File file) {
+  for(item in set) {
+    if(file.name.startsWith(item)) return true ;
+  }
+  return false ;
+}
+

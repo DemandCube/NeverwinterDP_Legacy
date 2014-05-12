@@ -1,7 +1,27 @@
+apply plugin:'application'
+
+mainClassName = "org.gradle.sample.Main"
+
 dependencies {
-  compile project(':lib/common')
+  compile project(path: ':lib/common')
+  compile project(path: ':lib/test-framework')
   compile project(':queuengin')
-  compile project(':sparkngin')
+  compile project(path: ':sparkngin')
   compile project(':scribengin')
 }
+
+
+
+task release (dependsOn: 'build') << {
+
+  println '----------------------------------------------------'
+  println 'Build NeverwinterDP release'
+  println '----------------------------------------------------'
+  def releaseDir = "${buildDir}/release"
+  project(':queuengin').doRelease(releaseDir + "/Queuengin") 
+  project(':sparkngin').doRelease(releaseDir + "/Sparkngin") 
+  project(':scribengin').doRelease(releaseDir + "/Scribengin") 
+
+}
+
 
