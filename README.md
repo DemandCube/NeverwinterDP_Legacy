@@ -353,7 +353,31 @@ If you can't actually move issues around let me (Steve) know.
 
 * * *
 
+### Tools-Core:
+- ansible
+- gradle
 
+### Team Tools:
+- Github
+- Huboard
+- github-flow
+- ansible
+- vagrant
+
+### Supported Servers:
+- RHEL/CentOS
+- Ubuntu
+
+### Main Programming Languages:
+- Java
+- Python
+- Javascript
+- C
+
+## Other Languages:
+- Ruby
+
+* * * 
 
 Other
 ======
