@@ -2,6 +2,10 @@ package com.neverwinterdp.message;
 
 import java.util.Map;
 
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class MessageInstruction {
   private String targetService ;
   private String instruction ;

@@ -3,88 +3,60 @@ package com.neverwinterdp.message;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.type.TypeReference;
-
-import com.neverwinterdp.util.JSONSerializer;
-
-public class Message<T> {
-  private String       topic ;
-  private String       key ;
-  private byte[]       data;
-  
-  private boolean      logEnable ;
-  private List<MessageLog>    logs;
+/**
+ * @author Tuan Nguyen
+ * @email tuan08@gmail.com
+ */
+public class Message {
+  private MessageHeader            header = new MessageHeader();
+  private MessageData              data;
+  private List<MessageTrace>       traces;
+  private List<MessageInstruction> instructions;
 
   public Message() {
   }
-  
-  public Message(String key, T obj, boolean logEnable) {
-    this.key = key ;
-    setDataAs(obj) ;
-    this.logEnable = logEnable ;
+
+  public <T> Message(String key, T obj, boolean traceEnable) {
+    header.setTraceEnable(traceEnable);
+    ;
+    header.setKey(key);
+    data = new MessageData(null, obj);
   }
 
-  public String getTopic() { return this.topic ; }
-  public void   setTopic(String topic) {
-    this.topic = topic ;
-  }
-  
-  public String getKey() {
-    return key;
+  public MessageHeader getHeader() {
+    return this.header;
   }
 
-  public void setKey(String key) {
-    this.key = key;
+  public void setHeader(MessageHeader header) {
+    this.header = header;
   }
 
-  public byte[] getData() {
-    return data;
+  public MessageData getData() {
+    return this.data;
   }
 
-  public void setData(byte[] data) {
+  public void setData(MessageData data) {
     this.data = data;
   }
 
-  @JsonIgnore
-  public T getDataAs(Class<T> type)  {
-    if(data == null) return null ;
-    return JSONSerializer.INSTANCE.fromBytes(data, type);
-  }
-  
-  @JsonIgnore
-  public List<T> getDataAs(TypeReference<List<T>> tref) throws Exception {
-    return JSONSerializer.INSTANCE.fromBytes(data, tref);
-  }
-  
-  @JsonIgnore
-  public void setDataAs(T obj) {
-    if(obj == null) {
-      data = null; 
-    } else {
-      data = JSONSerializer.INSTANCE.toBytes(obj);
-    }
+  public List<MessageTrace> getTraces() {
+    return traces;
   }
 
-  
-  public boolean isLogEnable() {
-    return logEnable;
+  public void setTraces(List<MessageTrace> logs) {
+    this.traces = logs;
   }
 
-  public void setLogEnable(boolean logEnable) {
-    this.logEnable = logEnable;
+  public void addTrace(String serviceId, String message) {
+    if (traces == null) traces = new ArrayList<MessageTrace>();
+    traces.add(new MessageTrace(serviceId, message));
   }
 
-  public List<MessageLog> getLogs() {
-    return logs;
+  public List<MessageInstruction> getInstructions() {
+    return instructions;
   }
 
-  public void setLogs(List<MessageLog> logs) {
-    this.logs = logs;
-  }
-  
-  public void addLog(String serviceId, String message) {
-    if(logs == null) logs = new ArrayList<MessageLog>() ;
-    logs.add(new MessageLog(serviceId, message)) ;
+  public void setInstructions(List<MessageInstruction> instructions) {
+    this.instructions = instructions;
   }
 }

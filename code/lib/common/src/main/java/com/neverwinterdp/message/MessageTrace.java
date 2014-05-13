@@ -3,18 +3,24 @@ package com.neverwinterdp.message;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MessageLog {
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
+public class MessageTrace {
   final static public SimpleDateFormat COMPACT_DATE_TIME = new SimpleDateFormat("dd/MM/yyyy@HH:mm:ss")  ;
-  private String host ;
+  
+  private String host      ;
   private String serviceId ;
-  private long   time ;
+  private float  serviceVersion ;
+  private long   processTime ;
   private String message ;
   
-  public MessageLog() {} 
+  public MessageTrace() {} 
   
-  public MessageLog(String serviceId, String message) {
+  public MessageTrace(String serviceId, String message) {
     this.serviceId = serviceId ;
-    this.time = System.currentTimeMillis() ;
+    this.processTime = System.currentTimeMillis() ;
     this.message = message ;
   }
   
@@ -28,13 +34,21 @@ public class MessageLog {
   public void setServiceId(String serviceId) {
     this.serviceId = serviceId;
   }
-
-  public long getTime() {
-    return time;
+  
+  public float getServiceVersion() {
+    return serviceVersion;
   }
 
-  public void setTime(long time) {
-    this.time = time;
+  public void setServiceVersion(float serviceVersion) {
+    this.serviceVersion = serviceVersion;
+  }
+
+  public long getProcessTime() {
+    return processTime;
+  }
+
+  public void setProcessTime(long time) {
+    this.processTime = time;
   }
 
   public String getMessage() {
@@ -47,10 +61,9 @@ public class MessageLog {
   
   public String toString() {
     StringBuilder b = new StringBuilder("  ") ;
-    b.append(serviceId).
-      append("[").
-      append(COMPACT_DATE_TIME.format(new Date(time))).
-      append("] ").
+    b.append(COMPACT_DATE_TIME.format(new Date(processTime))).append(' ').
+      append(host).append(' ').
+      append(serviceId).append('-').append(serviceVersion).
       append(message) ;
     return b.toString() ;
   }
