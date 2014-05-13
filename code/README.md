@@ -287,6 +287,7 @@ What should be othe priority ?
   - cd NeverwinterDP/code
   - gradle clean build
 2. To Release
+  - Download kafka version _2.8.0-0.8.1.1, extract and save in the NeverwinterDP-dependencies/kafka_2.8.0-0.8.1.1, the NverwinterDP-dependencies shoule be at the same level with the repository NeverwinterDP directory  
   - cd NeverwinterDP/code/release
   - gradle clean release
   - You will find the Queuengin, Sparkngin, Scribengin in the build/release directory
