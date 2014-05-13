@@ -140,7 +140,7 @@ public class Server {
    * 1. The method should find the the registered service by the service descriptor in the command
    * 2. Call the method command.execute(server, service) method.
    * 3. Handle the exception such service not found or the command execute throw an exception.
-   * 4. This method cannot be called only if the server state is RUNNING.
+   * 4. This method can be called only if the server state is RUNNING.
    * @param command
    * @return
    */
