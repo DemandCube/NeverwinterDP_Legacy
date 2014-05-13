@@ -30,9 +30,9 @@ public class Main {
     }
     
     ReportMessageWriter writer = new ReportMessageWriter() ;
-    ScribeMessageHandler<Object> handler = new  ScribeMessageHandler<Object>(writer) ; 
+    ScribeMessageHandler handler = new  ScribeMessageHandler(writer) ; 
     
-    KafkaMessageConsumerConnector<Object> connector = new KafkaMessageConsumerConnector<Object>("Scribengin", zookeeperList) ;
+    KafkaMessageConsumerConnector connector = new KafkaMessageConsumerConnector("Scribengin", zookeeperList) ;
     connector.consume(topic, handler, 1) ;
     
     while(true) {

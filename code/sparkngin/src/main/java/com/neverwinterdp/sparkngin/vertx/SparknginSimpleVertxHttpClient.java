@@ -36,7 +36,7 @@ public class SparknginSimpleVertxHttpClient implements SparknginSimpleHttpClient
   
   public String getConnectionUrl() { return this.connectionUrl ; }
   
-  public <T> void send(String topic, final Message<T> message, final SendMessageHandler mHandler) {
+  public void send(String topic, final Message message, final SendMessageHandler mHandler) {
     HttpClientRequest postReq = client.post("/message/" + topic, new Handler<HttpClientResponse>() {
       public void handle(HttpClientResponse event) {
         event.bodyHandler(new Handler<Buffer>() {

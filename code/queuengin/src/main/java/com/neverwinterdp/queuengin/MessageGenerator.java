@@ -2,7 +2,7 @@ package com.neverwinterdp.queuengin;
 
 import com.neverwinterdp.message.Message;
 
-abstract public class MessageGenerator<T> {
+abstract public class MessageGenerator {
   private long numberOfMessages ;
   private long seqTracker ;
   
@@ -14,7 +14,7 @@ abstract public class MessageGenerator<T> {
     return seqTracker < numberOfMessages ;
   }
   
-  public Message<T> nextMessage() {
+  public Message nextMessage() {
     if(seqTracker < numberOfMessages) return createMessage(++seqTracker) ;
     return null ;
   }
@@ -23,7 +23,7 @@ abstract public class MessageGenerator<T> {
     seqTracker = 0 ;
   }
   
-  abstract protected Message<T> createMessage(long seq) ;
+  abstract protected Message createMessage(long seq) ;
   
   public void send(MessageProducer producer, String topic) throws Exception {
     while(hasNext()) {

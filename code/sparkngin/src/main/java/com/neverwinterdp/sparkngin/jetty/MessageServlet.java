@@ -36,12 +36,12 @@ public class MessageServlet extends HttpServlet {
       String topic = getTopic(req) ;
       InputStream is = req.getInputStream() ;
       String json = IOUtil.getStreamContentAsString(is, "UTF-8") ;
-      Message<?> jsonMessage = JSONSerializer.INSTANCE.fromString(json, Message.class) ;
-      if(jsonMessage.isLogEnable()) {
+      Message message = JSONSerializer.INSTANCE.fromString(json, Message.class) ;
+      if(message.getHeader().isTraceEnable()) {
         req.getLocalPort() ;
-        jsonMessage.addLog("JSONMessageServlet", "forward by http server, ip = " + req.getLocalAddr() + ", port " + req.getLocalPort()) ;
+        message.addTrace("JSONMessageServlet", "forward by http server, ip = " + req.getLocalAddr() + ", port " + req.getLocalPort()) ;
       }
-      producer.send(topic, jsonMessage) ;
+      producer.send(topic, message) ;
       ack.setStatus(SendAck.Status.OK) ;
     } catch (Exception e) {
       ack.setStatus(SendAck.Status.ERROR) ;

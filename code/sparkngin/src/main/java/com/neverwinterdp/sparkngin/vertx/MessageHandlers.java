@@ -33,13 +33,13 @@ public class MessageHandlers  {
           SendAck ack = new SendAck() ;
           byte[] bytes = buf.getBytes() ;
           try {
-            Message<?> jsonMessage = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
-            if(jsonMessage.isLogEnable()) {
+            Message message = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
+            if(message.getHeader().isTraceEnable()) {
               int port = req.localAddress().getPort() ;
               String addr = req.localAddress().getHostString() ;
-              jsonMessage.addLog("JSONMessageServlet", "forward by http server, ip = " + addr + ", port " + port) ;
+              message.addTrace("JSONMessageServlet", "forward by http server, ip = " + addr + ", port " + port) ;
             }
-            producer.send(topic, jsonMessage) ;
+            producer.send(topic, message) ;
             ack.setStatus(SendAck.Status.OK) ;
           } catch (Exception e) {
             ack.setStatus(SendAck.Status.ERROR) ;

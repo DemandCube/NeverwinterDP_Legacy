@@ -14,18 +14,18 @@ public class ReportMessageWriterUnitTest extends ClusterUnitTest {
     String topic = "topic" ;
     int numOfMessages = 10000000 ;
     
-    MessageGenerator<SampleEvent> generator = new MessageGenerator<SampleEvent>(numOfMessages) {
-      protected Message<SampleEvent> createMessage(long seq) {
+    MessageGenerator generator = new MessageGenerator(numOfMessages) {
+      protected Message createMessage(long seq) {
         SampleEvent event = new SampleEvent("event-" + seq, "event " + seq) ;
-        Message<SampleEvent> m = new Message<SampleEvent>("m" + seq, event, true) ;
+        Message m = new Message("m" + seq, event, true) ;
         return m ;
       }
     };
     Thread sender = generator.createSendWorker(kafkaCluster.createProducer(), topic);
     ReportMessageWriter writer = new ReportMessageWriter() ;
-    ScribeMessageHandler<SampleEvent> handler = new  ScribeMessageHandler<SampleEvent>(writer) ; 
+    ScribeMessageHandler handler = new  ScribeMessageHandler(writer) ; 
     
-    KafkaMessageConsumerConnector<SampleEvent> connector = kafkaCluster.createConnector("consumer") ;
+    KafkaMessageConsumerConnector connector = kafkaCluster.createConnector("consumer") ;
     connector.consume(topic, handler, 1) ;
     
     sender.start();

@@ -28,17 +28,17 @@ public class KafkaMessageProducer implements MessageProducer {
     producer = new Producer<String, String>(new ProducerConfig(props));
   }
 
-  public void send(String topic, Message<?> msg) throws Exception {
+  public void send(String topic, Message msg) throws Exception {
     String data = JSONSerializer.INSTANCE.toString(msg) ;
-    producer.send(new KeyedMessage<String, String>(topic, msg.getKey(), data));
+    producer.send(new KeyedMessage<String, String>(topic, msg.getHeader().getKey(), data));
   }
   
-  public void send(String topic, List<Message<?>> messages) throws Exception {
+  public void send(String topic, List<Message> messages) throws Exception {
     List<KeyedMessage<String, String>> holder = new ArrayList<KeyedMessage<String, String>>() ;
     for(int i = 0; i < messages.size(); i++) {
-      Message<?> m = messages.get(i) ;
+      Message m = messages.get(i) ;
       String data = JSONSerializer.INSTANCE.toString(m) ;
-      holder.add(new KeyedMessage<String, String>(topic, m.getKey(), data)) ;
+      holder.add(new KeyedMessage<String, String>(topic, m.getHeader().getKey(), data)) ;
     }
     producer.send(holder);
   }

@@ -37,15 +37,15 @@ public class HelloSparkngin {
     }
     
     SendMessageHandler sendHandler = new SendMessageHandler() {
-      public void onResponse(Message<?> message, SparknginSimpleHttpClient client, SendAck ack) {
-        SampleEvent event = ((Message<SampleEvent>) message).getDataAs(SampleEvent.class) ;
+      public void onResponse(Message msg, SparknginSimpleHttpClient client, SendAck ack) {
+        SampleEvent event =  msg.getData().getDataAs(SampleEvent.class) ;
         System.out.println("Ack: " + event.getDescription() + " " + ack.getStatus()) ;
       }
 
-      public void onError(Message<?> message, SparknginSimpleHttpClient client, Throwable error) {
+      public void onError(Message message, SparknginSimpleHttpClient client, Throwable error) {
       }
 
-      public void onRetry(Message<?> message, SparknginSimpleHttpClient client) {
+      public void onRetry(Message message, SparknginSimpleHttpClient client) {
       }
     };
     
@@ -54,7 +54,7 @@ public class HelloSparkngin {
     SparknginHttpClient client = new SparknginHttpClient(simpleClients) ; ;
     for(int i = 0; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
-      Message<SampleEvent> message = new Message<SampleEvent>("m" + i, event, true) ;
+      Message message = new Message("m" + i, event, true) ;
       client.send(topic, message, sendHandler) ;
       System.out.println("Send " + event.getDescription());
     } 

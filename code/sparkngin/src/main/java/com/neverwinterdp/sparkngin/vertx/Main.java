@@ -1,26 +1,34 @@
 package com.neverwinterdp.sparkngin.vertx;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vertx.java.core.json.JsonObject;
 
 public class Main {
+  static {
+    System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
+  }
+  static Logger logger = LoggerFactory.getLogger(Main.class);
+  
   static String getValue(String arg) {
     String[] array = arg.split("=", 2) ;
     return array[1] ;
   }
   
   static public void main(String[] args) throws Exception {
+    System.out.println("logger = " + logger.getClass());
     String brokerList = "127.0.0.1:9092" ;
     int listenPort = 8080 ;
 
-    System.out.println("Available options: ");
-    System.out.println("  --listen-port=8080");
-    System.out.println("  --broker-list=127.0.0.1:9092");
+    logger.info("Available options: ");
+    logger.info("  --listen-port=8080");
+    logger.info("  --broker-list=127.0.0.1:9092");
     if(args != null) {
       for(String arg : args) {
         if(arg.startsWith("--listen-port")) listenPort = Integer.parseInt(getValue(arg)) ;
         else if(arg.startsWith("--broker-list")) brokerList = getValue(arg) ;
         else {
-          System.out.println("Unknown option: " + arg);
+          logger.error("Unknown option: " + arg);
           return ;
         }
       }

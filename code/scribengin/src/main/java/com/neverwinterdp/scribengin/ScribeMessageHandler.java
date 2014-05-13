@@ -3,17 +3,17 @@ package com.neverwinterdp.scribengin;
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.MessageConsumerHandler;
 
-public class ScribeMessageHandler<T> implements MessageConsumerHandler<T> {
+public class ScribeMessageHandler implements MessageConsumerHandler {
   private MessageWriter writer ;
   
   public ScribeMessageHandler(MessageWriter writer) {
     this.writer = writer ;
   }
   
-  public void onMessage(Message<T> message) {
+  public void onMessage(Message message) {
     writer.write(message) ;
   }
 
-  public void onErrorMessage(Message<T> message, Throwable error) {
+  public void onErrorMessage(Message message, Throwable error) {
   }
 }

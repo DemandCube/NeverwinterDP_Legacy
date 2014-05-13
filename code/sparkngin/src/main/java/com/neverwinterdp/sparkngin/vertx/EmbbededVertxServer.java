@@ -3,6 +3,8 @@ package com.neverwinterdp.sparkngin.vertx;
 import java.io.File;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vertx.java.core.AsyncResult;
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.json.JsonObject;
@@ -10,6 +12,8 @@ import org.vertx.java.platform.PlatformLocator;
 import org.vertx.java.platform.PlatformManager;
 
 public class EmbbededVertxServer {
+  static Logger logger = LoggerFactory.getLogger(Main.class);
+  
   private PlatformManager pm ;
   private URL[] classpathURL ;
   
@@ -42,7 +46,7 @@ public class EmbbededVertxServer {
     pm.deployVerticle(className, conf, classpathURL, numOfInstances, null, new Handler<AsyncResult<String>>() {
       public void handle(AsyncResult<String> event) {
         if (event.succeeded()) {
-          System.out.println("Deployed " + className + ", ID = " + event.result());
+          logger.info("Deployed " + className + ", ID = " + event.result());
         } else {
           event.cause().printStackTrace();
         }

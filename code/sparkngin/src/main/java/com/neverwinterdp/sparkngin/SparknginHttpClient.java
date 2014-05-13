@@ -10,7 +10,7 @@ public class SparknginHttpClient {
     this.client = client; 
   }
   
-  public <T> void send(String topic, Message<T> message, SendMessageHandler handler) {
+  public void send(String topic, Message message, SendMessageHandler handler) {
     //TODO: if the client fail to send, remove the client from the list
     //      retry another one
     SparknginSimpleHttpClient client = next() ;

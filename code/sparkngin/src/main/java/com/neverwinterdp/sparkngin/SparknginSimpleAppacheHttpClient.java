@@ -26,7 +26,7 @@ public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClie
   
   public String getConnectionUrl() { return this.connectionUrl ; }
   
-  public <T> void send(String topic, Message<T> message, SendMessageHandler handler) {
+  public void send(String topic, Message message, SendMessageHandler handler) {
     try {
       SendAck ack = send(topic, message) ;
       handler.onResponse(message, this, ack);
@@ -35,7 +35,7 @@ public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClie
     }
   }
 
-  <T> SendAck send(String topic, Message<T> message) throws Exception {
+  SendAck send(String topic, Message message) throws Exception {
     String url = connectionUrl + "/message/" + topic ;  
     HttpPost postRequest = new HttpPost(url);
     String json = JSONSerializer.INSTANCE.toString(message);

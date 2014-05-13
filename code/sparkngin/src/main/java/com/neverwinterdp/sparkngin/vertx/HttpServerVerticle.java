@@ -1,5 +1,7 @@
 package com.neverwinterdp.sparkngin.vertx;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
@@ -7,6 +9,7 @@ import org.vertx.java.platform.Verticle;
 
 public class HttpServerVerticle extends Verticle {
   final static public String REPLY_MESSAGE = "pong!" ;
+  static Logger logger = LoggerFactory.getLogger(Main.class);
   
   public void start() {
     JsonObject config = container.config();
@@ -17,6 +20,6 @@ public class HttpServerVerticle extends Verticle {
     final HttpServer server = getVertx().createHttpServer();
     server.requestHandler(matcher);
     server.listen(listenPort);
-    System.out.println("HTTP Server started on " + listenPort);
+    logger.info("HTTP Server started on " + listenPort);
   }
 }

@@ -26,7 +26,7 @@ public class HelloQueuengin {
         KafkaMessageProducer producer = new KafkaMessageProducer(brokerList) ;
         for(int i = 0 ; i < numOfMessages; i++) {
           SampleEvent event = new SampleEvent("event-" + i, "Hello Queuengin " + i) ;
-          Message<SampleEvent> jsonMessage = new Message<SampleEvent>("m" + i, event, false) ;
+          Message jsonMessage = new Message("m" + i, event, false) ;
           producer.send(topic,  jsonMessage) ;
           if(mode == MODE_VERBOSE) {
             System.out.println("Produce: " + event.getDescription()); 
@@ -46,7 +46,7 @@ public class HelloQueuengin {
     }
   }
   
-  static public class HelloMessageConsumerHandler implements MessageConsumerHandler<SampleEvent> {
+  static public class HelloMessageConsumerHandler implements MessageConsumerHandler {
     private int count =  0 ;
     int mode = 1 ;
     
@@ -56,10 +56,10 @@ public class HelloQueuengin {
     
     public int messageCount() { return count ; }
     
-    public void onMessage(Message<SampleEvent> jsonMessage) {
+    public void onMessage(Message jsonMessage) {
       count++ ;
       try {
-        SampleEvent event = jsonMessage.getDataAs(SampleEvent.class);
+        SampleEvent event = jsonMessage.getData().getDataAs(SampleEvent.class);
         if(mode == MODE_VERBOSE) {
           System.out.println("Consume: " + event.getDescription()); 
         } else {
@@ -72,7 +72,7 @@ public class HelloQueuengin {
       }
     }
 
-    public void onErrorMessage(Message<SampleEvent> message, Throwable error) {
+    public void onErrorMessage(Message message, Throwable error) {
     }
     
     public void close() {
@@ -121,8 +121,8 @@ public class HelloQueuengin {
     producerThread.start(); 
    
     HelloMessageConsumerHandler  handler = new HelloMessageConsumerHandler(mode) ;
-    KafkaMessageConsumerConnector<SampleEvent> consumer = 
-        new KafkaMessageConsumerConnector<SampleEvent>("consumer", zookeeperList) ;
+    KafkaMessageConsumerConnector consumer = 
+        new KafkaMessageConsumerConnector("consumer", zookeeperList) ;
     consumer.consume(topic, handler, 1) ;
     while(producerThread.isAlive()) {
       Thread.sleep(1000);
