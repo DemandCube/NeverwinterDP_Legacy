@@ -1,4 +1,4 @@
-package com.neverwinterdp.server.hazelcast;
+package com.neverwinterdp.cluster.hazelcast;
 
 import org.junit.Test;
 

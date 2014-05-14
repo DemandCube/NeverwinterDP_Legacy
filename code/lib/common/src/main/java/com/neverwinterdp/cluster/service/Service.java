@@ -1,6 +1,6 @@
-package com.neverwinterdp.service;
+package com.neverwinterdp.cluster.service;
 
-import com.neverwinterdp.server.Server;
+import com.neverwinterdp.cluster.ClusterMemberInstance;
 
 
 /**
@@ -30,14 +30,14 @@ public interface Service {
    * this method is called when the server init
    * @param server
    */
-  public void onInit(Server server) ;
+  public void onInit(ClusterMemberInstance server) ;
   
   /**
    * this method is called when the server destroy, the service should release all the resources
    * in this method.
    * @param server
    */
-  public void onDestroy(Server server) ;
+  public void onDestroy(ClusterMemberInstance server) ;
   
   /**
    * This method is designed to start the service and change the service state to START. 

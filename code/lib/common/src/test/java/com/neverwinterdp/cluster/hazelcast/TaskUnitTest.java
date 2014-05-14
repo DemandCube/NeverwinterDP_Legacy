@@ -1,4 +1,4 @@
-package com.neverwinterdp.server.hazelcast;
+package com.neverwinterdp.cluster.hazelcast;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -46,6 +46,7 @@ public class TaskUnitTest  {
   public void testGetOnLongRunningTask() throws Exception {
     // Submit the hello task on instance 1
     IExecutorService exService = instance1.getExecutorService("default");
+    instance2.getCluster().getLocalMember().setStringAttribute("instance", "instance2");
     Map<Member, Future<Object>> futures = exService.submitToAllMembers(new HelloTask());
     Iterator<Future<Object>> itr = futures.values().iterator() ;
     while(itr.hasNext()) {
@@ -62,6 +63,7 @@ public class TaskUnitTest  {
     public Object call() throws Exception {
       Member member = hazelcastInstance.getCluster().getLocalMember() ;
       System.out.println(member + " task: Started. Sleep for 1 seconds");
+      System.out.println(member + " instance attribute = " + member.getStringAttribute("instance"));
       Thread.sleep(1000);
       System.out.println(member + "task: Finished");
       return "Hello from " + member;

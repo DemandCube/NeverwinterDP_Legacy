@@ -1,4 +1,4 @@
-package com.neverwinterdp.service;
+package com.neverwinterdp.cluster.service;
 
 /**
  * @author Tuan Nguyen

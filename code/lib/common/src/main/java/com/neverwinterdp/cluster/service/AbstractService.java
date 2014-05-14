@@ -1,6 +1,6 @@
-package com.neverwinterdp.service;
+package com.neverwinterdp.cluster.service;
 
-import com.neverwinterdp.server.Server;
+import com.neverwinterdp.cluster.ClusterMemberInstance;
 
 abstract public class AbstractService implements Service {
   private ServiceConfig config ;
@@ -17,7 +17,7 @@ abstract public class AbstractService implements Service {
 
   public ServiceDescriptor getServiceDescriptor() { return descriptor ; }
 
-  public <T> T execute(Server server, ServiceCommand<T> command) {
+  public <T> T execute(ClusterMemberInstance server, ServiceCommand<T> command) {
     return command.execute(server, this);
   }
 }

@@ -1,9 +1,9 @@
-package com.neverwinterdp.server;
+package com.neverwinterdp.cluster;
 
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-public enum ServerState { 
+public enum ClusterMemberState { 
   INIT, RUNNING, SHUTDOWN
 }
