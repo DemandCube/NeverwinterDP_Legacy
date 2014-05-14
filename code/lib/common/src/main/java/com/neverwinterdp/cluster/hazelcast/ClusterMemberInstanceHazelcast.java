@@ -30,6 +30,7 @@ public class ClusterMemberInstanceHazelcast extends AbstractClusterMemberInstanc
   
   public void onDestroy() {
     super.onDestroy() ; 
+    hzinstance.shutdown(); 
   }
   
   public <T> T execute(ServiceCommand<T> command) {

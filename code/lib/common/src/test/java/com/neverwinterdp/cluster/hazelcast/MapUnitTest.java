@@ -21,6 +21,8 @@ public class MapUnitTest {
     
     IMap<String, Object> map2 = instance2.getMap("default");
     System.out.println("map2 get test = " + map2.get("test"));
+    instance1.shutdown(); 
+    instance2.shutdown(); 
   }
   
   Config createConfig(int port) {
