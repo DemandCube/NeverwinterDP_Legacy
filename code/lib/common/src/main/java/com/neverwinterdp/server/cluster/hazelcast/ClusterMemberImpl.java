@@ -1,0 +1,63 @@
+package com.neverwinterdp.server.cluster.hazelcast;
+
+import java.util.Set;
+
+import com.hazelcast.core.Member;
+import com.neverwinterdp.server.ServerConfig;
+import com.neverwinterdp.server.ServerState;
+import com.neverwinterdp.server.cluster.ClusterMember;
+
+class ClusterMemberImpl implements ClusterMember {
+  final static public String VERSION = "version" ; 
+  final static public String DESCRIPTION = "description" ; 
+      
+  private Member member ;
+  
+  public ClusterMemberImpl() {
+    
+  }
+  
+  ClusterMemberImpl(Member member) {
+    this.member = member ;
+  }
+  
+  ClusterMemberImpl(Member member, ServerConfig config) {
+    this.member = member ;
+    this.member.setFloatAttribute(VERSION, config.getVersion());
+  }
+
+  public String getHost() {
+    return member.getSocketAddress().getHostName() ;
+  }
+  
+  public String getIpAddress() {
+    return member.getSocketAddress().getAddress().getHostAddress() ;
+  }
+
+  public int getPort() {
+    return member.getSocketAddress().getPort() ;
+  }
+
+  public float getVersion() {
+    return member.getFloatAttribute(VERSION);
+  }
+
+  public ServerState getState() {
+    String state = member.getStringAttribute("state") ;
+    return ServerState.valueOf(state) ;
+  }
+
+  public void setState(ServerState state) {
+    member.setStringAttribute("state", state.toString());
+  }
+  
+  public Set<String> getRoles() {
+    return null;
+  }
+
+  public String getDescription() {
+    return member.getStringAttribute(DESCRIPTION) ;
+  }
+  
+  public Member getHazelcastMember() { return this.member ; }
+}

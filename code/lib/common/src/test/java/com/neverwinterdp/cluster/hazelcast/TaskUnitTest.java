@@ -33,17 +33,19 @@ public class TaskUnitTest  {
     instance1 = Hazelcast.newHazelcastInstance(config);
     instance2 = Hazelcast.newHazelcastInstance(config);
     instance3 = Hazelcast.newHazelcastInstance(config);
+    System.out.println("\n\nsetup\n\n");
   }
   
   @After
   public void teardown() {
+    System.out.println("teardown");
     instance1.getLifecycleService().shutdown();
     instance2.getLifecycleService().shutdown();
     instance3.getLifecycleService().shutdown();
   }
   
   @Test
-  public void testGetOnLongRunningTask() throws Exception {
+  public void testTask() throws Exception {
     // Submit the hello task on instance 1
     IExecutorService exService = instance1.getExecutorService("default");
     instance2.getCluster().getLocalMember().setStringAttribute("instance", "instance2");
