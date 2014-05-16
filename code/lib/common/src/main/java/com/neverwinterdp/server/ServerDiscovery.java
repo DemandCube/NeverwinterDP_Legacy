@@ -7,23 +7,25 @@ import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.service.ServiceDescriptor;
 
 public class ServerDiscovery implements Serializable {
+  private ServerState serverState ;
   private ClusterMember member ;
-  private ServiceDescriptor[] services ;
+  private List<ServiceDescriptor> services ;
   
   public ServerDiscovery() {
     
   }
   
-  public ServerDiscovery(ClusterMember member, ServiceDescriptor[] services) {
+  public ServerDiscovery(ServerState state, ClusterMember member, List<ServiceDescriptor> services) {
+    this.serverState = state ;
     this.member = member ;
     this.services = services ;
   }
 
+  public ServerState getServerState() { return this.serverState ; }
+  
   public ClusterMember getMember() {
     return member;
   }
 
-  public ServiceDescriptor[] getServices() {
-    return services;
-  }
+  public List<ServiceDescriptor> getServices() { return services; }
 }

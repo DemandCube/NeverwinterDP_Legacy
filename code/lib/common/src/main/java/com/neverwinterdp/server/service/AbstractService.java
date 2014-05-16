@@ -1,5 +1,7 @@
 package com.neverwinterdp.server.service;
 
+import com.neverwinterdp.server.Server;
+
 
 abstract public class AbstractService implements Service {
   private ServiceConfig config ;
@@ -15,4 +17,12 @@ abstract public class AbstractService implements Service {
   }
 
   public ServiceDescriptor getServiceDescriptor() { return descriptor ; }
+  
+  public void onInit(Server server) {
+    
+  }
+  
+  public void onDestroy(Server server) {
+    
+  }
 }

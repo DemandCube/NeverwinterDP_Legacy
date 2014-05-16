@@ -5,7 +5,6 @@ import java.util.Set;
 
 import com.hazelcast.core.Member;
 import com.neverwinterdp.server.ServerConfig;
-import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterMember;
 
 class ClusterMemberImpl implements ClusterMember, Serializable {
@@ -27,6 +26,8 @@ class ClusterMemberImpl implements ClusterMember, Serializable {
     this.member.setFloatAttribute(VERSION, config.getVersion());
   }
 
+  public String getId() { return member.getUuid() ; }
+  
   public String getHost() {
     return member.getSocketAddress().getHostName() ;
   }
@@ -43,15 +44,6 @@ class ClusterMemberImpl implements ClusterMember, Serializable {
     return member.getFloatAttribute(VERSION);
   }
 
-  public ServerState getState() {
-    String state = member.getStringAttribute("state") ;
-    return ServerState.valueOf(state) ;
-  }
-
-  public void setState(ServerState state) {
-    member.setStringAttribute("state", state.toString());
-  }
-  
   public Set<String> getRoles() {
     return null;
   }
@@ -61,4 +53,8 @@ class ClusterMemberImpl implements ClusterMember, Serializable {
   }
   
   public Member getHazelcastMember() { return this.member ; }
+  
+  public String toString() {
+    return getIpAddress() +  ":" + getPort() ;
+  }
 }

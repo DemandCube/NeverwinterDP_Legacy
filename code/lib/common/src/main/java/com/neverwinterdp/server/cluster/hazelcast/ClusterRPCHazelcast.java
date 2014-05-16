@@ -97,22 +97,27 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
   }
   
   public void broadcast(ClusterEvent event) {
-    //event.setSourceMember(member);
+    server.getLogger().info("Start broadcast(event), event = " + event.getType());
+    event.setSourceMember(member);
     clusterEventTopic.publish(event);
+    server.getLogger().info("Finish broadcast(event), event = " + event.getType());
   }
 
   public void onMessage(Message<ClusterEvent> message) {
     long start = System.currentTimeMillis() ;
     ClusterEvent event = message.getMessageObject() ;
+    server.getLogger().info("Start onMessage(...), event = " + event.getType());
     for(int i = 0; i < listeners.size(); i++) {
       ClusterListener<Server> listener = listeners.get(i) ;
       listener.onEvent(server, event) ;
     }
     long end = System.currentTimeMillis() ;
-    String msg = "Received an event " +  event.getType() + " " + event.getSource() + " from xyz" ;
+    String msg = "Received an event " +  event.getType() + " " + event.getSource() + " from " + event.getSourceAddress();
     String activityLogName = event.getType().toString() ;
     ActivityLog log = new ActivityLog(activityLogName, ActivityLog.Type.ClusterEvent, start, end, msg) ;
-    server.getActivityLogs().add(log); ;
+    server.getActivityLogs().add(log);
+    server.getLogger().info(log.toString());
+    server.getLogger().info("Finish onMessage(...), event = " + event.getType());
   }
   
   static public ClusterRPCHazelcast getClusterRPC(HazelcastInstance hzinstance) {

@@ -13,6 +13,8 @@ public class ClusterEvent implements Serializable {
   final static public Type ServerStateChange = Type.ServerStateChange ;
   
   private Type              type;
+  private String            sourceMemberId ;
+  private String            sourceAddress ;
   private ServiceDescriptor sourceService;
   private Object            source;
 
@@ -41,11 +43,40 @@ public class ClusterEvent implements Serializable {
     this.sourceService = sourceService;
   }
 
+  public String getSourceMemberId() {
+    return sourceMemberId;
+  }
+
+  public void setSourceMemberId(String id) {
+    this.sourceMemberId = id;
+  }
+  
+  public String getSourceAddress() {
+    return sourceAddress;
+  }
+
+  public void setSourceAddress(String sourceAddress) {
+    this.sourceAddress = sourceAddress;
+  }
+
+  public void setSourceMember(ClusterMember sourceMember) {
+    this.sourceMemberId = sourceMember.getId();
+    this.sourceAddress = sourceMember.getIpAddress() + ":" + sourceMember.getPort() ;
+  }
+
   public Object getSource() {
     return source;
   }
 
   public void setSource(Object source) {
     this.source = source;
+  }
+  
+  public String toString() {
+    StringBuilder b = new StringBuilder() ;
+    b.append("Event = " + type).
+      append(", source address = ").append(sourceAddress).
+      append(", source  = ").append(source) ;
+    return b.toString() ;
   }
 }

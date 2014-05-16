@@ -29,6 +29,7 @@ class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializ
     if(command.isLogEnable()) start = System.currentTimeMillis() ;
     ClusterRPCHazelcast rpc = ClusterRPCHazelcast.getClusterRPC(hzInstance) ;
     Server server = rpc.getServer() ;
+    server.getLogger().info("Start execute command " + command.getActivityLogName());
     T result = command.execute(server) ;
     if(command.isLogEnable()) {
       end = System.currentTimeMillis() ;
@@ -37,6 +38,7 @@ class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializ
       ActivityLog log = new ActivityLog(name, ActivityLog.Type.Command, start, end, msg) ;
       server.getActivityLogs().add(log);
     }
+    server.getLogger().info("Finish execute command " + command.getActivityLogName());
     return result ;
   }
   

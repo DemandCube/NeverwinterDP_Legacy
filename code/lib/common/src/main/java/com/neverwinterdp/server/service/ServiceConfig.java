@@ -1,6 +1,5 @@
 package com.neverwinterdp.server.service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,9 +11,10 @@ public class ServiceConfig {
   private String              name;
   private float               version;
   private String              className;
-  private Map<String, String> properties = new HashMap<String, String>();
   private String              description;
-
+  
+  private Map<String, Object> parameters ;
+  
   public String getServiceId() {
     return this.serviceId;
   }
@@ -47,19 +47,19 @@ public class ServiceConfig {
     this.className = className;
   }
 
-  public Map<String, String> getProperties() {
-    return properties;
-  }
-
-  public void setProperties(Map<String, String> properties) {
-    this.properties = properties;
-  }
-
   public String getDescription() {
     return description;
   }
 
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Map<String, Object> getParameters() {
+    return parameters;
+  }
+
+  public void setParameters(Map<String, Object> parameters) {
+    this.parameters = parameters;
   }
 }

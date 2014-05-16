@@ -17,6 +17,10 @@ public class Configuration {
     this.server = server ;
   }
   
+  public ServiceConfig getServiceConfig(String id) {
+    return services.get(id) ;
+  }
+  
   public List<ServiceConfig> getServices() {
     ArrayList<ServiceConfig> holder = new ArrayList<ServiceConfig>() ;
     holder.addAll(services.values()) ;

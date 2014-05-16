@@ -61,9 +61,11 @@ public class ClusterClientHazelcast implements ClusterClient,  MessageListener<C
       ClusterListener<ClusterClient> listener = listeners.get(i) ;
       listener.onEvent(this, event) ;
     }
+    System.out.println("Client got and event: " + event);
   }
   
   public void shutdown() {
+    clusterEventTopic.removeMessageListener(clusterEventTopicListenerId) ;
     hzclient.shutdown(); 
   }
 }

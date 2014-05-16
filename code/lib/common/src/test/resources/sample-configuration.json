@@ -12,7 +12,14 @@
     {
       "serviceId": "TestService",
       "name":  "Test",
-      "className": "TestService"
+      "className": "TestService",
+      "parameters" : {
+        "string": "a string",
+        "integer": 1,
+        "object": {
+          "nested string": "a nested string"
+        }
+      }  
     } 
   ]
 }

@@ -1,7 +1,12 @@
 package com.neverwinterdp.server;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.neverwinterdp.server.cluster.ClusterEvent;
 import com.neverwinterdp.server.cluster.ClusterRPC;
@@ -16,11 +21,13 @@ import com.neverwinterdp.server.service.ServiceDescriptor;
  * of the services.
  */
 public class Server {
+  private Logger logger ;
+  
   private ServerConfig config ;
   private ClusterRPC   clusterRPC   ;
   private Map<String, Service> services = new ConcurrentHashMap<String, Service>() ; 
   private ActivityLogs  activityLogs = new ActivityLogs() ;
-  
+  private ServerState serverState = null ;
   /**
    * The configuration for the server such name, group, version, description, listen port. It also
    * may contain the service configurations
@@ -31,11 +38,28 @@ public class Server {
   
   public ClusterRPC getClusterRPC() { return clusterRPC ; }
   
-  public ServerState getServerState() {
-    return clusterRPC.getMember().getState() ;
+  public ServerState getServerState() { return serverState ; }
+  
+  public void setServerState(ServerState state) {
+    this.serverState = state ;
   }
   
   public ActivityLogs  getActivityLogs() { return this.activityLogs ; }
+  
+  public ServerDiscovery getServerDiscovery() {
+    List<ServiceDescriptor> serviceDescriptors = new ArrayList<ServiceDescriptor>() ;
+    for(Service service : services.values()) {
+      serviceDescriptors.add(service.getServiceDescriptor()) ;
+    }
+    return new ServerDiscovery(serverState, null, serviceDescriptors) ;
+  }
+  
+  public Logger getLogger() { return this.logger ; }
+  
+  public Logger getLogger(String name) { 
+    String address = clusterRPC.getMember().toString() ;
+    return LoggerFactory.getLogger("[" + address + "][NeverwinterDP] " + name) ;
+  }
   
   /**
    * This lifecycle method be called after the configuration is set. The method should:
@@ -49,9 +73,14 @@ public class Server {
     long start = System.currentTimeMillis() ;
     clusterRPC = new ClusterRPCHazelcast() ;
     clusterRPC.onInit(this);
-    clusterRPC.getMember().setState(ServerState.INIT);
+    
+    logger = getLogger(getClass().getSimpleName()) ;
+    logger.info("Start onInit()");
+    
+    setServerState(ServerState.INIT);
     long end = System.currentTimeMillis() ;
     activityLogs.add(new ActivityLog("Init", ActivityLog.Type.Auto, start, end, null)) ;
+    logger.info("Finish onInit()");
   }
   
   /**
@@ -60,7 +89,9 @@ public class Server {
    * 2. Release all the resources if necessary, save the monitor or profile information.
    */
   public void onDestroy() {
+    logger.info("Start onDestroy()");
     clusterRPC.onDestroy(this);
+    logger.info("Finish onDestroy()");
   }
   
   /**
@@ -73,23 +104,27 @@ public class Server {
    * 2. Loop through all the services, call service.start().
    */
   public void start() {
+    logger.info("Start start()");
     if(ServerState.RUNNING.equals(getServerState())) return ;
     for(Service service : services.values()) {
       service.start() ; 
     }
-    clusterRPC.getMember().setState(ServerState.RUNNING);
-    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, ServerState.RUNNING) ;
+    setServerState(ServerState.RUNNING) ;
+    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, getServerState()) ;
     clusterRPC.broadcast(clusterEvent);
+    logger.info("Finish start()");
   }
   /**
    * This method is used to stop all the services usually it is used to simmulate the 
    * server shutdown or suspend.
    */
   public void shutdown() {
+    logger.info("Start shutdown()");
     if(ServerState.SHUTDOWN.equals(getServerState())) return ;
-    clusterRPC.getMember().setState(ServerState.SHUTDOWN);
-    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, ServerState.SHUTDOWN) ;
+    setServerState(ServerState.SHUTDOWN);
+    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, getServerState()) ;
     clusterRPC.broadcast(clusterEvent);
+    logger.info("Finish shutdown()");
   }
   
   /**
