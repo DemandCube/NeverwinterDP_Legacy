@@ -1,6 +1,7 @@
 package com.neverwinterdp.server.service;
 
 import com.neverwinterdp.server.Server;
+import com.neverwinterdp.server.config.ServiceConfig;
 
 /**
  * @author Tuan Nguyen

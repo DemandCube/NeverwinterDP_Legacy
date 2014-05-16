@@ -1,4 +1,4 @@
-package com.neverwinterdp.server.service;
+package com.neverwinterdp.server.config;
 
 import java.util.Map;
 
@@ -16,6 +16,7 @@ public class ServiceConfig {
   private Map<String, Object> parameters ;
   
   public String getServiceId() {
+    if(serviceId == null) return className ;
     return this.serviceId;
   }
 

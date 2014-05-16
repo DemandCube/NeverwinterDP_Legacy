@@ -9,10 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.neverwinterdp.server.cluster.ClusterEvent;
+import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.ClusterRPC;
 import com.neverwinterdp.server.cluster.hazelcast.ClusterRPCHazelcast;
+import com.neverwinterdp.server.config.ServerConfig;
+import com.neverwinterdp.server.config.ServiceConfig;
 import com.neverwinterdp.server.service.Service;
 import com.neverwinterdp.server.service.ServiceDescriptor;
+import com.neverwinterdp.server.service.ServiceState;
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
@@ -25,7 +29,7 @@ public class Server {
   
   private ServerConfig config ;
   private ClusterRPC   clusterRPC   ;
-  private Map<String, Service> services = new ConcurrentHashMap<String, Service>() ; 
+  private ServiceContainer serviceContainer ;
   private ActivityLogs  activityLogs = new ActivityLogs() ;
   private ServerState serverState = null ;
   /**
@@ -46,12 +50,13 @@ public class Server {
   
   public ActivityLogs  getActivityLogs() { return this.activityLogs ; }
   
+  public ServiceContainer getServiceContainer() {
+    return serviceContainer ;
+  }
+  
   public ServerDiscovery getServerDiscovery() {
-    List<ServiceDescriptor> serviceDescriptors = new ArrayList<ServiceDescriptor>() ;
-    for(Service service : services.values()) {
-      serviceDescriptors.add(service.getServiceDescriptor()) ;
-    }
-    return new ServerDiscovery(serverState, null, serviceDescriptors) ;
+    List<ServiceDescriptor> serviceDescriptors = serviceContainer.getServiceDescriptors();
+    return new ServerDiscovery(serverState, serviceDescriptors) ;
   }
   
   public Logger getLogger() { return this.logger ; }
@@ -73,10 +78,10 @@ public class Server {
     long start = System.currentTimeMillis() ;
     clusterRPC = new ClusterRPCHazelcast() ;
     clusterRPC.onInit(this);
-    
     logger = getLogger(getClass().getSimpleName()) ;
+    serviceContainer = new ServiceContainer() ;
+    serviceContainer.onInit(this);
     logger.info("Start onInit()");
-    
     setServerState(ServerState.INIT);
     long end = System.currentTimeMillis() ;
     activityLogs.add(new ActivityLog("Init", ActivityLog.Type.Auto, start, end, null)) ;
@@ -90,6 +95,7 @@ public class Server {
    */
   public void onDestroy() {
     logger.info("Start onDestroy()");
+    serviceContainer.onDestroy(this);
     clusterRPC.onDestroy(this);
     logger.info("Finish onDestroy()");
   }
@@ -106,9 +112,7 @@ public class Server {
   public void start() {
     logger.info("Start start()");
     if(ServerState.RUNNING.equals(getServerState())) return ;
-    for(Service service : services.values()) {
-      service.start() ; 
-    }
+    serviceContainer.start(); 
     setServerState(ServerState.RUNNING) ;
     ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, getServerState()) ;
     clusterRPC.broadcast(clusterEvent);
@@ -121,52 +125,10 @@ public class Server {
   public void shutdown() {
     logger.info("Start shutdown()");
     if(ServerState.SHUTDOWN.equals(getServerState())) return ;
+    serviceContainer.stop() ; 
     setServerState(ServerState.SHUTDOWN);
     ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, getServerState()) ;
     clusterRPC.broadcast(clusterEvent);
     logger.info("Finish shutdown()");
-  }
-  
-  /**
-   * This method is used to find a specifice service by the service id
-   * @param serviceId
-   * @return
-   */
-  public Service getService(String serviceId) {
-    return services.get(serviceId) ;
-  }
-  
-  /**
-   * This method is used to find a specifice service by the service descriptor
-   * @param descriptor
-   * @return
-   */
-  public Service getService(ServiceDescriptor descriptor) {
-    return getService(descriptor.getServiceId()) ;
-  }
-  
-  public Service[] getServices() {
-    return services.values().toArray(new Service[services.size()]) ;
-  }
-  
-  /**
-   * This method is used to dynamically add a service
-   * @param service
-   */
-  public void register(Service service) {
-    
-  }
-  
-  /**
-   * This method is used to dynamically remove a service
-   * @param service
-   */
-  public void remove(String serviceId) {
-    Service service = services.get(serviceId) ;
-    if(service != null) {
-      services.remove(serviceId) ;
-      service.stop() ;
-      service.onDestroy(null);
-    }
   }
 }

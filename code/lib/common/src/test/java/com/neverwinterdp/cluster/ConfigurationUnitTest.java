@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.neverwinterdp.server.Configuration;
+import com.neverwinterdp.server.config.Configuration;
 import com.neverwinterdp.util.IOUtil;
 import com.neverwinterdp.util.JSONSerializer;
 

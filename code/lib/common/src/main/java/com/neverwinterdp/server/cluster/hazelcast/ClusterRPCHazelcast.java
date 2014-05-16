@@ -21,9 +21,10 @@ import com.neverwinterdp.server.cluster.ClusterEvent;
 import com.neverwinterdp.server.cluster.ClusterListener;
 import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.ClusterRPC;
-import com.neverwinterdp.server.command.Command;
-import com.neverwinterdp.server.command.CommandResult;
-import com.neverwinterdp.server.service.ServiceCommand;
+import com.neverwinterdp.server.command.ServerCommand;
+import com.neverwinterdp.server.command.ServerCommandResult;
+import com.neverwinterdp.server.command.ServiceCommand;
+import com.neverwinterdp.server.command.ServiceCommandResult;
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
@@ -77,21 +78,32 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
     listeners.add(listener) ;
   }
   
-  public <T> T execute(ServiceCommand<T> command, ClusterMember member) {
-    return null ;
-  }
-  
-  public <T> CommandResult<T> execute(Command<T> command, ClusterMember member) {
+  public <T> ServiceCommandResult<T>  execute(ServiceCommand<T> command, ClusterMember member) {
     IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
     return Util.submit(exService, command, member) ;
   }
   
-  public <T> CommandResult<T>[] execute(Command<T> command, ClusterMember[] member) {
+  public <T> ServiceCommandResult<T>[] execute(ServiceCommand<T> command, ClusterMember[] member) {
     IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
     return Util.submit(exService, command, member) ;
   }
   
-  public <T> CommandResult<T>[] execute(Command<T> command) {
+  public <T> ServiceCommandResult<T> [] execute(ServiceCommand<T> command) {
+    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
+    return Util.submit(exService, command) ;
+  }
+  
+  public <T> ServerCommandResult<T> execute(ServerCommand<T> command, ClusterMember member) {
+    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
+    return Util.submit(exService, command, member) ;
+  }
+  
+  public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command, ClusterMember[] member) {
+    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
+    return Util.submit(exService, command, member) ;
+  }
+  
+  public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command) {
     IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
     return Util.submit(exService, command) ;
   }

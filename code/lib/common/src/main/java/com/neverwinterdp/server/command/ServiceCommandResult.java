@@ -1,6 +1,6 @@
 package com.neverwinterdp.server.command;
 
-public class CommandResult <T> {
+public class ServiceCommandResult <T> {
   private T result ;
   private Exception error ;
   
@@ -21,6 +21,4 @@ public class CommandResult <T> {
   public void setError(Exception error) {
     this.error = error;
   }
-  
-  
 }

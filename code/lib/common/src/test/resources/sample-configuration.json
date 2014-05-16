@@ -10,11 +10,11 @@
 
   "services": [
     {
-      "serviceId": "TestService",
+      "serviceId": "HelloService",
       "name":  "Test",
-      "className": "TestService",
+      "className": "com.neverwinterdp.server.service.HelloService",
       "parameters" : {
-        "string": "a string",
+        "hello": "Hello Service",
         "integer": 1,
         "object": {
           "nested string": "a nested string"

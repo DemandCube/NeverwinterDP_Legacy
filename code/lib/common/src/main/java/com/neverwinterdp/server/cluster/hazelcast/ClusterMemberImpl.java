@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Set;
 
 import com.hazelcast.core.Member;
-import com.neverwinterdp.server.ServerConfig;
 import com.neverwinterdp.server.cluster.ClusterMember;
+import com.neverwinterdp.server.config.ServerConfig;
 
 class ClusterMemberImpl implements ClusterMember, Serializable {
   final static public String VERSION = "version" ; 

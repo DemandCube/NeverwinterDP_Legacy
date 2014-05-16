@@ -1,4 +1,4 @@
-package com.neverwinterdp.server;
+package com.neverwinterdp.server.config;
 
 /**
  * @author Tuan Nguyen

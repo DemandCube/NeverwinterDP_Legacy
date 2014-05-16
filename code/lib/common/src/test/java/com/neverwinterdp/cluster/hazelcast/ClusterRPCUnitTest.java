@@ -8,14 +8,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.neverwinterdp.server.Server;
-import com.neverwinterdp.server.ServerConfig;
 import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.hazelcast.ClusterClientHazelcast;
-import com.neverwinterdp.server.command.Command;
-import com.neverwinterdp.server.command.CommandResult;
 import com.neverwinterdp.server.command.ServerCommand;
+import com.neverwinterdp.server.command.ServerCommandResult;
+import com.neverwinterdp.server.command.ServerCommands;
+import com.neverwinterdp.server.config.ServerConfig;
 
 public class ClusterRPCUnitTest {
   Server[] instance ;
@@ -47,10 +47,10 @@ public class ClusterRPCUnitTest {
   
   @Test
   public void testPing() throws Exception {
-    Command<ServerState> ping = new ServerCommand.Ping() ;
+    ServerCommand<ServerState> ping = new ServerCommands.Ping() ;
     ping.setTimeout(10000l);
     ClusterMember targetMember = instance[1].getClusterRPC().getMember() ;
-    CommandResult<ServerState> result = instance[0].getClusterRPC().execute(ping, targetMember) ;
+    ServerCommandResult<ServerState> result = instance[0].getClusterRPC().execute(ping, targetMember) ;
     if(result.hasError()) {
       result.getError().printStackTrace() ;
     }
@@ -61,8 +61,8 @@ public class ClusterRPCUnitTest {
     for(int i = 0 ; i < allMember.length; i++) {
       allMember[i] = instance[i].getClusterRPC().getMember() ;
     }
-    CommandResult<ServerState>[] results = client.execute(ping, allMember) ;
-    for(CommandResult<ServerState> sel : results) {
+    ServerCommandResult<ServerState>[] results = client.execute(ping, allMember) ;
+    for(ServerCommandResult<ServerState> sel : results) {
       assertFalse(sel.hasError()) ;
       assertEquals(ServerState.RUNNING, sel.getResult()) ;
     }

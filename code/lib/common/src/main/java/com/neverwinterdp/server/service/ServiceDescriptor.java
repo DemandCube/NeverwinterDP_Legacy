@@ -1,5 +1,7 @@
 package com.neverwinterdp.server.service;
 
+import com.neverwinterdp.server.config.ServiceConfig;
+
 public class ServiceDescriptor {
   private String       serviceId;
   private String       name;
@@ -16,6 +18,7 @@ public class ServiceDescriptor {
     this.name = config.getName() ;
     this.version = config.getVersion() ;
     this.description = config.getDescription() ;
+    state = ServiceState.INIT ;
   }
   
   

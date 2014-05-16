@@ -1,9 +1,10 @@
 package com.neverwinterdp.server.cluster;
 
 import com.neverwinterdp.server.Server;
-import com.neverwinterdp.server.command.Command;
-import com.neverwinterdp.server.command.CommandResult;
-import com.neverwinterdp.server.service.ServiceCommand;
+import com.neverwinterdp.server.command.ServerCommand;
+import com.neverwinterdp.server.command.ServerCommandResult;
+import com.neverwinterdp.server.command.ServiceCommand;
+import com.neverwinterdp.server.command.ServiceCommandResult;
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
@@ -35,7 +36,11 @@ public interface ClusterRPC {
    * @param command
    * @return
    */
-  public <T> T execute(ServiceCommand<T> command, ClusterMember member) ;
+  public <T> ServiceCommandResult<T> execute(ServiceCommand<T> command, ClusterMember member) ;
+  
+  public <T> ServiceCommandResult<T>[] execute(ServiceCommand<T> command, ClusterMember[] member) ;
+  
+  public <T> ServiceCommandResult<T>[] execute(ServiceCommand<T> command) ;
   
   /**
    * This method is designed to be called by the cluster only. When the server is in the 
@@ -43,11 +48,11 @@ public interface ClusterRPC {
    * @param command
    * @return
    */
-  public <T> CommandResult<T> execute(Command<T> command, ClusterMember member) ;
+  public <T> ServerCommandResult<T> execute(ServerCommand<T> command, ClusterMember member) ;
   
-  public <T> CommandResult<T>[] execute(Command<T> command, ClusterMember[] member) ;
+  public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command, ClusterMember[] member) ;
   
-  public <T> CommandResult<T>[] execute(Command<T> command) ;
+  public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command) ;
   
   public void broadcast(ClusterEvent event) ;
 }

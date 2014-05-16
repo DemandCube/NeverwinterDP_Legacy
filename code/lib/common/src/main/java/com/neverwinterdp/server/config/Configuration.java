@@ -1,11 +1,9 @@
-package com.neverwinterdp.server;
+package com.neverwinterdp.server.config;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.neverwinterdp.server.service.ServiceConfig;
 
 public class Configuration {
   private ServerConfig server ;

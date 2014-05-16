@@ -5,22 +5,22 @@ import java.util.concurrent.Callable;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.ActivityLog;
-import com.neverwinterdp.server.cluster.ClusterRPC;
-import com.neverwinterdp.server.command.ServerCommand;
+import com.neverwinterdp.server.Server;
+import com.neverwinterdp.server.command.ServiceCommand;
+import com.neverwinterdp.server.service.Service;
 
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializable {
+class ServiceCommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializable {
   transient private HazelcastInstance hzInstance ;
-  private ServerCommand<T> command ;
+  private ServiceCommand<T> command ;
   
-  public CommandWrapper() { }
+  public ServiceCommandWrapper() { }
   
-  public CommandWrapper(ServerCommand<T> command) {
+  public ServiceCommandWrapper(ServiceCommand<T> command) {
     this.command = command ;
   }
   
@@ -30,7 +30,8 @@ class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializ
     ClusterRPCHazelcast rpc = ClusterRPCHazelcast.getClusterRPC(hzInstance) ;
     Server server = rpc.getServer() ;
     server.getLogger().info("Start execute command " + command.getActivityLogName());
-    T result = command.execute(server) ;
+    Service service = server.getServiceContainer().getService(command.getTargetService()) ;
+    T result = command.execute(server, service) ;
     if(command.isLogEnable()) {
       end = System.currentTimeMillis() ;
       String name = command.getActivityLogName(); 
