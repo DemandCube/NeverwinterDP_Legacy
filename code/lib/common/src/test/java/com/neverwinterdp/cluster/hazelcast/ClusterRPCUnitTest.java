@@ -9,11 +9,13 @@ import org.junit.Test;
 
 import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.ServerConfig;
+import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.hazelcast.ClusterClientHazelcast;
+import com.neverwinterdp.server.command.Command;
 import com.neverwinterdp.server.command.CommandResult;
-import com.neverwinterdp.server.command.PingServer;
+import com.neverwinterdp.server.command.ServerCommand;
 
 public class ClusterRPCUnitTest {
   Server[] instance ;
@@ -28,6 +30,7 @@ public class ClusterRPCUnitTest {
       instance[i] = new Server() ;  
       instance[i].setConfig(config);
       instance[i].onInit();
+      instance[i].start();
     }
     ClusterMember member = instance[1].getClusterRPC().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
@@ -44,24 +47,24 @@ public class ClusterRPCUnitTest {
   
   @Test
   public void testPing() throws Exception {
-    PingServer ping = new PingServer("ping") ;
+    Command<ServerState> ping = new ServerCommand.Ping() ;
     ping.setTimeout(10000l);
-    CommandResult<String> result = 
-      instance[0].getClusterRPC().execute(ping, instance[1].getClusterRPC().getMember()) ;
+    ClusterMember targetMember = instance[1].getClusterRPC().getMember() ;
+    CommandResult<ServerState> result = instance[0].getClusterRPC().execute(ping, targetMember) ;
     if(result.hasError()) {
       result.getError().printStackTrace() ;
     }
     assertFalse(result.hasError()) ;
-    assertEquals("Got your message 'ping'", result.getResult()) ;
+    assertEquals(ServerState.RUNNING, result.getResult()) ;
     
     ClusterMember[] allMember = new ClusterMember[instance.length] ;
     for(int i = 0 ; i < allMember.length; i++) {
       allMember[i] = instance[i].getClusterRPC().getMember() ;
     }
-    CommandResult<String>[] results = client.execute(ping, allMember) ;
-    for(CommandResult<String> sel : results) {
+    CommandResult<ServerState>[] results = client.execute(ping, allMember) ;
+    for(CommandResult<ServerState> sel : results) {
       assertFalse(sel.hasError()) ;
-      assertEquals("Got your message 'ping'", sel.getResult()) ;
+      assertEquals(ServerState.RUNNING, sel.getResult()) ;
     }
     
   }

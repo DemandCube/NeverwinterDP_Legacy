@@ -1,15 +1,18 @@
 package com.neverwinterdp.server.cluster;
 
+import java.io.Serializable;
+
 import com.neverwinterdp.server.service.ServiceDescriptor;
 
-public class ClusterEvent {
+public class ClusterEvent implements Serializable {
   static public enum Type {
     ServerStateChange,
     ServiceStateChange
   }
 
+  final static public Type ServerStateChange = Type.ServerStateChange ;
+  
   private Type              type;
-  private ClusterMember     sourceMember;
   private ServiceDescriptor sourceService;
   private Object            source;
 
@@ -28,14 +31,6 @@ public class ClusterEvent {
 
   public void setType(Type name) {
     this.type = name;
-  }
-
-  public ClusterMember getSourceMember() {
-    return sourceMember;
-  }
-
-  public void setSourceMember(ClusterMember sourceMember) {
-    this.sourceMember = sourceMember;
   }
 
   public ServiceDescriptor getSourceService() {

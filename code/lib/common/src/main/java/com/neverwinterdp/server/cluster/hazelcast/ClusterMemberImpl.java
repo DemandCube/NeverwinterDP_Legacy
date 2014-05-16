@@ -1,5 +1,6 @@
 package com.neverwinterdp.server.cluster.hazelcast;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import com.hazelcast.core.Member;
@@ -7,7 +8,7 @@ import com.neverwinterdp.server.ServerConfig;
 import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterMember;
 
-class ClusterMemberImpl implements ClusterMember {
+class ClusterMemberImpl implements ClusterMember, Serializable {
   final static public String VERSION = "version" ; 
   final static public String DESCRIPTION = "description" ; 
       

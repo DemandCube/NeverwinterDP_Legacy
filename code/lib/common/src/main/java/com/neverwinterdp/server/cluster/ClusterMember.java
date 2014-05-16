@@ -1,5 +1,6 @@
 package com.neverwinterdp.server.cluster;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import com.neverwinterdp.server.ServerState;

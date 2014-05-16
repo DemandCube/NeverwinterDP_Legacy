@@ -8,6 +8,16 @@ import com.neverwinterdp.server.service.Service;
 import com.neverwinterdp.server.service.ServiceDescriptor;
 
 public class ServerCommand {
+  static public class Ping extends Command<ServerState> {
+    
+    public Ping() { }
+    
+    public ServerState execute(Server server) throws Exception {
+      return server.getClusterRPC().getMember().getState() ;
+    }
+  }
+
+  
   static public class Shutdown extends Command<ServerState> {
     public ServerState execute(Server server) throws Exception {
       server.shutdown() ; 

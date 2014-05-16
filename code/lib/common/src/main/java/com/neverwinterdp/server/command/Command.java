@@ -27,4 +27,8 @@ abstract public class Command<T> implements Serializable {
   }
 
   abstract public T execute(Server server)  throws Exception ;
+
+  public String getActivityLogName() { return getClass().getSimpleName() ; }
+  
+  public String getActivityLogMessage() { return null ; }
 }

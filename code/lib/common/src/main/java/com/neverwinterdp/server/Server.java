@@ -1,10 +1,9 @@
 package com.neverwinterdp.server;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.neverwinterdp.server.cluster.ClusterEvent;
 import com.neverwinterdp.server.cluster.ClusterRPC;
 import com.neverwinterdp.server.cluster.hazelcast.ClusterRPCHazelcast;
 import com.neverwinterdp.server.service.Service;
@@ -32,6 +31,10 @@ public class Server {
   
   public ClusterRPC getClusterRPC() { return clusterRPC ; }
   
+  public ServerState getServerState() {
+    return clusterRPC.getMember().getState() ;
+  }
+  
   public ActivityLogs  getActivityLogs() { return this.activityLogs ; }
   
   /**
@@ -48,7 +51,7 @@ public class Server {
     clusterRPC.onInit(this);
     clusterRPC.getMember().setState(ServerState.INIT);
     long end = System.currentTimeMillis() ;
-    activityLogs.add(new ActivityLog("Init", start, end, null)) ;
+    activityLogs.add(new ActivityLog("Init", ActivityLog.Type.Auto, start, end, null)) ;
   }
   
   /**
@@ -70,14 +73,23 @@ public class Server {
    * 2. Loop through all the services, call service.start().
    */
   public void start() {
+    if(ServerState.RUNNING.equals(getServerState())) return ;
+    for(Service service : services.values()) {
+      service.start() ; 
+    }
     clusterRPC.getMember().setState(ServerState.RUNNING);
+    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, ServerState.RUNNING) ;
+    clusterRPC.broadcast(clusterEvent);
   }
   /**
    * This method is used to stop all the services usually it is used to simmulate the 
    * server shutdown or suspend.
    */
   public void shutdown() {
+    if(ServerState.SHUTDOWN.equals(getServerState())) return ;
     clusterRPC.getMember().setState(ServerState.SHUTDOWN);
+    ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, ServerState.SHUTDOWN) ;
+    clusterRPC.broadcast(clusterEvent);
   }
   
   /**

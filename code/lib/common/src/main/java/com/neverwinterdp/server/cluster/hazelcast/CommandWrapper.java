@@ -32,9 +32,10 @@ class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializ
     T result = command.execute(server) ;
     if(command.isLogEnable()) {
       end = System.currentTimeMillis() ;
-      server.
-        getActivityLogs().
-        add(new ActivityLog(command.getClass().getSimpleName(), start, end, null));
+      String name = command.getActivityLogName(); 
+      String msg = command.getActivityLogMessage() ;
+      ActivityLog log = new ActivityLog(name, ActivityLog.Type.Command, start, end, msg) ;
+      server.getActivityLogs().add(log);
     }
     return result ;
   }

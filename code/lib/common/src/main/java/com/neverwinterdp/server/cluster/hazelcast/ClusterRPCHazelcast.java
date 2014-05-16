@@ -14,6 +14,7 @@ import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Member;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
+import com.neverwinterdp.server.ActivityLog;
 import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.cluster.ClusterDiscovery;
 import com.neverwinterdp.server.cluster.ClusterEvent;
@@ -96,16 +97,22 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
   }
   
   public void broadcast(ClusterEvent event) {
-    event.setSourceMember(member);
+    //event.setSourceMember(member);
     clusterEventTopic.publish(event);
   }
 
   public void onMessage(Message<ClusterEvent> message) {
+    long start = System.currentTimeMillis() ;
     ClusterEvent event = message.getMessageObject() ;
     for(int i = 0; i < listeners.size(); i++) {
       ClusterListener<Server> listener = listeners.get(i) ;
       listener.onEvent(server, event) ;
     }
+    long end = System.currentTimeMillis() ;
+    String msg = "Received an event " +  event.getType() + " " + event.getSource() + " from xyz" ;
+    String activityLogName = event.getType().toString() ;
+    ActivityLog log = new ActivityLog(activityLogName, ActivityLog.Type.ClusterEvent, start, end, msg) ;
+    server.getActivityLogs().add(log); ;
   }
   
   static public ClusterRPCHazelcast getClusterRPC(HazelcastInstance hzinstance) {
