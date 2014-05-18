@@ -11,7 +11,7 @@
   "services": [
     {
       "serviceId": "HelloService",
-      "name":  "Test",
+      "name":  "HelloService",
       "className": "com.neverwinterdp.server.service.HelloService",
       "parameters" : {
         "hello": "Hello Service",

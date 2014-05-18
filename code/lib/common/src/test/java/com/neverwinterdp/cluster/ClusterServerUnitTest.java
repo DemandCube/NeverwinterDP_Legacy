@@ -3,10 +3,9 @@ package com.neverwinterdp.cluster;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.util.List;
+import java.util.Map;
 
 import org.junit.AfterClass;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,12 +15,12 @@ import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
-import com.neverwinterdp.server.cluster.hazelcast.ClusterClientHazelcast;
+import com.neverwinterdp.server.cluster.hazelcast.HazelcastClusterClient;
 import com.neverwinterdp.server.command.ActivityLogsCommand;
-import com.neverwinterdp.server.command.ServerCommand;
 import com.neverwinterdp.server.command.ServerCommandResult;
 import com.neverwinterdp.server.command.ServerCommands;
 import com.neverwinterdp.server.config.Configuration;
+import com.neverwinterdp.server.service.ServiceRegistration;
 import com.neverwinterdp.util.IOUtil;
 import com.neverwinterdp.util.JSONSerializer;
 
@@ -40,11 +39,12 @@ public class ClusterServerUnitTest {
       instance[i] = new Server() ;  
       instance[i].setConfig(conf.getServer());
       instance[i].onInit();
+      instance[i].getServiceContainer().register(conf.getServices());
       instance[i].start();
     }
-    ClusterMember member = instance[1].getClusterRPC().getMember() ;
+    ClusterMember member = instance[1].getCluster().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
-    client = new ClusterClientHazelcast(connectUrl) ;
+    client = new HazelcastClusterClient(connectUrl) ;
   }
 
   @AfterClass
@@ -54,6 +54,14 @@ public class ClusterServerUnitTest {
       instance[i].onDestroy();;
     }
     Thread.sleep(1000);
+  }
+  
+  @Test
+  public void assertServerEnvironment() throws Exception {
+    assertEquals(instance.length, client.getClusterRegistration().getNumberOfServers()) ;
+    Map<ClusterMember, ServiceRegistration> helloServiceMap = 
+      client.getClusterRegistration().findByServiceName("HelloService") ;
+    assertEquals(instance.length, helloServiceMap.size()) ;
   }
   
   @Test
@@ -111,7 +119,7 @@ public class ClusterServerUnitTest {
     Util.assertServerState(client, ServerState.RUNNING) ;
     client.execute(new ActivityLogsCommand.Clear()) ;
 
-    ClusterMember targetMember = instance[0].getClusterRPC().getMember() ;
+    ClusterMember targetMember = instance[0].getCluster().getMember() ;
     ServerCommandResult<ServerState> shutdownResult = 
         client.execute(new ServerCommands.Shutdown().setLogEnable(true), targetMember) ;
     assertFalse(shutdownResult.hasError()) ;

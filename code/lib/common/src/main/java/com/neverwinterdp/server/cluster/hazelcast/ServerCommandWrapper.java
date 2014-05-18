@@ -5,29 +5,28 @@ import java.util.concurrent.Callable;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.ActivityLog;
-import com.neverwinterdp.server.cluster.ClusterRPC;
+import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.command.ServerCommand;
 
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-class CommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializable {
+class ServerCommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, Serializable {
   transient private HazelcastInstance hzInstance ;
   private ServerCommand<T> command ;
   
-  public CommandWrapper() { }
+  public ServerCommandWrapper() { }
   
-  public CommandWrapper(ServerCommand<T> command) {
+  public ServerCommandWrapper(ServerCommand<T> command) {
     this.command = command ;
   }
   
   final public T call() throws Exception {
     long start = 0, end = 0 ;
     if(command.isLogEnable()) start = System.currentTimeMillis() ;
-    ClusterRPCHazelcast rpc = ClusterRPCHazelcast.getClusterRPC(hzInstance) ;
+    HazelcastCluster rpc = HazelcastCluster.getClusterRPC(hzInstance) ;
     Server server = rpc.getServer() ;
     server.getLogger().info("Start execute command " + command.getActivityLogName());
     T result = command.execute(server) ;

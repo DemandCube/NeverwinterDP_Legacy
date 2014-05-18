@@ -1,7 +1,7 @@
 package com.neverwinterdp.server.command;
 
 import com.neverwinterdp.server.Server;
-import com.neverwinterdp.server.ServerDiscovery;
+import com.neverwinterdp.server.ServerRegistration;
 import com.neverwinterdp.server.ServerState;
 
 public class ServerCommands {
@@ -26,9 +26,9 @@ public class ServerCommands {
     }
   }
   
-  static public class GetServerDiscovery extends ServerCommand<ServerDiscovery> {
-    public ServerDiscovery execute(Server server) throws Exception {
-      return server.getServerDiscovery() ;
+  static public class GetServerRegistration extends ServerCommand<ServerRegistration> {
+    public ServerRegistration execute(Server server) throws Exception {
+      return server.getServerRegistration() ;
     }
   }
 }

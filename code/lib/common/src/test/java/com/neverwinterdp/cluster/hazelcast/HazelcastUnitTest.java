@@ -1,5 +1,7 @@
 package com.neverwinterdp.cluster.hazelcast;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.Serializable;
 import java.util.Iterator;
 import java.util.Map;
@@ -8,7 +10,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.hazelcast.config.Config;
@@ -17,13 +20,14 @@ import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.IExecutorService;
+import com.hazelcast.core.IMap;
 import com.hazelcast.core.Member;
 
-public class TaskUnitTest  {
-  HazelcastInstance instance1, instance2, instance3 ;
+public class HazelcastUnitTest  {
+  static HazelcastInstance instance1, instance2, instance3 ;
   
-  @Before
-  public void setup() {
+  @BeforeClass
+  static public void setup() {
     // Configure
     Config config = new XmlConfigBuilder().build();
     // Set call timeout to 5 seconds to make the problem appear quicker
@@ -36,12 +40,24 @@ public class TaskUnitTest  {
     System.out.println("\n\nsetup\n\n");
   }
   
-  @After
-  public void teardown() {
+  @AfterClass
+  static public void teardown() {
     System.out.println("teardown");
     instance1.getLifecycleService().shutdown();
     instance2.getLifecycleService().shutdown();
     instance3.getLifecycleService().shutdown();
+  }
+  
+  @Test
+  public void testMap() throws Exception {
+    System.out.println("Members: "+ instance1.getCluster().getMembers().size()) ;
+    
+    
+    IMap<String, Object> map1 = instance1.getMap("default");
+    IMap<String, Object> map2 = instance2.getMap("default");
+    
+    map1.put("test", "test") ;
+    assertEquals("test", map2.get("test")) ;
   }
   
   @Test

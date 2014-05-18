@@ -10,6 +10,6 @@ dependencies {
   compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.9.13'
   compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
 
-  compile group: 'com.hazelcast', name: 'hazelcast', version: '3.2'
-  compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.2'
+  compile group: 'com.hazelcast', name: 'hazelcast', version: '3.2.1'
+  compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.2.1'
 }

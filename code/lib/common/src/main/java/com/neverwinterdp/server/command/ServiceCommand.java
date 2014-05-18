@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.service.Service;
-import com.neverwinterdp.server.service.ServiceDescriptor;
+import com.neverwinterdp.server.service.ServiceRegistration;
 
 /**
  * @author Tuan Nguyen
@@ -13,12 +13,12 @@ import com.neverwinterdp.server.service.ServiceDescriptor;
 abstract public class ServiceCommand<T> implements Serializable {
   private long    timeout = 5000l ; 
   private boolean logEnable ;
-  private ServiceDescriptor targetService ;
+  private ServiceRegistration targetService ;
   
   public ServiceCommand() {
   }
   
-  public ServiceCommand(ServiceDescriptor descriptor) {
+  public ServiceCommand(ServiceRegistration descriptor) {
     this.targetService = descriptor ;
   }
   
@@ -34,8 +34,8 @@ abstract public class ServiceCommand<T> implements Serializable {
     return this ;
   }
 
-  public ServiceDescriptor getTargetService() { return this.targetService ; }
-  public void setTargetService(ServiceDescriptor target) {
+  public ServiceRegistration getTargetService() { return this.targetService ; }
+  public void setTargetService(ServiceRegistration target) {
     this.targetService = target ;
   }
   

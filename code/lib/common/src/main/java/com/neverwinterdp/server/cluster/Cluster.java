@@ -9,8 +9,9 @@ import com.neverwinterdp.server.command.ServiceCommandResult;
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-public interface ClusterRPC {
+public interface Cluster {
   final static public String CLUSTER_EVENT_TOPIC = "NeverwinterDP/ClusterEvent" ;
+  final static public String CLUSTER_REGISTRATON = "NeverwinterDP/ClusterRegistration" ;
   
   public void onInit(Server server) ;
   
@@ -22,7 +23,7 @@ public interface ClusterRPC {
    */
   public ClusterMember getMember() ;
   
-  public ClusterDiscovery getClusterDiscovery(boolean refresh) ;
+  public ClusterRegistraton getClusterRegistration() ;
   
   public void addClusterListener(ClusterListener<Server> listener) ;
   

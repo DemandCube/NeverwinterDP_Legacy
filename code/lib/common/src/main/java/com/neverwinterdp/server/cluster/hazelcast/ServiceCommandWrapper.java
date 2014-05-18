@@ -27,7 +27,7 @@ class ServiceCommandWrapper<T> implements Callable<T>, HazelcastInstanceAware, S
   final public T call() throws Exception {
     long start = 0, end = 0 ;
     if(command.isLogEnable()) start = System.currentTimeMillis() ;
-    ClusterRPCHazelcast rpc = ClusterRPCHazelcast.getClusterRPC(hzInstance) ;
+    HazelcastCluster rpc = HazelcastCluster.getClusterRPC(hzInstance) ;
     Server server = rpc.getServer() ;
     server.getLogger().info("Start execute command " + command.getActivityLogName());
     Service service = server.getServiceContainer().getService(command.getTargetService()) ;

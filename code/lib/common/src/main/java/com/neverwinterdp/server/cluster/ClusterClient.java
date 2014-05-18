@@ -1,17 +1,19 @@
 package com.neverwinterdp.server.cluster;
 
-import com.neverwinterdp.server.ServerDiscovery;
+import com.neverwinterdp.server.ServerRegistration;
 import com.neverwinterdp.server.command.ServerCommand;
 import com.neverwinterdp.server.command.ServerCommandResult;
 import com.neverwinterdp.server.command.ServiceCommand;
 import com.neverwinterdp.server.command.ServiceCommandResult;
 
 public interface ClusterClient {
-  public void addClusterListener(ClusterListener<ClusterClient> listener) ;
+  public ClusterRegistraton getClusterRegistration() ;
+  public void addListener(ClusterListener<ClusterClient> listener) ;
+  public void removeListener(ClusterListener<ClusterClient> listener) ;
   
   public void broadcast(ClusterEvent event) ; 
   
-  public ServerDiscovery getServerDiscovery(ClusterMember member) ; 
+  public ServerRegistration getServerRegistration(ClusterMember member) ; 
   
   public <T> ServiceCommandResult<T> execute(ServiceCommand<T> command, ClusterMember member) ;
   

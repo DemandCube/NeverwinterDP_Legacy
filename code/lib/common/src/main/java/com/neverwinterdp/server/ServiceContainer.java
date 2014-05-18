@@ -7,9 +7,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 
+import com.neverwinterdp.server.cluster.ClusterEvent;
 import com.neverwinterdp.server.config.ServiceConfig;
 import com.neverwinterdp.server.service.Service;
-import com.neverwinterdp.server.service.ServiceDescriptor;
+import com.neverwinterdp.server.service.ServiceRegistration;
 import com.neverwinterdp.server.service.ServiceState;
 
 public class ServiceContainer {
@@ -32,21 +33,57 @@ public class ServiceContainer {
   public void start() {
     for(Service service : services.values()) {
       service.start() ; 
-      service.getServiceDescriptor().setState(ServiceState.START);
+      service.getServiceRegistration().setState(ServiceState.START);
     }
   }
   
   public void stop() {
     for(Service service : services.values()) {
       service.stop() ; 
-      service.getServiceDescriptor().setState(ServiceState.STOP);
+      service.getServiceRegistration().setState(ServiceState.STOP);
     }
   }
   
-  public List<ServiceDescriptor> getServiceDescriptors() {
-    List<ServiceDescriptor> holder = new ArrayList<ServiceDescriptor>() ;
+  public void start(ServiceRegistration registration) {
+    start(registration.getServiceId()) ;
+  }
+  
+  public void start(String serviceId) {
+    Service service = services.get(serviceId) ;
+    if(ServiceState.START.equals(service.getServiceRegistration().getState())) {
+      return ;
+    }
+    service.start() ;
+    service.getServiceRegistration().setState(ServiceState.START);
+    ClusterEvent event = new ClusterEvent() ;
+    event.setType(ClusterEvent.ServiceStateChange);
+    event.setSourceService(service.getServiceRegistration()) ;
+    event.setSource(service.getServiceRegistration().getState());
+    server.getCluster().broadcast(event);
+  }
+  
+  public void stop(ServiceRegistration registration) {
+    stop(registration.getServiceId()) ;
+  }
+  
+  public void stop(String serviceId) {
+    Service service = services.get(serviceId) ;
+    if(!ServiceState.START.equals(service.getServiceRegistration().getState())) {
+      return ;
+    }
+    service.stop() ;
+    service.getServiceRegistration().setState(ServiceState.STOP);
+    ClusterEvent event = new ClusterEvent() ;
+    event.setType(ClusterEvent.ServiceStateChange);
+    event.setSourceService(service.getServiceRegistration()) ;
+    event.setSource(service.getServiceRegistration().getState());
+    server.getCluster().broadcast(event);
+  }
+  
+  public List<ServiceRegistration> getServiceRegistrations() {
+    List<ServiceRegistration> holder = new ArrayList<ServiceRegistration>() ;
     for(Service service : services.values()) {
-      holder.add(service.getServiceDescriptor()) ;
+      holder.add(service.getServiceRegistration()) ;
     }
     return holder ;
   }
@@ -62,11 +99,11 @@ public class ServiceContainer {
   
   /**
    * This method is used to find a specifice service by the service descriptor
-   * @param descriptor
+   * @param registration
    * @return
    */
-  public Service getService(ServiceDescriptor descriptor) {
-    return getService(descriptor.getServiceId()) ;
+  public Service getService(ServiceRegistration registration) {
+    return getService(registration.getServiceId()) ;
   }
   
   public Service[] getServices() {

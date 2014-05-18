@@ -2,7 +2,7 @@ package com.neverwinterdp.server.cluster;
 
 import java.io.Serializable;
 
-import com.neverwinterdp.server.service.ServiceDescriptor;
+import com.neverwinterdp.server.service.ServiceRegistration;
 
 public class ClusterEvent implements Serializable {
   static public enum Type {
@@ -11,11 +11,11 @@ public class ClusterEvent implements Serializable {
   }
 
   final static public Type ServerStateChange = Type.ServerStateChange ;
+  final static public Type ServiceStateChange = Type.ServiceStateChange ;
   
   private Type              type;
-  private String            sourceMemberId ;
-  private String            sourceAddress ;
-  private ServiceDescriptor sourceService;
+  private ClusterMember     sourceMember ;
+  private ServiceRegistration sourceService;
   private Object            source;
 
   public ClusterEvent() {
@@ -35,33 +35,20 @@ public class ClusterEvent implements Serializable {
     this.type = name;
   }
 
-  public ServiceDescriptor getSourceService() {
+  public ServiceRegistration getSourceService() {
     return sourceService;
   }
 
-  public void setSourceService(ServiceDescriptor sourceService) {
+  public void setSourceService(ServiceRegistration sourceService) {
     this.sourceService = sourceService;
   }
 
-  public String getSourceMemberId() {
-    return sourceMemberId;
-  }
-
-  public void setSourceMemberId(String id) {
-    this.sourceMemberId = id;
-  }
-  
-  public String getSourceAddress() {
-    return sourceAddress;
-  }
-
-  public void setSourceAddress(String sourceAddress) {
-    this.sourceAddress = sourceAddress;
+  public ClusterMember getSourceMember() {
+    return sourceMember;
   }
 
   public void setSourceMember(ClusterMember sourceMember) {
-    this.sourceMemberId = sourceMember.getId();
-    this.sourceAddress = sourceMember.getIpAddress() + ":" + sourceMember.getPort() ;
+    this.sourceMember = sourceMember ;
   }
 
   public Object getSource() {
@@ -75,7 +62,7 @@ public class ClusterEvent implements Serializable {
   public String toString() {
     StringBuilder b = new StringBuilder() ;
     b.append("Event = " + type).
-      append(", source address = ").append(sourceAddress).
+      append(", source member = ").append(sourceMember.toString()).
       append(", source  = ").append(source) ;
     return b.toString() ;
   }

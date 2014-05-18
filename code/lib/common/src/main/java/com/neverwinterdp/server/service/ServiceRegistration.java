@@ -1,15 +1,17 @@
 package com.neverwinterdp.server.service;
 
+import java.io.Serializable;
+
 import com.neverwinterdp.server.config.ServiceConfig;
 
-public class ServiceDescriptor {
+public class ServiceRegistration implements Serializable {
   private String       serviceId;
   private String       name;
   private float        version;
   private String       description;
   private ServiceState state = ServiceState.INIT ;
 
-  public ServiceDescriptor() {
+  public ServiceRegistration() {
     
   }
   

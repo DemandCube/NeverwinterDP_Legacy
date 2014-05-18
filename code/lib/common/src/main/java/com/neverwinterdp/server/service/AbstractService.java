@@ -10,7 +10,7 @@ abstract public class AbstractService implements Service {
   protected Logger logger ;
   
   private ServiceConfig     config ;
-  private ServiceDescriptor descriptor = new ServiceDescriptor();
+  private ServiceRegistration registration = new ServiceRegistration();
   
   public ServiceConfig getServiceConfig() {
     return config ;
@@ -18,10 +18,10 @@ abstract public class AbstractService implements Service {
   
   public void setServiceConfig(ServiceConfig config) {
     this.config = config ;
-    descriptor.init(config) ;
+    registration.init(config) ;
   }
 
-  public ServiceDescriptor getServiceDescriptor() { return descriptor ; }
+  public ServiceRegistration getServiceRegistration() { return registration ; }
   
   public void onInit(Server server) {
     logger = server.getLogger(getClass().getSimpleName());

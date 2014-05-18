@@ -10,49 +10,50 @@ import com.neverwinterdp.server.config.ServerConfig;
 class ClusterMemberImpl implements ClusterMember, Serializable {
   final static public String VERSION = "version" ; 
   final static public String DESCRIPTION = "description" ; 
-      
-  private Member member ;
+
+  private float  version ;
+  private String uuid ;
+  private String hostname ;
+  private String ipAddress ;
+  private int    port ;
+  private String description ;
   
   public ClusterMemberImpl() {
-    
   }
-  
-  ClusterMemberImpl(Member member) {
-    this.member = member ;
-  }
-  
+
   ClusterMemberImpl(Member member, ServerConfig config) {
-    this.member = member ;
-    this.member.setFloatAttribute(VERSION, config.getVersion());
+    this.version = 0f ;
+    this.uuid = member.getUuid() ;
+    this.hostname = member.getSocketAddress().getHostName() ;
+    this.ipAddress = member.getSocketAddress().getAddress().getHostAddress() ; 
+    this.port = member.getSocketAddress().getPort() ;
   }
 
-  public String getId() { return member.getUuid() ; }
+  public String getUuid() { return uuid ; }
   
-  public String getHost() {
-    return member.getSocketAddress().getHostName() ;
-  }
+  public String getHost() { return hostname ; }
   
-  public String getIpAddress() {
-    return member.getSocketAddress().getAddress().getHostAddress() ;
-  }
+  public String getIpAddress() { return ipAddress ; }
 
-  public int getPort() {
-    return member.getSocketAddress().getPort() ;
-  }
+  public int getPort() { return this.port  ; }
 
-  public float getVersion() {
-    return member.getFloatAttribute(VERSION);
-  }
+  public float getVersion() { return version ; }
 
   public Set<String> getRoles() {
     return null;
   }
 
-  public String getDescription() {
-    return member.getStringAttribute(DESCRIPTION) ;
+  public String getDescription() { return description ; }
+  
+  public int hashCode() {
+    if(uuid == null) return 17 ;
+    return uuid.hashCode() ;
   }
   
-  public Member getHazelcastMember() { return this.member ; }
+  public boolean equals(Object other) {
+    if(uuid == null) return false ;
+    return uuid.equals(((ClusterMemberImpl) other).getUuid()) ;
+  }
   
   public String toString() {
     return getIpAddress() +  ":" + getPort() ;

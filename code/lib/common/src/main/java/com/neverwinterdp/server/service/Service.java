@@ -24,7 +24,7 @@ public interface Service {
    * of the service so another service or remote service can decide to use this service or not. 
    * @return
    */
-  public ServiceDescriptor getServiceDescriptor() ;
+  public ServiceRegistration getServiceRegistration() ;
   
   /**
    * this method is called when the server init

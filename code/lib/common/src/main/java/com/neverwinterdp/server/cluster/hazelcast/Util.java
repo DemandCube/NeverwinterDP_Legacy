@@ -1,6 +1,5 @@
 package com.neverwinterdp.server.cluster.hazelcast;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IExecutorService;
 import com.hazelcast.core.Member;
 import com.neverwinterdp.server.cluster.ClusterMember;
@@ -19,9 +19,10 @@ import com.neverwinterdp.server.command.ServiceCommandResult;
 
 class Util {
   final static String HAZELCAST_EXECUTOR_NAME = "default" ;
-  
-  static <T> ServiceCommandResult<T> submit(IExecutorService exService, ServiceCommand<T> command, ClusterMember member) {
-    Member hzmember = ((ClusterMemberImpl) member).getHazelcastMember() ;
+  static <T> ServiceCommandResult<T> submit(HazelcastInstance instance, ServiceCommand<T> command, ClusterMember member) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
+    HazelcastMemberSelector selector = new HazelcastMemberSelector(instance) ;
+    Member hzmember = selector.select(member) ;
     ServiceCommandWrapper<T> wrapper = new ServiceCommandWrapper<T>(command) ;
     Future<T> future = exService.submitToMember(wrapper, hzmember) ;
     ServiceCommandResult<T> result = new ServiceCommandResult<T>() ;
@@ -35,19 +36,17 @@ class Util {
     }
   }
   
-  static <T> ServiceCommandResult<T>[] submit( IExecutorService exService, ServiceCommand<T> command, ClusterMember[] member) {
-    List<Member> hzmembers = new ArrayList<Member>() ;
-    for(int i = 0; i < member.length; i++) {
-      Member hzmember = ((ClusterMemberImpl) member[i]).getHazelcastMember() ;
-      hzmembers.add(hzmember) ;
-    }
+  static <T> ServiceCommandResult<T>[] submit(HazelcastInstance instance, ServiceCommand<T> command, ClusterMember[] member) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
+    HazelcastMemberSelector selector = new HazelcastMemberSelector(instance) ;
+    List<Member> hzmembers = selector.selectAsList(member) ; 
     ServiceCommandWrapper<T> wrapper = new ServiceCommandWrapper<T>(command) ;
     Map<Member, Future<T>>  futures = exService.submitToMembers(wrapper, hzmembers) ;
     ServiceCommandResult<T>[] results = new ServiceCommandResult[member.length] ;
     long startTime = System.currentTimeMillis() ;
     long waitTime = command.getTimeout() ;
     for(int i = 0; i < member.length; i++) {
-      Member hzmember = ((ClusterMemberImpl) member[i]).getHazelcastMember() ;
+      Member hzmember = hzmembers.get(i) ;
       Future<T> future = futures.get(hzmember) ;
       results[i] = new ServiceCommandResult<T>() ;
       try {
@@ -62,7 +61,8 @@ class Util {
   }
   
   
-  static <T> ServiceCommandResult<T>[] submit( IExecutorService exService, ServiceCommand<T> command) {
+  static <T> ServiceCommandResult<T>[] submit(HazelcastInstance instance, ServiceCommand<T> command) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
     ServiceCommandWrapper<T> wrapper = new ServiceCommandWrapper<T>(command) ;
     Map<Member, Future<T>>  futures = exService.submitToAllMembers(wrapper) ;
     ServiceCommandResult<T>[] results = new ServiceCommandResult[futures.size()] ;
@@ -87,9 +87,11 @@ class Util {
     return results ;
   }
   
-  static <T> ServerCommandResult<T> submit(IExecutorService exService, ServerCommand<T> command, ClusterMember member) {
-    Member hzmember = ((ClusterMemberImpl) member).getHazelcastMember() ;
-    CommandWrapper<T> wrapper = new CommandWrapper<T>(command) ;
+  static <T> ServerCommandResult<T> submit(HazelcastInstance instance, ServerCommand<T> command, ClusterMember member) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
+    HazelcastMemberSelector selector = new HazelcastMemberSelector(instance) ;
+    Member hzmember = selector.select(member) ;
+    ServerCommandWrapper<T> wrapper = new ServerCommandWrapper<T>(command) ;
     Future<T> future = exService.submitToMember(wrapper, hzmember) ;
     ServerCommandResult<T> result = new ServerCommandResult<T>() ;
     try {
@@ -102,19 +104,22 @@ class Util {
     }
   }
   
-  static <T> ServerCommandResult<T>[] submit( IExecutorService exService, ServerCommand<T> command, ClusterMember[] member) {
-    List<Member> hzmembers = new ArrayList<Member>() ;
+  static <T> ServerCommandResult<T>[] submit(HazelcastInstance instance, ServerCommand<T> command, ClusterMember[] member) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
+    HazelcastMemberSelector selector = new HazelcastMemberSelector(instance) ;
+    
+    List<Member> hzmembers = selector.selectAsList(member) ;
     for(int i = 0; i < member.length; i++) {
-      Member hzmember = ((ClusterMemberImpl) member[i]).getHazelcastMember() ;
+      Member hzmember = hzmembers.get(i) ;
       hzmembers.add(hzmember) ;
     }
-    CommandWrapper<T> wrapper = new CommandWrapper<T>(command) ;
+    ServerCommandWrapper<T> wrapper = new ServerCommandWrapper<T>(command) ;
     Map<Member, Future<T>>  futures = exService.submitToMembers(wrapper, hzmembers) ;
     ServerCommandResult<T>[] results = new ServerCommandResult[member.length] ;
     long startTime = System.currentTimeMillis() ;
     long waitTime = command.getTimeout() ;
     for(int i = 0; i < member.length; i++) {
-      Member hzmember = ((ClusterMemberImpl) member[i]).getHazelcastMember() ;
+      Member hzmember = hzmembers.get(i)  ;
       Future<T> future = futures.get(hzmember) ;
       results[i] = new ServerCommandResult<T>() ;
       try {
@@ -128,8 +133,9 @@ class Util {
     return results ;
   }
   
-  static <T> ServerCommandResult<T>[] submit( IExecutorService exService, ServerCommand<T> command) {
-    CommandWrapper<T> wrapper = new CommandWrapper<T>(command) ;
+  static <T> ServerCommandResult<T>[] submit(HazelcastInstance instance,  ServerCommand<T> command) {
+    IExecutorService exService = instance.getExecutorService(HAZELCAST_EXECUTOR_NAME) ;
+    ServerCommandWrapper<T> wrapper = new ServerCommandWrapper<T>(command) ;
     Map<Member, Future<T>>  futures = exService.submitToAllMembers(wrapper) ;
     ServerCommandResult<T>[] results = new ServerCommandResult[futures.size()] ;
     long ctime = System.currentTimeMillis() ;
@@ -138,7 +144,6 @@ class Util {
     int idx  = 0 ;
     while(i.hasNext()) {
       Map.Entry<Member, Future<T>> entry = i.next() ;
-      Member hzmember = entry.getKey() ;
       Future<T> future = entry.getValue() ;
       results[idx] = new ServerCommandResult<T>() ;
       try {

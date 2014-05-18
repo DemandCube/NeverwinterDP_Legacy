@@ -9,18 +9,19 @@ import com.hazelcast.config.Config;
 import com.hazelcast.config.XmlConfigBuilder;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IExecutorService;
+import com.hazelcast.core.IMap;
 import com.hazelcast.core.ITopic;
 import com.hazelcast.core.Member;
 import com.hazelcast.core.Message;
 import com.hazelcast.core.MessageListener;
 import com.neverwinterdp.server.ActivityLog;
 import com.neverwinterdp.server.Server;
-import com.neverwinterdp.server.cluster.ClusterDiscovery;
+import com.neverwinterdp.server.ServerRegistration;
 import com.neverwinterdp.server.cluster.ClusterEvent;
 import com.neverwinterdp.server.cluster.ClusterListener;
 import com.neverwinterdp.server.cluster.ClusterMember;
-import com.neverwinterdp.server.cluster.ClusterRPC;
+import com.neverwinterdp.server.cluster.Cluster;
+import com.neverwinterdp.server.cluster.ClusterRegistraton;
 import com.neverwinterdp.server.command.ServerCommand;
 import com.neverwinterdp.server.command.ServerCommandResult;
 import com.neverwinterdp.server.command.ServiceCommand;
@@ -29,12 +30,12 @@ import com.neverwinterdp.server.command.ServiceCommandResult;
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterEvent>  {
-  static Map<String, ClusterRPCHazelcast> instances = new HashMap<String, ClusterRPCHazelcast>() ;
+public class HazelcastCluster implements Cluster, MessageListener<ClusterEvent>  {
+  static Map<String, HazelcastCluster> instances = new HashMap<String, HazelcastCluster>() ;
   
   private HazelcastInstance hzinstance ;
   private ClusterMember member ;
-  private ClusterDiscovery clusterDiscovery ;
+  private ClusterRegistraton clusterRegistration ;
   private Server server ;
   private List<ClusterListener<Server>> listeners = new ArrayList<ClusterListener<Server>>() ;
   private ITopic<ClusterEvent> clusterEventTopic ;
@@ -53,6 +54,9 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
     }
     clusterEventTopic = hzinstance.getTopic(CLUSTER_EVENT_TOPIC);
     clusterEventTopicListenerId = clusterEventTopic.addMessageListener(this) ;
+    
+    IMap<String, ServerRegistration> registrationMap = hzinstance.getMap(CLUSTER_REGISTRATON) ;
+    clusterRegistration = new ClusterRegistrationImpl(registrationMap) ;
   }
   
   public void onDestroy(Server server) {
@@ -67,45 +71,34 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
   
   public ClusterMember getMember() { return member ; }
   
-  public ClusterDiscovery getClusterDiscovery(boolean refresh) {
-    if(clusterDiscovery == null || refresh) {
-      
-    }
-    return clusterDiscovery ;
-  }
+  public ClusterRegistraton getClusterRegistration() { return clusterRegistration ; }
   
   public void addClusterListener(ClusterListener<Server> listener) {
     listeners.add(listener) ;
   }
   
   public <T> ServiceCommandResult<T>  execute(ServiceCommand<T> command, ClusterMember member) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command, member) ;
+    return Util.submit(hzinstance, command, member) ;
   }
   
   public <T> ServiceCommandResult<T>[] execute(ServiceCommand<T> command, ClusterMember[] member) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command, member) ;
+    return Util.submit(hzinstance, command, member) ;
   }
   
   public <T> ServiceCommandResult<T> [] execute(ServiceCommand<T> command) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command) ;
+    return Util.submit(hzinstance, command) ;
   }
   
   public <T> ServerCommandResult<T> execute(ServerCommand<T> command, ClusterMember member) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command, member) ;
+    return Util.submit(hzinstance, command, member) ;
   }
   
   public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command, ClusterMember[] member) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command, member) ;
+    return Util.submit(hzinstance, command, member) ;
   }
   
   public <T> ServerCommandResult<T>[] execute(ServerCommand<T> command) {
-    IExecutorService exService = hzinstance.getExecutorService(Util.HAZELCAST_EXECUTOR_NAME);
-    return Util.submit(exService, command) ;
+    return Util.submit(hzinstance, command) ;
   }
   
   public void broadcast(ClusterEvent event) {
@@ -124,7 +117,7 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
       listener.onEvent(server, event) ;
     }
     long end = System.currentTimeMillis() ;
-    String msg = "Received an event " +  event.getType() + " " + event.getSource() + " from " + event.getSourceAddress();
+    String msg = "Received an event " +  event.getType() + " " + event.getSource() + " from " + event.getSourceMember().toString();
     String activityLogName = event.getType().toString() ;
     ActivityLog log = new ActivityLog(activityLogName, ActivityLog.Type.ClusterEvent, start, end, msg) ;
     server.getActivityLogs().add(log);
@@ -132,7 +125,7 @@ public class ClusterRPCHazelcast implements ClusterRPC, MessageListener<ClusterE
     server.getLogger().info("Finish onMessage(...), event = " + event.getType());
   }
   
-  static public ClusterRPCHazelcast getClusterRPC(HazelcastInstance hzinstance) {
+  static public HazelcastCluster getClusterRPC(HazelcastInstance hzinstance) {
     return instances.get(hzinstance.getName()) ;
   }
 }

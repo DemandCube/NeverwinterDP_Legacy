@@ -3,26 +3,26 @@ package com.neverwinterdp.cluster.hazelcast;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.ServerState;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
-import com.neverwinterdp.server.cluster.hazelcast.ClusterClientHazelcast;
+import com.neverwinterdp.server.cluster.hazelcast.HazelcastClusterClient;
 import com.neverwinterdp.server.command.ServerCommand;
 import com.neverwinterdp.server.command.ServerCommandResult;
 import com.neverwinterdp.server.command.ServerCommands;
 import com.neverwinterdp.server.config.ServerConfig;
 
-public class ClusterRPCUnitTest {
-  Server[] instance ;
-  ClusterClient client ;
+public class HazelcastClusterUnitTest {
+  static Server[] instance ;
+  static ClusterClient client ;
   
-  @Before
-  public void setup() {
+  @BeforeClass
+  static public void setup() {
     instance = new Server[3] ;
     ServerConfig config = new ServerConfig() ;
     config.setVersion(1.0f);
@@ -32,13 +32,14 @@ public class ClusterRPCUnitTest {
       instance[i].onInit();
       instance[i].start();
     }
-    ClusterMember member = instance[1].getClusterRPC().getMember() ;
+    ClusterMember member = instance[1].getCluster().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
-    client = new ClusterClientHazelcast(connectUrl) ;
+    client = new HazelcastClusterClient(connectUrl) ;
   }
   
-  @After
-  public void teardown() {
+  @AfterClass
+  static public void teardown() {
+    client.shutdown();
     for(int i = 0; i < instance.length; i++) {
       instance[i].onDestroy();;
     }
@@ -49,8 +50,8 @@ public class ClusterRPCUnitTest {
   public void testPing() throws Exception {
     ServerCommand<ServerState> ping = new ServerCommands.Ping() ;
     ping.setTimeout(10000l);
-    ClusterMember targetMember = instance[1].getClusterRPC().getMember() ;
-    ServerCommandResult<ServerState> result = instance[0].getClusterRPC().execute(ping, targetMember) ;
+    ClusterMember targetMember = instance[1].getCluster().getMember() ;
+    ServerCommandResult<ServerState> result = instance[0].getCluster().execute(ping, targetMember) ;
     if(result.hasError()) {
       result.getError().printStackTrace() ;
     }
@@ -59,7 +60,7 @@ public class ClusterRPCUnitTest {
     
     ClusterMember[] allMember = new ClusterMember[instance.length] ;
     for(int i = 0 ; i < allMember.length; i++) {
-      allMember[i] = instance[i].getClusterRPC().getMember() ;
+      allMember[i] = instance[i].getCluster().getMember() ;
     }
     ServerCommandResult<ServerState>[] results = client.execute(ping, allMember) ;
     for(ServerCommandResult<ServerState> sel : results) {
