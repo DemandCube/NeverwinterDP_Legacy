@@ -11,6 +11,12 @@ public class ServerCommands {
     }
   }
 
+  static public class Start extends ServerCommand<ServerState> {
+    public ServerState execute(Server server) throws Exception {
+      server.start() ; 
+      return server.getServerState() ;
+    }
+  }
   
   static public class Shutdown extends ServerCommand<ServerState> {
     public ServerState execute(Server server) throws Exception {
@@ -19,9 +25,9 @@ public class ServerCommands {
     }
   }
   
-  static public class Start extends ServerCommand<ServerState> {
+  static public class Exit extends ServerCommand<ServerState> {
     public ServerState execute(Server server) throws Exception {
-      server.start() ; 
+      server.exit(3000) ; 
       return server.getServerState() ;
     }
   }

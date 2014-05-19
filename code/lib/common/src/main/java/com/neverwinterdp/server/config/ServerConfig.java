@@ -10,7 +10,7 @@ public class ServerConfig {
   private int      listenPort;
   private float    version;
   private String[] roles;
-  private String   clusterRPC;
+  private String   clusterRPC ;
   private String   description;
 
   public String getGroup() { return group; }

@@ -31,9 +31,11 @@ public class HazelcastClusterClient implements ClusterClient,  MessageListener<C
   private String               clusterEventTopicListenerId ;
   
   public HazelcastClusterClient(String connectUrl) {
-    ClientConfig clientConfig = new ClientConfig();
-    clientConfig.getNetworkConfig().addAddress(connectUrl);
-    hzclient = HazelcastClient.newHazelcastClient(clientConfig);
+    ClientConfig config = new ClientConfig();
+    config.getNetworkConfig().addAddress(connectUrl);
+    config.getGroupConfig().setName("neverwinterdp");
+    config.getGroupConfig().setPassword("neverwinterdp");
+    hzclient = HazelcastClient.newHazelcastClient(config);
     
     IMap<String, ServerRegistration> registrationMap = hzclient.getMap(Cluster.CLUSTER_REGISTRATON) ;
     clusterRegistration = new ClusterRegistrationImpl(registrationMap) ;

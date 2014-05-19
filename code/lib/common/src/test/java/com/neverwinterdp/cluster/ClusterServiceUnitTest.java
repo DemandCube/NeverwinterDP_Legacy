@@ -29,11 +29,11 @@ import com.neverwinterdp.util.JSONSerializer;
 public class ClusterServiceUnitTest {
   static protected Server[]      instance ;
   static protected ClusterClient client ;
-
+  
   @BeforeClass
   static public void setup() throws Exception {
     String jsonConfig = 
-      IOUtil.getFileContentAsString("src/test/resources/sample-configuration.json", "UTF-8") ;
+      IOUtil.getFileContentAsString("src/main/resources/server-default-config.json", "UTF-8") ;
     Configuration conf = JSONSerializer.INSTANCE.fromString(jsonConfig, Configuration.class) ;
     instance = new Server[3] ;
     for(int i = 0; i < instance.length; i++) {
@@ -52,7 +52,7 @@ public class ClusterServiceUnitTest {
   static public void teardown() throws Exception {
     client.shutdown(); 
     for(int i = 0; i < instance.length; i++) {
-      instance[i].onDestroy();;
+      instance[i].exit(0) ;
     }
     Thread.sleep(1000);
   }

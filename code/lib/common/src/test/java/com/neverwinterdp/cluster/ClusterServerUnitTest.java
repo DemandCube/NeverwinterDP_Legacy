@@ -31,7 +31,7 @@ public class ClusterServerUnitTest {
   @BeforeClass
   static public void setup() throws Exception {
     String jsonConfig = 
-        IOUtil.getFileContentAsString("src/test/resources/sample-configuration.json", "UTF-8") ;
+        IOUtil.getFileContentAsString("src/main/resources/server-default-config.json", "UTF-8") ;
     Configuration conf = JSONSerializer.INSTANCE.fromString(jsonConfig, Configuration.class) ;
       
     instance = new Server[3] ;
@@ -51,9 +51,8 @@ public class ClusterServerUnitTest {
   static public void teardown() throws Exception {
     client.shutdown(); 
     for(int i = 0; i < instance.length; i++) {
-      instance[i].onDestroy();;
+      instance[i].exit(0) ;
     }
-    Thread.sleep(1000);
   }
   
   @Test

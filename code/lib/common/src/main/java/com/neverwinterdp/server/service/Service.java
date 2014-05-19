@@ -11,7 +11,7 @@ import com.neverwinterdp.server.config.ServiceConfig;
  */
 public interface Service {
   /**
-   * The service config contains the configuration information such service id, service version,
+   * The service configFile contains the configuration information such service id, service version,
    * description, The real class implementation for this service interface. 
    * @return
    */
@@ -42,7 +42,7 @@ public interface Service {
   /**
    * This method is designed to start the service and change the service state to START. 
    * If the service is a wrapper to another service such zookeeper, kafka... All the real service
-   * state such load, config, init, start should be implemented in this method 
+   * state such load, configFile, init, start should be implemented in this method 
    */
   public void start() ;
   

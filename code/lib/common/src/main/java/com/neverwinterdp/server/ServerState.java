@@ -5,5 +5,5 @@ package com.neverwinterdp.server;
  * @email  tuan08@gmail.com
  */
 public enum ServerState { 
-  INIT, RUNNING, SHUTDOWN
+  INIT, RUNNING, SHUTDOWN, EXIT
 }

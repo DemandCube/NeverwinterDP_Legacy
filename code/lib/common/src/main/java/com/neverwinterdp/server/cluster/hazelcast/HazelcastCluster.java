@@ -44,8 +44,9 @@ public class HazelcastCluster implements Cluster, MessageListener<ClusterEvent> 
   public void onInit(Server server) {
     this.server = server ;
     Config config = new XmlConfigBuilder().build();
-    config.setProperty("hazelcast.operation.call.timeout.millis", "5000");
-    config.setProperty("hazelcast.shutdownhook.enabled", "false") ;
+//    config.setProperty("hazelcast.logging.type", "log4j");
+//    config.setProperty("hazelcast.operation.call.timeout.millis", "5000");
+//    config.setProperty("hazelcast.shutdownhook.enabled", "false") ;
     hzinstance = Hazelcast.newHazelcastInstance(config);
     Member hzmember= hzinstance.getCluster().getLocalMember() ;
     member = new ClusterMemberImpl(hzmember, server.getConfig()) ;

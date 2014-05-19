@@ -31,17 +31,25 @@ public class ServiceContainer {
   }
   
   public void start() {
-    for(Service service : services.values()) {
-      service.start() ; 
-      service.getServiceRegistration().setState(ServiceState.START);
-    }
+    for(Service service : services.values()) start(service) ;
+  }
+  
+  private void start(Service service) {
+    logger.info("Start start service " + service.getServiceRegistration().getName());
+    service.start() ;
+    service.getServiceRegistration().setState(ServiceState.START);
+    logger.info("Finish start service " + service.getServiceRegistration().getName());
   }
   
   public void stop() {
-    for(Service service : services.values()) {
-      service.stop() ; 
-      service.getServiceRegistration().setState(ServiceState.STOP);
-    }
+    for(Service service : services.values()) stop(service) ;
+  }
+  
+  private void stop(Service service) {
+    logger.info("Start stop service " + service.getServiceRegistration().getServiceId()) ;
+    service.stop() ; 
+    service.getServiceRegistration().setState(ServiceState.STOP);
+    logger.info("Stop stop service " + service.getServiceRegistration().getServiceId()) ;
   }
   
   public void start(ServiceRegistration registration) {
@@ -53,8 +61,7 @@ public class ServiceContainer {
     if(ServiceState.START.equals(service.getServiceRegistration().getState())) {
       return ;
     }
-    service.start() ;
-    service.getServiceRegistration().setState(ServiceState.START);
+    start(service) ;
     ClusterEvent event = new ClusterEvent() ;
     event.setType(ClusterEvent.ServiceStateChange);
     event.setSourceService(service.getServiceRegistration()) ;
@@ -71,8 +78,8 @@ public class ServiceContainer {
     if(!ServiceState.START.equals(service.getServiceRegistration().getState())) {
       return ;
     }
-    service.stop() ;
-    service.getServiceRegistration().setState(ServiceState.STOP);
+    stop(service) ;
+
     ClusterEvent event = new ClusterEvent() ;
     event.setType(ClusterEvent.ServiceStateChange);
     event.setSourceService(service.getServiceRegistration()) ;
@@ -119,7 +126,7 @@ public class ServiceContainer {
   }
   
   public void register(ServiceConfig config) throws Exception {
-    logger.info("Start register(ServiceConfig config), serviceId = " + config.getServiceId());
+    logger.info("Start register(ServiceConfig configFile), serviceId = " + config.getServiceId());
     String className = config.getClassName() ;
     Class<Service> clazz = (Class<Service>) Class.forName(className) ;
     Service instance = clazz.newInstance();
@@ -130,7 +137,7 @@ public class ServiceContainer {
     } else {
       throw new Exception("Service " + config.getServiceId() + " is already registered") ;
     }
-    logger.info("Finish register(ServiceConfig config), serviceId = " + config.getServiceId());
+    logger.info("Finish register(ServiceConfig configFile), serviceId = " + config.getServiceId());
   }
   
   public void register(List<ServiceConfig> configs) throws Exception {

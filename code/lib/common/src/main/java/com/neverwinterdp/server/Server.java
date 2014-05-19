@@ -1,6 +1,9 @@
 package com.neverwinterdp.server;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +30,7 @@ public class Server {
   private ServiceContainer serviceContainer;
   private ActivityLogs     activityLogs = new ActivityLogs();
   private ServerState      serverState  = null;
+  private ServerRuntimeEnvironment runtimeEnvironment ; 
 
   /**
    * The configuration for the server such name, group, version, description,
@@ -74,6 +78,10 @@ public class Server {
     String address = cluster.getMember().toString();
     return LoggerFactory.getLogger("[" + address + "][NeverwinterDP] " + name);
   }
+  
+  public ServerRuntimeEnvironment getRuntimeEnvironment() {
+    return this.runtimeEnvironment ; 
+  }
 
   /**
    * This lifecycle method be called after the configuration is set. The method
@@ -93,6 +101,13 @@ public class Server {
     setServerState(ServerState.INIT);
     long end = System.currentTimeMillis();
     activityLogs.add(new ActivityLog("Init", ActivityLog.Type.Auto, start, end, null));
+    runtimeEnvironment = new ServerRuntimeEnvironment(null) ;
+    
+    Runtime.getRuntime().addShutdownHook(new Thread() {
+      public void run() {
+       Server.this.exit(0);
+      }
+    });
     logger.info("Finish onInit()");
   }
 
@@ -102,9 +117,13 @@ public class Server {
    * if necessary, save the monitor or profile information.
    */
   public void onDestroy() {
+    if(ServerState.EXIT.equals(getServerState())) {
+      return ;
+    }
     logger.info("Start onDestroy()");
     serviceContainer.onDestroy(this);
     cluster.onDestroy(this);
+    setServerState(ServerState.EXIT) ;
     logger.info("Finish onDestroy()");
   }
 
@@ -118,8 +137,11 @@ public class Server {
    * service.start().
    */
   public void start() {
+    if(ServerState.RUNNING.equals(getServerState()) ||
+       ServerState.EXIT.equals(getServerState())) {
+      return ;
+    }
     logger.info("Start start()");
-    if (ServerState.RUNNING.equals(getServerState())) return;
     serviceContainer.start();
     setServerState(ServerState.RUNNING);
     cluster.getClusterRegistration().update(getServerRegistration());
@@ -133,14 +155,34 @@ public class Server {
    * simmulate the server shutdown or suspend.
    */
   public void shutdown() {
+    if(ServerState.SHUTDOWN.equals(getServerState()) ||
+       ServerState.EXIT.equals(getServerState())) {
+      return ;
+    }
     logger.info("Start shutdown()");
-    if (ServerState.SHUTDOWN.equals(getServerState()))
-      return;
     cluster.getClusterRegistration().remove(cluster.getMember());
     serviceContainer.stop();
     setServerState(ServerState.SHUTDOWN);
     ClusterEvent clusterEvent = new ClusterEvent(ClusterEvent.ServerStateChange, getServerState());
     cluster.broadcast(clusterEvent);
     logger.info("Finish shutdown()");
+  }
+  
+  public void exit(long wait) {
+    if(wait <= 0) {
+      //exit immediately
+      shutdown();
+      onDestroy() ;
+    } else {
+      //exit in wait ms
+      ScheduledExecutorService worker = Executors.newSingleThreadScheduledExecutor();
+      Runnable shutdownTask = new Runnable() {
+        public void run() {
+          shutdown();
+          onDestroy() ;
+        }
+      };
+      worker.schedule(shutdownTask, wait, TimeUnit.MILLISECONDS);
+    }
   }
 }
