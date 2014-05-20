@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.jetty;
+package com.neverwinterdp.sparkngin.jetty.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

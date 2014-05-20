@@ -2,6 +2,7 @@ package com.neverwinterdp.sparkngin.vertx;
 
 
 import com.neverwinterdp.sparkngin.ClusterUnitTest;
+import com.neverwinterdp.sparkngin.vertx.impl.SparknginVertxHttpServerCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 
 public class SparkClientVertxHttpServerUnitTest extends ClusterUnitTest {

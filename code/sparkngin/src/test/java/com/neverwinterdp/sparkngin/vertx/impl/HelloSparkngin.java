@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.vertx;
+package com.neverwinterdp.sparkngin.vertx.impl;
 
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.sparkngin.SendAck;

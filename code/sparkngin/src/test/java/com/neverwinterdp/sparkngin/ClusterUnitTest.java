@@ -11,7 +11,7 @@ import com.neverwinterdp.queuengin.kafka.KafkaCluster;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SparknginHttpClient;
-import com.neverwinterdp.sparkngin.vertx.SparknginSimpleVertxHttpClient;
+import com.neverwinterdp.sparkngin.vertx.impl.SparknginSimpleVertxHttpClient;
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 import com.neverwinterdp.testframework.cluster.ZookeeperCluster;

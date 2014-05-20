@@ -21,6 +21,7 @@ import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.platform.Verticle;
 
+import com.neverwinterdp.sparkngin.vertx.impl.EmbbededVertxServer;
 import com.neverwinterdp.util.IOUtil;
 
 public class HttpServerPingUnitTest {

@@ -2,6 +2,7 @@ package com.neverwinterdp.sparkngin.jetty;
 
 
 import com.neverwinterdp.sparkngin.ClusterUnitTest;
+import com.neverwinterdp.sparkngin.jetty.impl.SparknginJettyHttpServerCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 
 public class SparkClientJettyHttpServerUnitTest extends ClusterUnitTest {

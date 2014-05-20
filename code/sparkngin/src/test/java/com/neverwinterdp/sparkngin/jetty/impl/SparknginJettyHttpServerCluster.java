@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.jetty;
+package com.neverwinterdp.sparkngin.jetty.impl;
 
 import java.util.ArrayList;
 import java.util.List;

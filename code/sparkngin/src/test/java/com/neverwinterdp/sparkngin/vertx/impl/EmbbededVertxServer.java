@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.vertx;
+package com.neverwinterdp.sparkngin.vertx.impl;
 
 import java.io.File;
 import java.net.URL;

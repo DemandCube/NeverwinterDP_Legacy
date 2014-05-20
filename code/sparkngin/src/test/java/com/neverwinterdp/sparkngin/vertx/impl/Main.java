@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.vertx;
+package com.neverwinterdp.sparkngin.vertx.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

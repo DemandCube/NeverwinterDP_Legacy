@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.jetty;
+package com.neverwinterdp.sparkngin.jetty.impl;
 
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;

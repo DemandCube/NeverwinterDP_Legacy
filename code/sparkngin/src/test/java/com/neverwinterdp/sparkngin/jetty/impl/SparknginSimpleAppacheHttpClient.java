@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin;
+package com.neverwinterdp.sparkngin.jetty.impl;
 
 import java.io.ByteArrayOutputStream;
 
@@ -9,6 +9,9 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import com.neverwinterdp.message.Message;
+import com.neverwinterdp.sparkngin.SendAck;
+import com.neverwinterdp.sparkngin.SendMessageHandler;
+import com.neverwinterdp.sparkngin.SparknginSimpleHttpClient;
 import com.neverwinterdp.util.JSONSerializer;
 
 public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClient {

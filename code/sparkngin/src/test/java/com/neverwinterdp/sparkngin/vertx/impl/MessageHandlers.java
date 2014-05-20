@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.vertx;
+package com.neverwinterdp.sparkngin.vertx.impl;
 
 import org.vertx.java.core.Handler;
 import org.vertx.java.core.buffer.Buffer;

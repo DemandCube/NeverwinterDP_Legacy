@@ -1,4 +1,4 @@
-package com.neverwinterdp.sparkngin.vertx;
+package com.neverwinterdp.sparkngin.vertx.impl;
 
 import java.util.ArrayList;
 import java.util.List;
