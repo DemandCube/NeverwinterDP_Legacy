@@ -6,7 +6,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.neverwinterdp.server.cluster.Cluster;
 import com.neverwinterdp.server.cluster.ClusterEvent;
@@ -14,6 +13,7 @@ import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.hazelcast.HazelcastCluster;
 import com.neverwinterdp.server.config.ServerConfig;
 import com.neverwinterdp.server.service.ServiceRegistration;
+import com.neverwinterdp.util.LoggerFactory;
 
 /**
  * @author Tuan Nguyen
@@ -24,6 +24,7 @@ import com.neverwinterdp.server.service.ServiceRegistration;
  */
 public class Server {
   private Logger           logger;
+  private LoggerFactory    loggerFactory ;
 
   private ServerConfig     config;
   private Cluster          cluster;
@@ -73,12 +74,11 @@ public class Server {
   public Logger getLogger() {
     return this.logger;
   }
-
-  public Logger getLogger(String name) {
-    String address = cluster.getMember().toString();
-    return LoggerFactory.getLogger("[" + address + "][NeverwinterDP] " + name);
-  }
   
+  public LoggerFactory getLoggerFactory() {
+    return this.loggerFactory ;
+  }
+
   public ServerRuntimeEnvironment getRuntimeEnvironment() {
     return this.runtimeEnvironment ; 
   }
@@ -94,7 +94,8 @@ public class Server {
     long start = System.currentTimeMillis();
     cluster = new HazelcastCluster();
     cluster.onInit(this);
-    logger = getLogger(getClass().getSimpleName());
+    loggerFactory = new LoggerFactory("[" + cluster.getMember().toString() + "][NeverwinterDP] ") ;
+    logger = loggerFactory.getLogger("Server");
     serviceContainer = new ServiceContainer();
     serviceContainer.onInit(this);
     logger.info("Start onInit()");

@@ -24,7 +24,7 @@ abstract public class AbstractService implements Service {
   public ServiceRegistration getServiceRegistration() { return registration ; }
   
   public void onInit(Server server) {
-    logger = server.getLogger(getClass().getSimpleName());
+    logger = server.getLoggerFactory().getLogger(getClass().getSimpleName());
     logger.debug("onInit(Server server).......................");
   }
   
