@@ -16,6 +16,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpContentCompressor;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpRequestDecoder;
+import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.HttpServerCodec;
 
 public class HttpServer {
@@ -69,6 +73,10 @@ public class HttpServer {
         public void initChannel(SocketChannel ch) throws Exception {
           ChannelPipeline p = ch.pipeline();
           p.addLast("codec", new HttpServerCodec());
+          // Remove the following line if you don't want automatic content
+          // compression.
+          p.addLast("deflater", new HttpContentCompressor());
+          p.addLast("aggregator", new HttpObjectAggregator(1048576));
           p.addLast("handler", new HttpServerHandler(HttpServer.this));
         }
       };

@@ -1,5 +1,7 @@
 package com.neverwinterdp.netty.http;
 
+import static org.junit.Assert.*;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,11 +40,15 @@ public class HttpServerUnitTest {
   
   @Test
   public void testGet() throws Exception {
-    HttpClient client = 
-      new HttpClient ("127.0.0.1", 8080, new DummyResponseHandler()) ;
-    client.get("http://127.0.0.1:8080/ping"); 
+    DummyResponseHandler handler = new DummyResponseHandler() ;
+    HttpClient client = new HttpClient ("127.0.0.1", 8080, handler) ;
+    //client.get("http://127.0.0.1:8080/ping", true); 
     client.get("/ping"); 
-    client.get("/ping"); 
-    client.closeFuture() ;
+    System.out.println("GET-------------------------");
+    for(int i = 0; i < 10; i++) {
+      client.post("/ping", "Hello");
+    }
+    Thread.sleep(1000);
+    assertEquals(11, handler.getCount()) ;
   }
 }

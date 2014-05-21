@@ -7,9 +7,14 @@ import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.util.CharsetUtil;
 
 public class DummyResponseHandler implements ResponseHandler {
+  private int count  = 0 ;
+  
+  public int getCount() { return count; }
+  
   public void onResponse(HttpResponse response) {
     printHeaders(response) ;
     printContent(response) ;
+    count++ ;
   }
   
   private void printHeaders(HttpResponse response) {

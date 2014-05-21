@@ -1,6 +1,8 @@
 package com.neverwinterdp.netty.http.client;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
@@ -18,7 +20,6 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.codec.http.HttpObject;
 import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpRequest;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.HttpVersion;
 
@@ -60,22 +61,34 @@ public class HttpClient {
     group.shutdownGracefully();
   }
   
-  public ChannelFuture closeFuture() throws InterruptedException {
+  public void await() throws InterruptedException {
     // Wait for the server to close the connection.
-    return channel.closeFuture().sync();
+    channel.closeFuture().await() ;
   }
   
   public void get(String uriString) throws Exception {
     URI uri = new URI(uriString);
-    channel.writeAndFlush(createRequest(uri, HttpMethod.GET));
+    DefaultFullHttpRequest request = createRequest(uri, HttpMethod.GET, null) ;
+    channel.writeAndFlush(request) ;
   }
   
-  public void post(String uriString) throws Exception {
+  public void post(String uriString, ByteBuf content) throws Exception {
     URI uri = new URI(uriString);
-    channel.writeAndFlush(createRequest(uri, HttpMethod.POST));
+    DefaultFullHttpRequest request = createRequest(uri, HttpMethod.POST, content) ;
+    channel.writeAndFlush(request) ;
   }
   
-  HttpRequest createRequest(URI uri, HttpMethod method) {
+  public void post(String uriString, String data) throws Exception {
+    ByteBuf content = Unpooled.wrappedBuffer(data.getBytes()) ;
+    post(uriString, content) ;
+  }
+  
+  public void post(String uriString, byte[] data) throws Exception {
+    ByteBuf content = Unpooled.wrappedBuffer(data) ;
+    post(uriString, content) ;
+  }
+  
+  DefaultFullHttpRequest createRequest(URI uri, HttpMethod method, ByteBuf content) {
    // Prepare the HTTP request.
     if(uri.getHost() != null && !host.equalsIgnoreCase(uri.getHost())) {
       throw new RuntimeException("expect uri with the host " + host) ;
@@ -83,9 +96,18 @@ public class HttpClient {
     if(uri.getPort() > 0 && port != uri.getPort()) {
       throw new RuntimeException("expect the port in uri = " + port) ;
     }
-    HttpRequest request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, method, uri.toString());
+    
+    DefaultFullHttpRequest request = null;
+    if(content == null) { 
+      request = new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, method, uri.toString());
+    } else {
+      request = 
+          new DefaultFullHttpRequest(HttpVersion.HTTP_1_1, HttpMethod.POST, uri.toString(), content);
+      // request.headers().set(HttpHeaders.Names.CONTENT_LENGTH, contentBuf.readableBytes());
+      HttpHeaders.setTransferEncodingChunked(request);
+    }
     request.headers().set(HttpHeaders.Names.HOST, host);
-    request.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.CLOSE);
+    request.headers().set(HttpHeaders.Names.CONNECTION, HttpHeaders.Values.KEEP_ALIVE);
     request.headers().set(HttpHeaders.Names.ACCEPT_ENCODING, HttpHeaders.Values.GZIP);
 
     // Set some example cookies.
