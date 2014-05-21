@@ -11,10 +11,10 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SendMessageHandler;
-import com.neverwinterdp.sparkngin.SparknginSimpleHttpClient;
+import com.neverwinterdp.sparkngin.SparknginSimpleClient;
 import com.neverwinterdp.util.JSONSerializer;
 
-public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClient {
+public class SparknginSimpleAppacheHttpClient implements SparknginSimpleClient {
   private String connectionUrl ;
   HttpClient httpClient ;
   
@@ -57,8 +57,8 @@ public class SparknginSimpleAppacheHttpClient implements SparknginSimpleHttpClie
     return ack ;
   }
   
-  static public SparknginSimpleHttpClient[] create(String[] connectionUrls) {
-    SparknginSimpleHttpClient[] instances = new SparknginSimpleHttpClient[connectionUrls.length] ;
+  static public SparknginSimpleClient[] create(String[] connectionUrls) {
+    SparknginSimpleClient[] instances = new SparknginSimpleClient[connectionUrls.length] ;
     for(int i = 0; i < instances.length; i++) {
       instances[i] = new SparknginSimpleAppacheHttpClient(connectionUrls[i]) ;
     }

@@ -11,10 +11,10 @@ import org.vertx.java.core.http.HttpClientResponse;
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SendMessageHandler;
-import com.neverwinterdp.sparkngin.SparknginSimpleHttpClient;
+import com.neverwinterdp.sparkngin.SparknginSimpleClient;
 import com.neverwinterdp.util.JSONSerializer;
 
-public class SparknginSimpleVertxHttpClient implements SparknginSimpleHttpClient {
+public class SparknginSimpleVertxHttpClient implements SparknginSimpleClient {
   private String host ;
   private int    port ;
   private String connectionUrl ;
@@ -57,8 +57,8 @@ public class SparknginSimpleVertxHttpClient implements SparknginSimpleHttpClient
     postReq.end(json) ;
   }
   
-  static public SparknginSimpleHttpClient[] create(String[] connectionUrls) {
-    SparknginSimpleHttpClient[] instances = new SparknginSimpleHttpClient[connectionUrls.length] ;
+  static public SparknginSimpleClient[] create(String[] connectionUrls) {
+    SparknginSimpleClient[] instances = new SparknginSimpleClient[connectionUrls.length] ;
     for(int i = 0; i < instances.length; i++) {
       instances[i] = new SparknginSimpleVertxHttpClient(connectionUrls[i]) ;
     }

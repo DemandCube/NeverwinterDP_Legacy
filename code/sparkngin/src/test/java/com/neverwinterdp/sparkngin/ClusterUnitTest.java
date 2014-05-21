@@ -10,7 +10,7 @@ import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
 import com.neverwinterdp.queuengin.kafka.KafkaCluster;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
 import com.neverwinterdp.sparkngin.SendAck;
-import com.neverwinterdp.sparkngin.SparknginHttpClient;
+import com.neverwinterdp.sparkngin.SparknginClient;
 import com.neverwinterdp.sparkngin.vertx.impl.SparknginSimpleVertxHttpClient;
 import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
@@ -54,19 +54,19 @@ abstract public class ClusterUnitTest {
     
     String[] connectionUrls = { "http://127.0.0.1:8080", "http://127.0.0.1:8081" };
     SendMessageHandler sendHandler = new SendMessageHandler() {
-      public void onResponse(Message message, SparknginSimpleHttpClient client, SendAck ack) {
+      public void onResponse(Message message, SparknginSimpleClient client, SendAck ack) {
         System.out.println("Ack: " + ack.getStatus()) ;
       }
 
-      public void onError(Message message, SparknginSimpleHttpClient client, Throwable error) {
+      public void onError(Message message, SparknginSimpleClient client, Throwable error) {
       }
 
-      public void onRetry(Message message, SparknginSimpleHttpClient client) {
+      public void onRetry(Message message, SparknginSimpleClient client) {
       }
     };
     
-    SparknginSimpleHttpClient[] simpleClients = SparknginSimpleVertxHttpClient.create(connectionUrls) ;
-    SparknginHttpClient client = new SparknginHttpClient(simpleClients) ; ;
+    SparknginSimpleClient[] simpleClients = SparknginSimpleVertxHttpClient.create(connectionUrls) ;
+    SparknginClient client = new SparknginClient(simpleClients) ; ;
     String topic = "test-topic" ;
     for(int i = 0; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
