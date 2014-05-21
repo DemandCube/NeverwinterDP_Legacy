@@ -21,7 +21,7 @@ public class QueuenginClusterUnitTest {
   static {
     System.setProperty("app.dir", "build") ;
     System.setProperty("app.config.dir", "src/app/config") ;
-    System.setProperty("log4j.configuration", "src/app/config/kafka/simple-log4j.properties") ;
+    System.setProperty("log4j.configuration", "file:src/app/config/kafka/simple-log4j.properties") ;
   }
   
   static protected Server      zkServer, kafkaServer ;
