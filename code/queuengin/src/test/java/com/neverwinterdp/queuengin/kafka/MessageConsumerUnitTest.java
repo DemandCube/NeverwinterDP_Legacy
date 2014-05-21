@@ -15,13 +15,13 @@ public class MessageConsumerUnitTest extends ClusterUnitTest {
     KafkaMessageProducer producer = new KafkaMessageProducer(kafkaCluster.getConnectionURLs()) ;
     for(int i = 0 ; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
-      Message<SampleEvent> jsonMessage = new Message<SampleEvent>("m" + i, event, false) ;
+      Message jsonMessage = new Message("m" + i, event, false) ;
       producer.send(topic,  jsonMessage) ;
     }
    
     ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;
-    KafkaMessageConsumerConnector<SampleEvent> consumer = 
-        new KafkaMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
+    KafkaMessageConsumerConnector consumer = 
+        new KafkaMessageConsumerConnector("consumer", zkCluster.getConnectURLs()) ;
     consumer.consume(topic, handler, 1) ;
     Thread.sleep(2000) ;
     Assert.assertEquals(numOfMessages, handler.messageCount()) ;

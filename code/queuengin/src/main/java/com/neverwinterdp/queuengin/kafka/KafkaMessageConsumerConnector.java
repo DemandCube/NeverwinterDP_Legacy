@@ -19,7 +19,7 @@ import com.neverwinterdp.queuengin.MessageConsumerConnector;
 import com.neverwinterdp.queuengin.MessageConsumerHandler;
 import com.neverwinterdp.util.JSONSerializer;
 
-public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnector<T>{
+public class KafkaMessageConsumerConnector implements MessageConsumerConnector {
   private  ConsumerConnector consumer;
 
   public KafkaMessageConsumerConnector(String group, String zkConnectUrls) {
@@ -36,7 +36,7 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
     consumer = kafka.consumer.Consumer.createJavaConsumerConnector(config);
   }
 
-  public void consume(String topic, MessageConsumerHandler<T> handler, int numOfThreads) throws IOException {
+  public void consume(String topic, MessageConsumerHandler handler, int numOfThreads) throws IOException {
     Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
     topicCountMap.put(topic, numOfThreads);
     Map<String, List<KafkaStream<byte[], byte[]>>> consumerMap = consumer.createMessageStreams(topicCountMap);
@@ -44,17 +44,21 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
     ExecutorService executor = Executors.newFixedThreadPool(numOfThreads);
     int threadNumber = 0;
     for (final KafkaStream<byte[], byte[]> stream : streams) {
-      executor.submit(new MessageConsumer<T>(handler, stream, threadNumber));
+      executor.submit(new MessageConsumer(handler, stream, threadNumber));
       threadNumber++;
     }
   }
   
-  static public class MessageConsumer<T> implements Runnable {
-    private MessageConsumerHandler<T> handler ;
+  public void close() {
+    consumer.shutdown(); 
+  }
+  
+  static public class MessageConsumer implements Runnable {
+    private MessageConsumerHandler handler ;
     private KafkaStream<byte[], byte[]> stream;
     private int threadId;
 
-    public MessageConsumer(MessageConsumerHandler<T> handler, KafkaStream<byte[], byte[]> stream, int threadId) {
+    public MessageConsumer(MessageConsumerHandler handler, KafkaStream<byte[], byte[]> stream, int threadId) {
       this.handler = handler ;
       this.stream = stream;
       this.threadId = threadId;
@@ -65,7 +69,7 @@ public class KafkaMessageConsumerConnector<T> implements MessageConsumerConnecto
       while (it.hasNext()) {
         MessageAndMetadata<byte[], byte[]> data = it.next() ;
         byte[] mBytes = data.message() ;
-        Message<T> message = JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
+        Message message = JSONSerializer.INSTANCE.fromBytes(mBytes, Message.class);
         handler.onMessage(message) ;
       }
     }

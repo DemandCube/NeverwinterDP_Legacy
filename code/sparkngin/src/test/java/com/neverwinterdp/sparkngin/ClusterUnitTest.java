@@ -54,14 +54,14 @@ abstract public class ClusterUnitTest {
     
     String[] connectionUrls = { "http://127.0.0.1:8080", "http://127.0.0.1:8081" };
     SendMessageHandler sendHandler = new SendMessageHandler() {
-      public void onResponse(Message<?> message, SparknginSimpleHttpClient client, SendAck ack) {
+      public void onResponse(Message message, SparknginSimpleHttpClient client, SendAck ack) {
         System.out.println("Ack: " + ack.getStatus()) ;
       }
 
-      public void onError(Message<?> message, SparknginSimpleHttpClient client, Throwable error) {
+      public void onError(Message message, SparknginSimpleHttpClient client, Throwable error) {
       }
 
-      public void onRetry(Message<?> message, SparknginSimpleHttpClient client) {
+      public void onRetry(Message message, SparknginSimpleHttpClient client) {
       }
     };
     
@@ -70,13 +70,12 @@ abstract public class ClusterUnitTest {
     String topic = "test-topic" ;
     for(int i = 0; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
-      Message<SampleEvent> message = new Message<SampleEvent>("m" + i, event, true) ;
+      Message message = new Message("m" + i, event, true) ;
       client.send(topic, message, sendHandler) ;
     }
     
     ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;
-    KafkaMessageConsumerConnector<SampleEvent> consumer = 
-        new KafkaMessageConsumerConnector<SampleEvent>("consumer", zkCluster.getConnectURLs()) ;
+    KafkaMessageConsumerConnector consumer = new KafkaMessageConsumerConnector("consumer", zkCluster.getConnectURLs()) ;
     consumer.consume("test-topic", handler, 1) ;
     Thread.sleep(3000) ;
     Assert.assertEquals(numOfMessages, handler.messageCount()) ;

@@ -3,3 +3,47 @@ dependencies {
   compile project(':lib/test-framework')
   compile project(':queuengin')
 }
+
+task release (dependsOn: 'build') << {
+  def releaseDir = "${buildDir}/release/Scribengin"
+  doRelease(releaseDir) ;
+}
+
+def doRelease(String releaseDir) {
+  println "\n\n"
+  println "*************************************************"
+  println "Preparing the release directory ${releaseDir}"
+  println "*************************************************"
+
+  println "Copy the scripts"
+  copy {
+    from "src/app"
+    into "${releaseDir}"
+  }
+
+  def jars = [ 
+    "lib.common", "test-framework", "queuengin",
+    "jackson-core-asl", "jackson-mapper-asl",
+    "kafka", "scala-library", "zkclient", "zookeeper",
+    "log4j", "slf4j-api", "slf4j-simple", "slf4j-log4j12",
+    "metrics-core", "metrics-annotation"
+  ] 
+
+  println "Copy the dependency library"
+  project(':sparkngin').configurations.compile.each { File file -> 
+    if(isIn(jars, file)) {
+      println "  Copy $file.name to Scribengin/libs"
+      copy {
+        from file
+        into "${releaseDir}/libs"
+      }
+    } else {
+      //println "Ignore $file.name "
+    }
+  }
+
+  copy {
+    from "${buildDir}/libs"
+    into "${releaseDir}/libs"
+  }
+}

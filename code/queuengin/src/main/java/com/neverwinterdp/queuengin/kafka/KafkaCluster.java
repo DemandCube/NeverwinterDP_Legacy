@@ -84,7 +84,7 @@ public class KafkaCluster implements ServiceCluster {
     return new KafkaMessageProducer(getConnectionURLs()) ;
   }
   
-  public <T> KafkaMessageConsumerConnector<T> createConnector(String group) {
-    return new KafkaMessageConsumerConnector<T>(group, zookeeperConnectUrls) ;
+  public  KafkaMessageConsumerConnector createConnector(String group) {
+    return new KafkaMessageConsumerConnector(group, zookeeperConnectUrls) ;
   }
 }

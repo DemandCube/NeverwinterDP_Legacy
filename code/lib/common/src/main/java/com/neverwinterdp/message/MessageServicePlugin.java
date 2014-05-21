@@ -1,13 +1,15 @@
 package com.neverwinterdp.message;
 
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public interface MessageServicePlugin {
   String getName() ;
-  void   setName(String name) ;
  
-  void onPreProcess(MessageService service, Message<?> message) ;
-  void onPostProcess(MessageService service, Message<?> message) ;
-
-  void onErrorMessage(MessageService service, Message<?> message) ;
-  void onRejectMessage(MessageService service, Message<?> message) ;
-  void onRetryMessage(MessageService service, Message<?> message) ;
+  public void onInit() ;
+  public void onDestroy() ;
+  
+  void onPreProcess(MessageService service, Message message) ;
+  void onPostProcess(MessageService service, Message message) ;
 }

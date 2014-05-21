@@ -15,8 +15,10 @@ public class MessageHandlers  {
   private KafkaMessageProducer producer ;
   
   public void configure(RouteMatcher matcher, JsonObject config) {
-    String kafkaConnectionUrls = "127.0.0.1:9090,127.0.0.1:9091" ; 
-    producer = new KafkaMessageProducer(kafkaConnectionUrls) ;
+    String brokerList = config.getString("broker-list") ;
+    if(brokerList == null) brokerList = "127.0.0.1:9090,127.0.0.1:9091" ;
+    
+    producer = new KafkaMessageProducer(brokerList) ;
     matcher.post("/message/:topic", new Post()) ;
   }
   
@@ -31,13 +33,13 @@ public class MessageHandlers  {
           SendAck ack = new SendAck() ;
           byte[] bytes = buf.getBytes() ;
           try {
-            Message<?> jsonMessage = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
-            if(jsonMessage.isLogEnable()) {
+            Message message = JSONSerializer.INSTANCE.fromBytes(bytes, Message.class) ;
+            if(message.getHeader().isTraceEnable()) {
               int port = req.localAddress().getPort() ;
               String addr = req.localAddress().getHostString() ;
-              jsonMessage.addLog("JSONMessageServlet", "forward by http server, ip = " + addr + ", port " + port) ;
+              message.addTrace("JSONMessageServlet", "forward by http server, ip = " + addr + ", port " + port) ;
             }
-            producer.send(topic, jsonMessage) ;
+            producer.send(topic, message) ;
             ack.setStatus(SendAck.Status.OK) ;
           } catch (Exception e) {
             ack.setStatus(SendAck.Status.ERROR) ;
