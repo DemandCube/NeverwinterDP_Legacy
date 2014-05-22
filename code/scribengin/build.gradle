@@ -1,6 +1,8 @@
 dependencies {
-  compile project(':lib/common')
-  compile project(':lib/test-framework')
+  compile project(':commons/utils')
+  compile project(':commons/api')
+  compile project(':commons/cluster')
+
   compile project(':queuengin')
 }
 

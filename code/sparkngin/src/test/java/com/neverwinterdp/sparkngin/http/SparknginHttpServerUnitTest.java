@@ -7,10 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.neverwinterdp.message.Message;
+import com.neverwinterdp.message.SampleEvent;
 import com.neverwinterdp.netty.http.HttpServer;
 import com.neverwinterdp.netty.http.client.DumpResponseHandler;
 import com.neverwinterdp.netty.http.client.HttpClient;
-import com.neverwinterdp.testframework.event.SampleEvent;
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com

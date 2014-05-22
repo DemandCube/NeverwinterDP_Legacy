@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.neverwinterdp.message.Message;
+import com.neverwinterdp.message.SampleEvent;
 import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
 import com.neverwinterdp.queuengin.kafka.cluster.KafkaClusterService;
 import com.neverwinterdp.queuengin.kafka.cluster.ZookeeperClusterService;
@@ -14,7 +15,6 @@ import com.neverwinterdp.server.ServerBuilder;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.hazelcast.HazelcastClusterClient;
-import com.neverwinterdp.testframework.event.SampleEvent;
 import com.neverwinterdp.util.FileUtil;
 
 public class QueuenginClusterUnitTest {

@@ -1,11 +1,11 @@
 package com.neverwinterdp.sparkngin.vertx.impl;
 
 import com.neverwinterdp.message.Message;
+import com.neverwinterdp.message.SampleEvent;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SendMessageHandler;
 import com.neverwinterdp.sparkngin.SparknginClient;
 import com.neverwinterdp.sparkngin.SparknginSimpleClient;
-import com.neverwinterdp.testframework.event.SampleEvent;
 /**
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com

@@ -1,5 +1,7 @@
-include 'lib/common'
-include 'lib/test-framework'
+include 'commons/utils'
+include 'commons/api'
+include 'commons/cluster'
+
 include 'queuengin'
 include 'sparkngin'
 include 'scribengin'

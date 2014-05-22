@@ -3,11 +3,10 @@ apply plugin:'application'
 mainClassName = "org.gradle.sample.Main"
 
 dependencies {
-  compile project(path: ':lib/common')
-  compile project(path: ':lib/test-framework')
   compile project(':queuengin')
   compile project(path: ':sparkngin')
   compile project(':scribengin')
+  compile project(':demandspike')
 }
 
 
