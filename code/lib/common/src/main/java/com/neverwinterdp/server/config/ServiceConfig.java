@@ -1,5 +1,6 @@
 package com.neverwinterdp.server.config;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +14,7 @@ public class ServiceConfig {
   private String              className;
   private String              description;
   
-  private Map<String, Object> parameters ;
+  private Map<String, Object> parameters = new HashMap<String, Object>();
   
   public String getServiceId() {
     if(serviceId == null) return className ;
@@ -62,5 +63,38 @@ public class ServiceConfig {
 
   public void setParameters(Map<String, Object> parameters) {
     this.parameters = parameters;
+  }
+  
+  public int getParameter(String name, int defaultValue) {
+    Integer value = (Integer)parameters.get(name) ;
+    if(value != null) return value.intValue() ;
+    return defaultValue ;
+  }
+  
+  public ServiceConfig setParameter(String name, int value) {
+    parameters.put(name, value) ;
+    return this ;
+  }
+  
+  public String getParameter(String name, String defaultValue) {
+    String value = (String)parameters.get(name) ;
+    if(value != null) return value ;
+    return defaultValue ;
+  }
+  
+  public ServiceConfig setParameter(String name, String value) {
+    parameters.put(name, value) ;
+    return this ;
+  }
+  
+  public <T> T getParameter(String name, T defaultValue) {
+    T value = (T) parameters.get(name) ;
+    if(value != null) return value ;
+    return defaultValue ;
+  }
+  
+  public <T> ServiceConfig setParameter(String name, T value) {
+    parameters.put(name, value) ;
+    return this ;
   }
 }

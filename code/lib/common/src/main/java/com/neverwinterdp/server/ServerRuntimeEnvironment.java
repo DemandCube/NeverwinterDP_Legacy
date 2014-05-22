@@ -1,12 +1,15 @@
 package com.neverwinterdp.server;
 
 public class ServerRuntimeEnvironment {
+  static int serverIdTracker ;
+  
   private String appDir;
   private String configDir;
   private String logDir;
   private String tmpDir;
   private String workingDir;
   private String dataDir;
+  private int    serverId ;
 
   public ServerRuntimeEnvironment(String appDir) {
     appDir = getSystemProperty("app.dir", "./") ;
@@ -15,7 +18,12 @@ public class ServerRuntimeEnvironment {
     tmpDir = getSystemProperty("app.tmp.dir", appDir + "/tmp") ;
     workingDir = getSystemProperty("app.working.dir", appDir + "/working") ;
     dataDir = getSystemProperty("app.data.dir", appDir + "/data") ;
+    synchronized(ServerRuntimeEnvironment.class) {
+      serverId = ++serverIdTracker ;
+    }
   }
+  
+  public int getServerId() { return this.serverId ; }
   
   public String getAppDir() {
     return appDir;

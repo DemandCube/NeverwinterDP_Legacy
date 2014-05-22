@@ -19,6 +19,17 @@ public class Configuration {
     return services.get(id) ;
   }
   
+  public ServiceConfig getServiceConfigById(String serviceId) {
+    for(ServiceConfig sel : services.values()) {
+      if(sel.getServiceId().equals(serviceId)) return sel ;
+    }
+    return null ;
+  }
+  
+  public void addService(ServiceConfig config) {
+    services.put(config.getServiceId(), config) ;
+  }
+  
   public List<ServiceConfig> getServices() {
     ArrayList<ServiceConfig> holder = new ArrayList<ServiceConfig>() ;
     holder.addAll(services.values()) ;

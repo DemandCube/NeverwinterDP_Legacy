@@ -44,7 +44,7 @@ public interface Service {
    * If the service is a wrapper to another service such zookeeper, kafka... All the real service
    * state such load, configFile, init, start should be implemented in this method 
    */
-  public void start() ;
+  public void start() throws Exception ;
   
   /**
    * This method is designed to stop the service and change the service state to STOP. 

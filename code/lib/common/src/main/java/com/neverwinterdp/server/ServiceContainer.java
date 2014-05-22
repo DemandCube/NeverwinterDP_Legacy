@@ -36,8 +36,12 @@ public class ServiceContainer {
   
   private void start(Service service) {
     logger.info("Start start service " + service.getServiceRegistration().getName());
-    service.start() ;
-    service.getServiceRegistration().setState(ServiceState.START);
+    try {
+      service.start() ;
+      service.getServiceRegistration().setState(ServiceState.START);
+    } catch(Exception ex) {
+      logger.error("Cannot launch the service " + service.getServiceRegistration().getName(), ex);
+    }
     logger.info("Finish start service " + service.getServiceRegistration().getName());
   }
   
