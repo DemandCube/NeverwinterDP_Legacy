@@ -7,19 +7,19 @@ import org.junit.Test;
 
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.queuengin.ReportMessageConsumerHandler;
+import com.neverwinterdp.queuengin.kafka.cluster.KafkaClusterService;
+import com.neverwinterdp.queuengin.kafka.cluster.ZookeeperClusterService;
 import com.neverwinterdp.server.Server;
+import com.neverwinterdp.server.ServerBuilder;
 import com.neverwinterdp.server.cluster.ClusterClient;
 import com.neverwinterdp.server.cluster.ClusterMember;
 import com.neverwinterdp.server.cluster.hazelcast.HazelcastClusterClient;
-import com.neverwinterdp.server.config.Configuration;
 import com.neverwinterdp.testframework.event.SampleEvent;
 import com.neverwinterdp.util.FileUtil;
-import com.neverwinterdp.util.IOUtil;
-import com.neverwinterdp.util.JSONSerializer;
 
 public class QueuenginClusterUnitTest {
   static {
-    System.setProperty("app.dir", "build") ;
+    System.setProperty("app.dir", "build/cluster") ;
     System.setProperty("app.config.dir", "src/app/config") ;
     System.setProperty("log4j.configuration", "file:src/app/config/kafka/simple-log4j.properties") ;
   }
@@ -27,23 +27,17 @@ public class QueuenginClusterUnitTest {
   static protected Server      zkServer, kafkaServer ;
   static protected ClusterClient client ;
 
-  static Server createServer(String configFile) throws Exception {
-    String jsonConfig = IOUtil.getFileContentAsString(configFile, "UTF-8") ;
-    Configuration conf = JSONSerializer.INSTANCE.fromString(jsonConfig, Configuration.class) ;
-
-    Server server = new Server() ;  
-    server.setConfig(conf.getServer());
-    server.onInit();
-    server.getServiceContainer().register(conf.getServices());
-    server.start();
-    return server ;
-  }
-  
   @BeforeClass
   static public void setup() throws Exception {
-    FileUtil.removeIfExist("build/data", false);
-    zkServer =    createServer("src/app/config/zookeeper/server-config.json") ;
-    kafkaServer = createServer("src/app/config/kafka/server-config.json") ;
+    FileUtil.removeIfExist("build/cluster", false);
+    ServerBuilder zkBuilder = new ServerBuilder() ;
+    zkBuilder.addService(ZookeeperClusterService.class) ;
+    zkServer = zkBuilder.build();
+    
+    
+    ServerBuilder kafkaBuilder = new ServerBuilder() ;
+    kafkaBuilder.addService(KafkaClusterService.class) ;
+    kafkaServer = kafkaBuilder.build();
     
     ClusterMember member = zkServer.getCluster().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
@@ -69,8 +63,7 @@ public class QueuenginClusterUnitTest {
     }
    
     ReportMessageConsumerHandler handler = new ReportMessageConsumerHandler() ;
-    KafkaMessageConsumerConnector consumer = 
-      new KafkaMessageConsumerConnector("consumer", "127.0.0.1:2181") ;
+    KafkaMessageConsumerConnector consumer = new KafkaMessageConsumerConnector("consumer", "127.0.0.1:2181") ;
     consumer.consume(topic, handler, 1) ;
     Thread.sleep(2000) ;
     Assert.assertEquals(numOfMessages, handler.messageCount()) ;

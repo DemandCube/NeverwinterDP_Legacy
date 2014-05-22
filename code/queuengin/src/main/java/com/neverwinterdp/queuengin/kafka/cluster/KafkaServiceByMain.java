@@ -28,8 +28,8 @@ public class KafkaServiceByMain extends AbstractService {
           Kafka.main(args) ;
         } catch(Exception ex) {
           kafkaThread = null ;
-          logger.error("Cannot lauch the KafkaService", ex);
-          throw new RuntimeException("Cannot lauch the KafkaService", ex);
+          logger.error("Cannot lauch the KafkaClusterService", ex);
+          throw new RuntimeException("Cannot lauch the KafkaClusterService", ex);
         }
       }
     };

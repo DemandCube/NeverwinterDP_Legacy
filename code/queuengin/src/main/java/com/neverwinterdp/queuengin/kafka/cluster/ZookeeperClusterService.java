@@ -12,17 +12,18 @@ import org.apache.zookeeper.server.quorum.QuorumPeerConfig.ConfigException;
 import org.apache.zookeeper.server.quorum.QuorumPeerMain;
 
 import com.neverwinterdp.server.Server;
+import com.neverwinterdp.server.ServerRuntimeEnvironment;
 import com.neverwinterdp.server.config.ServiceConfig;
 import com.neverwinterdp.server.service.AbstractService;
 
-public class ZookeeperService extends AbstractService {
-  private String configDir ;
+public class ZookeeperClusterService extends AbstractService {
+  private ServerRuntimeEnvironment rtEnvironment ;
   private ZookeeperLaucher launcher ;
   private Thread zkThread ;
   
   public void onInit(Server server) {
     super.onInit(server); 
-    configDir = server.getRuntimeEnvironment().getConfigDir() ;
+    rtEnvironment = server.getRuntimeEnvironment() ;
   }
   
   public void start() {
@@ -34,14 +35,22 @@ public class ZookeeperService extends AbstractService {
       public void run() {
         try {
           ServiceConfig config = getServiceConfig();
-          String zookeeperConfigPath = (String)config.getParameters().get("zookeeperConfigPath") ;
+          String zookeeperConfigPath = config.getParameter("zookeeperConfigPath", null) ;
           Properties zkProperties = new Properties();
-          zkProperties.load(new FileInputStream(configDir + "/" + zookeeperConfigPath));
+          if(zookeeperConfigPath != null) {
+            zkProperties.load(new FileInputStream(rtEnvironment.getConfigDir() + "/" + zookeeperConfigPath));
+          } else {
+            zkProperties.setProperty("dataDir", rtEnvironment.getDataDir() + "/server" + rtEnvironment.getServerId() + "/zookeeper") ;
+            //the port at which the clients will connect
+            zkProperties.setProperty("clientPort", "2181") ;
+            //disable the per-ip limit on the number of connections since this is a non-production config
+            zkProperties.setProperty("maxClientCnxns", "0") ;
+          }
           launcher = new QuorumPeerMainExt().start(zkProperties) ;
         } catch (Exception ex) {
           launcher = null;
-          logger.error("Cannot lauch the ZookeeperService", ex);
-          throw new RuntimeException("Cannot lauch the ZookeeperService", ex);
+          logger.error("Cannot lauch the ZookeeperClusterService", ex);
+          throw new RuntimeException("Cannot lauch the ZookeeperClusterService", ex);
         }
       }
     };

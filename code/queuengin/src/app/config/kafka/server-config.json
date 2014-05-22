@@ -12,7 +12,7 @@
     {
       "serviceId": "KafkaService",
       "name":  "KafkaService",
-      "className": "com.neverwinterdp.queuengin.kafka.cluster.KafkaService",
+      "className": "com.neverwinterdp.queuengin.kafka.cluster.KafkaClusterService",
       "parameters" : {
         "kafkaConfigPath": "kafka/kafka-server.properties"
       }  

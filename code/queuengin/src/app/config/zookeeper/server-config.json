@@ -12,7 +12,7 @@
     {
       "serviceId": "ZookeeperService",
       "name":  "ZookeeperService",
-      "className": "com.neverwinterdp.queuengin.kafka.cluster.ZookeeperService",
+      "className": "com.neverwinterdp.queuengin.kafka.cluster.ZookeeperClusterService",
       "parameters" : {
         "zookeeperConfigPath": "zookeeper/zookeeper.properties"
       }  
