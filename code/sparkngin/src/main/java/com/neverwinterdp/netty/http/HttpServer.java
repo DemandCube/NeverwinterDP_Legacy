@@ -29,7 +29,8 @@ public class HttpServer {
   private RouteMatcher routeMatcher = new RouteMatcher() ;
   private Channel channel;
   private LoggerFactory loggerFactory = new LoggerFactory() ;
-
+  private Thread deamonThread ;
+  
   public int getPort() {
     return this.port;
   }
@@ -83,17 +84,29 @@ public class HttpServer {
       };
       b.option(ChannelOption.SO_BACKLOG, 1024);
       b.group(bossGroup, workerGroup).
-          channel(NioServerSocketChannel.class).
-          childHandler(initializer);
-
+        channel(NioServerSocketChannel.class).
+        childHandler(initializer);
       channel = b.bind(port).sync().channel();
-      logger.info("bind port successfully");
+      logger.info("bind port successfully, channel = " + channel);
       logger.info("Start start() waitting to handle request");
       channel.closeFuture().sync();
     } finally {
       bossGroup.shutdownGracefully();
       workerGroup.shutdownGracefully();
     }
+  }
+  
+  public void startAsDeamon() {
+    deamonThread = new Thread() {
+      public void run() {
+        try {
+          HttpServer.this.start() ;
+        } catch (Exception e) {
+          logger.error("HttpServer deamon thread has problem.", e);
+        }
+      }
+    };
+    deamonThread.start() ; 
   }
 
   public void shutdown() {

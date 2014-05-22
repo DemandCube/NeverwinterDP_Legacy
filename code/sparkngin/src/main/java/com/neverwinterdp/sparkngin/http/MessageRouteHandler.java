@@ -25,14 +25,26 @@ import com.neverwinterdp.util.JSONSerializer;
  * @email  tuan08@gmail.com
  */
 public class MessageRouteHandler extends RouteHandlerGeneric {
+  private MessageForwarderQueue forwarderQueue ;
+  
+  public MessageRouteHandler(MessageForwarder forwarder, int queueSize) {
+    forwarderQueue = new MessageForwarderQueue(forwarder, queueSize) ;
+  }
+  
   protected void doPost(ChannelHandlerContext ctx, HttpRequest httpReq) {
-    FullHttpRequest req = (FullHttpRequest) httpReq ;
-    ByteBuf byteBuf = req.content() ;
-    byte[] data = new byte[byteBuf.readableBytes()] ;
-    byteBuf.readBytes(data) ;
-    Message message = JSONSerializer.INSTANCE.fromBytes(data, Message.class) ;
     SendAck ack = new SendAck() ;
-    ack.setStatus(SendAck.Status.OK);
+    try {
+      FullHttpRequest req = (FullHttpRequest) httpReq ;
+      ByteBuf byteBuf = req.content() ;
+      byte[] data = new byte[byteBuf.readableBytes()] ;
+      byteBuf.readBytes(data) ;
+      Message message = JSONSerializer.INSTANCE.fromBytes(data, Message.class) ;
+      forwarderQueue.put(message);
+      ack.setStatus(SendAck.Status.OK);
+    } catch(Throwable t) {
+      ack.setMessage(t.getMessage());
+      ack.setStatus(SendAck.Status.ERROR);
+    }
     writeOK(ctx, httpReq, ack, "application/json") ;
   }
   

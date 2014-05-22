@@ -15,26 +15,20 @@ import com.neverwinterdp.testframework.event.SampleEvent;
  * @author Tuan Nguyen
  * @email  tuan08@gmail.com
  */
-public class SparknginHttpUnitTest {
+public class SparknginHttpServerUnitTest {
   static {
     System.setProperty("log4j.configuration", "file:src/main/resources/log4j.properties") ;
   }
-  
+
+  private DevNullMessageForwarder forwarder ;
   private HttpServer server ;
   
   @Before
   public void setup() throws Exception {
+    forwarder = new DevNullMessageForwarder() ;
     server = new HttpServer();
-    server.add("/message", new MessageRouteHandler());
-    new Thread() {
-      public void run() {
-        try {
-          server.start() ;
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }.start() ;
+    server.add("/message", new MessageRouteHandler(forwarder, 10));
+    server.startAsDeamon();
     Thread.sleep(1000);
   }
   
@@ -45,14 +39,16 @@ public class SparknginHttpUnitTest {
   
   @Test
   public void testSendMessage() throws Exception {
+    int NUM_OF_MESSAGES = 50 ;
     DumpResponseHandler handler = new DumpResponseHandler() ;
     HttpClient client = new HttpClient ("127.0.0.1", 8080, handler) ;
-    for(int i = 0; i < 10; i++) {
+    for(int i = 0; i < NUM_OF_MESSAGES; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
       Message message = new Message("m" + i, event, true) ;
       client.post("/message", message);
     }
     Thread.sleep(1000);
-    assertEquals(10, handler.getCount()) ;
+    assertEquals(NUM_OF_MESSAGES, forwarder.getProcessCount()) ;
+    assertEquals(NUM_OF_MESSAGES, handler.getCount()) ;
   }
 }
