@@ -1,11 +1,13 @@
 package com.neverwinterdp.netty.http.client;
 
 import io.netty.handler.codec.http.HttpContent;
-import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpResponse;
 import io.netty.handler.codec.http.LastHttpContent;
 import io.netty.util.CharsetUtil;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class DumpResponseHandler implements ResponseHandler {
   private int count  = 0 ;
   

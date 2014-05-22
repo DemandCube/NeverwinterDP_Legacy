@@ -7,7 +7,10 @@ import org.junit.Test;
 import com.neverwinterdp.netty.http.route.RouteHandler;
 import com.neverwinterdp.netty.http.route.RouteHandlerGeneric;
 import com.neverwinterdp.netty.http.route.RouteMatcher;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class RouteMatcherUnitTest {
   @Test
   public void testRouteMatcher() {

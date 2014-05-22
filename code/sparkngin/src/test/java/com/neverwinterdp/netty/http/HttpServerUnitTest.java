@@ -9,7 +9,10 @@ import org.junit.Test;
 import com.neverwinterdp.netty.http.client.DumpResponseHandler;
 import com.neverwinterdp.netty.http.client.HttpClient;
 import com.neverwinterdp.netty.http.route.PingRouteHandler;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServerUnitTest {
   static {
     System.setProperty("log4j.configuration", "file:src/main/resources/log4j.properties") ;

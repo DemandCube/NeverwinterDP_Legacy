@@ -20,7 +20,10 @@ import com.neverwinterdp.message.Message;
 import com.neverwinterdp.netty.http.route.RouteHandlerGeneric;
 import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.util.JSONSerializer;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class MessageRouteHandler extends RouteHandlerGeneric {
   protected void doPost(ChannelHandlerContext ctx, HttpRequest httpReq) {
     FullHttpRequest req = (FullHttpRequest) httpReq ;

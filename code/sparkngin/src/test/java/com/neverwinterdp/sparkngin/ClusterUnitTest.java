@@ -16,7 +16,10 @@ import com.neverwinterdp.testframework.cluster.NeverwinterDPCluster;
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
 import com.neverwinterdp.testframework.cluster.ZookeeperCluster;
 import com.neverwinterdp.testframework.event.SampleEvent;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 abstract public class ClusterUnitTest {
   protected NeverwinterDPCluster cluster ;
   protected ZookeeperCluster zkCluster ;

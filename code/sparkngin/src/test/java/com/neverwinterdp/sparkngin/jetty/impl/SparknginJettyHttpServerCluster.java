@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class SparknginJettyHttpServerCluster implements ServiceCluster {
   final static public int HTTP_PORT   = 8080;
   

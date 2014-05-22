@@ -19,7 +19,10 @@ import com.neverwinterdp.netty.http.route.NotFoundRouteHandler;
 import com.neverwinterdp.netty.http.route.RouteHandler;
 import com.neverwinterdp.netty.http.route.RouteMatcher;
 import com.neverwinterdp.util.LoggerFactory;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServer {
   private Logger  logger;
   private int     port = 8080;

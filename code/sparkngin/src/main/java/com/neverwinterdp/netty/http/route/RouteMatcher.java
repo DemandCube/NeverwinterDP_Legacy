@@ -8,7 +8,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class RouteMatcher {
   private List<PatternBinding> bindings = new ArrayList<PatternBinding>() ;
   private RouteHandler defaultHandler ; 

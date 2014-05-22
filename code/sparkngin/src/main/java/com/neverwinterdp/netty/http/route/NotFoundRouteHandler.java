@@ -13,7 +13,10 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpRequest;
 
 import org.slf4j.Logger;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class NotFoundRouteHandler implements RouteHandler {
   protected Logger logger ;
  

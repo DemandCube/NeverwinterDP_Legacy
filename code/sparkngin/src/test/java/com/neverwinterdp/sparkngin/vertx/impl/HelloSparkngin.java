@@ -6,7 +6,10 @@ import com.neverwinterdp.sparkngin.SendMessageHandler;
 import com.neverwinterdp.sparkngin.SparknginClient;
 import com.neverwinterdp.sparkngin.SparknginSimpleClient;
 import com.neverwinterdp.testframework.event.SampleEvent;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HelloSparkngin {
   static String getValue(String arg) {
     String[] array = arg.split("=", 2) ;

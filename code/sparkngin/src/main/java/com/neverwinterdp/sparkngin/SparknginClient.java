@@ -1,7 +1,10 @@
 package com.neverwinterdp.sparkngin;
 
 import com.neverwinterdp.message.Message;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class SparknginClient {
   private int currentIdx = 0;
   private SparknginSimpleClient[] client ;

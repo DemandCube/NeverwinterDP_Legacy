@@ -14,7 +14,10 @@ import org.slf4j.Logger;
 
 import com.neverwinterdp.netty.http.route.RouteHandler;
 import com.neverwinterdp.netty.http.route.RouteMatcher;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServerHandler extends ChannelInboundHandlerAdapter {
   private Logger logger ;
   private RouteMatcher routeMatcher ;

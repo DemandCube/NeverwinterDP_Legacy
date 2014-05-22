@@ -1,5 +1,8 @@
 package com.neverwinterdp.sparkngin;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class SendAck {
   static public enum Status {
     OK, ERROR, NOT_AVAIBLE

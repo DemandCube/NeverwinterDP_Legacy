@@ -6,7 +6,10 @@ import java.util.List;
 import org.vertx.java.core.json.JsonObject;
 
 import com.neverwinterdp.testframework.cluster.ServiceCluster;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class SparknginVertxHttpServerCluster implements ServiceCluster {
   final static public int HTTP_PORT   = 8080;
   

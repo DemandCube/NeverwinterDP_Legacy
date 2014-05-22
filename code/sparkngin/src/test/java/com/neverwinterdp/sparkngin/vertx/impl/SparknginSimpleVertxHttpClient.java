@@ -13,7 +13,10 @@ import com.neverwinterdp.sparkngin.SendAck;
 import com.neverwinterdp.sparkngin.SendMessageHandler;
 import com.neverwinterdp.sparkngin.SparknginSimpleClient;
 import com.neverwinterdp.util.JSONSerializer;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class SparknginSimpleVertxHttpClient implements SparknginSimpleClient {
   private String host ;
   private int    port ;

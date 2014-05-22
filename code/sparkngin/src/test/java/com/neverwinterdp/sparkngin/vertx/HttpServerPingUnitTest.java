@@ -23,7 +23,10 @@ import org.vertx.java.platform.Verticle;
 
 import com.neverwinterdp.sparkngin.vertx.impl.EmbbededVertxServer;
 import com.neverwinterdp.util.IOUtil;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServerPingUnitTest {
   final static int LISTEN_PORT = 8181 ;
   final static String PING_URL = "http://127.0.0.1:" + LISTEN_PORT + "/ping" ;

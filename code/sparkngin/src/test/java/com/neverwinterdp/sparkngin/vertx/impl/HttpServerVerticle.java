@@ -6,7 +6,10 @@ import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.RouteMatcher;
 import org.vertx.java.core.json.JsonObject;
 import org.vertx.java.platform.Verticle;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServerVerticle extends Verticle {
   final static public String REPLY_MESSAGE = "pong!" ;
   static Logger logger = LoggerFactory.getLogger(Main.class);
