@@ -1,16 +1,18 @@
-package com.neverwinterdp.netty.http;
+package com.neverwinterdp.sparkngin.http;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.neverwinterdp.message.Message;
+import com.neverwinterdp.netty.http.HttpServer;
 import com.neverwinterdp.netty.http.client.DumpResponseHandler;
 import com.neverwinterdp.netty.http.client.HttpClient;
-import com.neverwinterdp.netty.http.route.PingRouteHandler;
+import com.neverwinterdp.testframework.event.SampleEvent;
 
-public class HttpServerUnitTest {
+public class SparknginHttpUnitTest {
   static {
     System.setProperty("log4j.configuration", "file:src/main/resources/log4j.properties") ;
   }
@@ -20,7 +22,7 @@ public class HttpServerUnitTest {
   @Before
   public void setup() throws Exception {
     server = new HttpServer();
-    server.add("/ping", new PingRouteHandler());
+    server.add("/message", new MessageRouteHandler());
     new Thread() {
       public void run() {
         try {
@@ -39,12 +41,13 @@ public class HttpServerUnitTest {
   }
   
   @Test
-  public void testGet() throws Exception {
+  public void testSendMessage() throws Exception {
     DumpResponseHandler handler = new DumpResponseHandler() ;
     HttpClient client = new HttpClient ("127.0.0.1", 8080, handler) ;
     for(int i = 0; i < 10; i++) {
-      if(i % 2 == 0) client.get("/ping");
-      else client.post("/ping", "Hello");
+      SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;
+      Message message = new Message("m" + i, event, true) ;
+      client.post("/message", message);
     }
     Thread.sleep(1000);
     assertEquals(10, handler.getCount()) ;

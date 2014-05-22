@@ -25,6 +25,8 @@ import io.netty.handler.codec.http.HttpVersion;
 
 import java.net.URI;
 
+import com.neverwinterdp.util.JSONSerializer;
+
 public class HttpClient {
   private String host ;
   private int    port ;
@@ -84,6 +86,12 @@ public class HttpClient {
   }
   
   public void post(String uriString, byte[] data) throws Exception {
+    ByteBuf content = Unpooled.wrappedBuffer(data) ;
+    post(uriString, content) ;
+  }
+  
+  public <T> void post(String uriString, T object) throws Exception {
+    byte[] data = JSONSerializer.INSTANCE.toBytes(object) ;
     ByteBuf content = Unpooled.wrappedBuffer(data) ;
     post(uriString, content) ;
   }

@@ -1,12 +1,5 @@
 package com.neverwinterdp.netty.http;
 
-import org.slf4j.Logger;
-
-import com.neverwinterdp.netty.http.route.NotFoundRouteHandler;
-import com.neverwinterdp.netty.http.route.RouteHandler;
-import com.neverwinterdp.netty.http.route.RouteMatcher;
-import com.neverwinterdp.util.LoggerFactory;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
@@ -18,9 +11,14 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpContentCompressor;
 import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpRequestDecoder;
-import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.codec.http.HttpServerCodec;
+
+import org.slf4j.Logger;
+
+import com.neverwinterdp.netty.http.route.NotFoundRouteHandler;
+import com.neverwinterdp.netty.http.route.RouteHandler;
+import com.neverwinterdp.netty.http.route.RouteMatcher;
+import com.neverwinterdp.util.LoggerFactory;
 
 public class HttpServer {
   private Logger  logger;
