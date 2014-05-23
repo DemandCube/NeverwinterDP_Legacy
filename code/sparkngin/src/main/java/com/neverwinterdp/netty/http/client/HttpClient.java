@@ -62,7 +62,8 @@ public class HttpClient {
   
   public void close() {
     //Shut down executor threads to exit.
-    group.shutdownGracefully();
+    //group.shutdownGracefully();
+    channel.close();
   }
   
   public void await() throws InterruptedException {

@@ -29,7 +29,7 @@ public class SparknginHttpServerUnitTest {
     server = new HttpServer();
     server.add("/message", new MessageRouteHandler(forwarder, 10));
     server.startAsDeamon();
-    Thread.sleep(1000);
+    Thread.sleep(2000);
   }
   
   @After
@@ -39,7 +39,7 @@ public class SparknginHttpServerUnitTest {
   
   @Test
   public void testSendMessage() throws Exception {
-    int NUM_OF_MESSAGES = 50 ;
+    int NUM_OF_MESSAGES = 150 ;
     DumpResponseHandler handler = new DumpResponseHandler() ;
     HttpClient client = new HttpClient ("127.0.0.1", 8080, handler) ;
     for(int i = 0; i < NUM_OF_MESSAGES; i++) {
@@ -48,7 +48,8 @@ public class SparknginHttpServerUnitTest {
       client.post("/message", message);
     }
     Thread.sleep(1000);
-    assertEquals(NUM_OF_MESSAGES, forwarder.getProcessCount()) ;
+    client.close() ;
     assertEquals(NUM_OF_MESSAGES, handler.getCount()) ;
+    assertEquals(NUM_OF_MESSAGES, forwarder.getProcessCount()) ;
   }
 }

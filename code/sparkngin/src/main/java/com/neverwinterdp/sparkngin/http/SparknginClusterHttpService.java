@@ -30,7 +30,7 @@ public class SparknginClusterHttpService extends AbstractService {
     server = new HttpServer();
     server.setPort(config.getParameter("listenPort", 8080)) ;
     server.setLoggerFactory(loggerFactory) ;
-    server.add("/message", new MessageRouteHandler(forwarder, 10));
+    server.add("/message", new MessageRouteHandler(forwarder, 200));
     server.startAsDeamon();
     logger.info("Finish start()");
   }

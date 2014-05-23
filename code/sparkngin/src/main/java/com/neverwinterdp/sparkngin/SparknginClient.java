@@ -14,7 +14,7 @@ public class SparknginClient {
   }
   
   public void send(String topic, Message message, SendMessageHandler handler) {
-    //TODO: if the client fail to send, remove the client from the list
+    //TODO: if the clusterClient fail to send, remove the clusterClient from the list
     //      retry another one
     SparknginSimpleClient client = next() ;
     client.send(topic, message, handler) ;

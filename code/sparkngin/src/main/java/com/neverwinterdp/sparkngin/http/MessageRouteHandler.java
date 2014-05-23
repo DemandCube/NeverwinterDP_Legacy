@@ -61,10 +61,10 @@ public class MessageRouteHandler extends RouteHandlerGeneric {
 
     boolean keepAlive = isKeepAlive(req);
     if (!keepAlive) {
-      ctx.write(response).addListener(ChannelFutureListener.CLOSE);
+      ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
     } else {
       response.headers().set(CONNECTION, Values.KEEP_ALIVE);
-      ctx.write(response);
+      ctx.writeAndFlush(response);
     }
   }
 }

@@ -28,6 +28,7 @@ public class HttpServer {
   private int     port = 8080;
   private RouteMatcher routeMatcher = new RouteMatcher() ;
   private Channel channel;
+  EventLoopGroup bossGroup, workerGroup ;
   private LoggerFactory loggerFactory = new LoggerFactory() ;
   private Thread deamonThread ;
   
@@ -67,8 +68,8 @@ public class HttpServer {
     if(routeMatcher.getDefaultHandler() == null) {
       setDefault(new NotFoundRouteHandler()) ;
     }
-    EventLoopGroup bossGroup = new NioEventLoopGroup(1);
-    EventLoopGroup workerGroup = new NioEventLoopGroup();
+    bossGroup = new NioEventLoopGroup(1);
+    workerGroup = new NioEventLoopGroup();
     try {
       ServerBootstrap b = new ServerBootstrap();
       ChannelInitializer<SocketChannel> initializer = new ChannelInitializer<SocketChannel>() {
@@ -111,6 +112,8 @@ public class HttpServer {
 
   public void shutdown() {
     logger.info("Start shutdown()");
+    //bossGroup.shutdownGracefully();
+    //workerGroup.shutdownGracefully();
     channel.close();
     logger.info("Finish shutdown()");
   }

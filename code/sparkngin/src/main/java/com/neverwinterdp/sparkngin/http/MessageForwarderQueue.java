@@ -7,7 +7,7 @@ import com.neverwinterdp.message.Message;
 
 public class MessageForwarderQueue {
   private MessageForwarder forwarder ;
-  private BlockingQueue<Message> queue ;
+  private LinkedBlockingQueue<Message> queue ;
   private Thread forwarderThread ;
   private int wakeupCount = 0;
   
@@ -18,35 +18,22 @@ public class MessageForwarderQueue {
       public void run() {
         try {
           while(true) {
-            Message message = queue.peek() ;
-            if(message == null) {
-              synchronized(queue) {
-                queue.wait();
-                wakeupCount++ ;
-                //System.out.println("wake up when a new message is available, count = " + wakeupCount);
-              }
-            } else {
-              try {
-              forwarder.forward(message);
-              } catch(Exception ex) {
-                ex.printStackTrace();
-                return ;
-              }
-              //if forward successfully, remove the message from queue.
-              queue.remove();
-            }
+            //TODO: need to fix this queue, it is not reliable. Also there is a problem if the 
+            //queue is full , the queue will block the client thread.
+            Message message = queue.take() ;
+            forwarder.forward(message);
           }
-        } catch(InterruptedException interrupt) {
+        } catch (Exception e) {
+          e.printStackTrace();
         }
       }
     };
     forwarderThread.start() ;
   }
   
+  int put = 0 ;
+  
   public void put(Message message) throws InterruptedException {
-    synchronized(queue) {
-      queue.put(message) ;
-      queue.notify();
-    }
+    queue.put(message) ;
   }
 }

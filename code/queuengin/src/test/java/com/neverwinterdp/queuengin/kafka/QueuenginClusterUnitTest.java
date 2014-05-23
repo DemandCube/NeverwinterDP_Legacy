@@ -42,6 +42,7 @@ public class QueuenginClusterUnitTest {
     ClusterMember member = zkServer.getCluster().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
     client = new HazelcastClusterClient(connectUrl) ;
+    Thread.sleep(1000);
   }
 
   @AfterClass
@@ -52,9 +53,8 @@ public class QueuenginClusterUnitTest {
   
   @Test
   public void testSendMessage() throws Exception {
-    Thread.sleep(5000);
     String topic = "test-topic" ;
-    int numOfMessages = 5 ;
+    int numOfMessages = 150 ;
     KafkaMessageProducer producer = new KafkaMessageProducer("127.0.0.1:9092") ;
     for(int i = 0 ; i < numOfMessages; i++) {
       SampleEvent event = new SampleEvent("event-" + i, "event " + i) ;

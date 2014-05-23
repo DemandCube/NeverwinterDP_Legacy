@@ -31,7 +31,7 @@ public class SparknginClusterHttpServiceUnitTest {
   }
   
   static protected Server zkServer, kafkaServer, sparknginServer ;
-  static protected ClusterClient client ;
+  static protected ClusterClient clusterClient ;
   static String TOPIC_NAME = "sparkngin" ;
     
   @BeforeClass
@@ -64,14 +64,15 @@ public class SparknginClusterHttpServiceUnitTest {
     
     ClusterMember member = sparknginServer.getCluster().getMember() ;
     String connectUrl = member.getIpAddress() + ":" + member.getPort() ;
-    client = new HazelcastClusterClient(connectUrl) ;
+    clusterClient = new HazelcastClusterClient(connectUrl) ;
+    
     //Wait to make sure all the servervices are launched
-    Thread.sleep(1000) ;
+    Thread.sleep(2000) ;
   }
 
   @AfterClass
   static public void teardown() throws Exception {
-    client.shutdown(); 
+    clusterClient.shutdown(); 
     sparknginServer.exit(0) ;
     kafkaServer.exit(0);
     zkServer.exit(0);
@@ -79,7 +80,7 @@ public class SparknginClusterHttpServiceUnitTest {
   
   @Test
   public void testSendMessage() throws Exception {
-    int NUM_OF_MESSAGES = 50 ;
+    int NUM_OF_MESSAGES = 100 ;
     DumpResponseHandler handler = new DumpResponseHandler() ;
     HttpClient client = new HttpClient ("127.0.0.1", 8080, handler) ;
     for(int i = 0; i < NUM_OF_MESSAGES; i++) {
@@ -89,6 +90,7 @@ public class SparknginClusterHttpServiceUnitTest {
       client.post("/message", message);
     }
     Thread.sleep(1000);
+    client.close();
     assertEquals(NUM_OF_MESSAGES, handler.getCount()) ;
   }
 }
