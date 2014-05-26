@@ -7,6 +7,11 @@ import org.vertx.java.core.Vertx;
 import org.vertx.java.core.eventbus.Message;
 import org.vertx.java.platform.Verticle;
 
+import com.neverwinterdp.sparkngin.vertx.impl.EmbbededVertxServer;
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class EventBusPingUnitTest {
   @Test
   public void testEventBusPingVerticle() throws Exception {

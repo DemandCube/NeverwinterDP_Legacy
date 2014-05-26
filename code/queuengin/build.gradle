@@ -1,8 +1,17 @@
+configurations {
+  //runtime.exclude module: 'log4j'
+}
+
+
 dependencies {
-  compile project(':lib/common')
-  compile project(':lib/test-framework')
+  compile project(':commons/utils')
+  compile project(':commons/api')
+  compile project(':commons/cluster')
+
   compile group: 'org.apache.zookeeper', name: 'zookeeper', version: project.zookeeperVersion
   compile group: 'org.apache.kafka', name: 'kafka_2.10', version: project.kafkaVersion
+
+  //compile group: 'org.slf4j', name: 'log4j-over-slf4j', version: '1.7.2'
 }
 
 task release (dependsOn: 'build') << {

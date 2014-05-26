@@ -4,7 +4,7 @@ import java.util.Properties;
 
 import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
-import kafka.utils.MockTime;
+import kafka.utils.Time;
 
 public class KafkaServerInstance {
   private int                id ;
@@ -37,7 +37,7 @@ public class KafkaServerInstance {
     props.setProperty("port", Integer.toString(listenPort));
     props.setProperty("broker.id", Integer.toString(id));
     props.setProperty("auto.create.topics.enable", "true");
-    props.setProperty("log.dir", logDir);
+    props.setProperty("log.dirs", logDir);
     props.setProperty("enable.zookeeper", "true");
     props.setProperty("zookeeper.connect", zookeeperConnectURL);
     server = new KafkaServer(new KafkaConfig(props), new MockTime());
@@ -49,5 +49,24 @@ public class KafkaServerInstance {
     if(server == null) return ;
     server.shutdown() ;
     System.out.println("Shutdown Kafka Server " + id);
+  }
+  
+  static public class MockTime implements Time {
+
+    public long milliseconds() {
+      return System.currentTimeMillis() ;
+    }
+
+    public long nanoseconds() {
+      return System.nanoTime();
+    }
+
+    public void sleep(long time) {
+      try {
+        Thread.sleep(time);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
   }
 }

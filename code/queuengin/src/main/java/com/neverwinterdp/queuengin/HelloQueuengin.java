@@ -1,9 +1,9 @@
 package com.neverwinterdp.queuengin;
 
 import com.neverwinterdp.message.Message;
+import com.neverwinterdp.message.SampleEvent;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageConsumerConnector;
 import com.neverwinterdp.queuengin.kafka.KafkaMessageProducer;
-import com.neverwinterdp.testframework.event.SampleEvent;
 
 public class HelloQueuengin {
   static int MODE_QUIET = 0 ;

@@ -19,10 +19,15 @@ import org.vertx.java.core.http.HttpClientResponse;
 import org.vertx.java.core.http.HttpServer;
 import org.vertx.java.core.http.HttpServerRequest;
 import org.vertx.java.core.http.RouteMatcher;
+import org.vertx.java.core.impl.DefaultVertxFactory;
 import org.vertx.java.platform.Verticle;
 
+import com.neverwinterdp.sparkngin.vertx.impl.EmbbededVertxServer;
 import com.neverwinterdp.util.IOUtil;
-
+/**
+ * @author Tuan Nguyen
+ * @email  tuan08@gmail.com
+ */
 public class HttpServerPingUnitTest {
   final static int LISTEN_PORT = 8181 ;
   final static String PING_URL = "http://127.0.0.1:" + LISTEN_PORT + "/ping" ;
@@ -43,7 +48,8 @@ public class HttpServerPingUnitTest {
     
   @Test
   public void testVertxHttpClientGet() throws Exception {
-    Vertx vertx = VertxFactory.newVertx() ;
+    DefaultVertxFactory factory = new DefaultVertxFactory() ;
+    Vertx vertx = factory.createVertx() ;
     HttpClient client = vertx.createHttpClient() ;
     client.setHost("127.0.0.1").setPort(LISTEN_PORT) ;
     client.get("/ping", new Handler<HttpClientResponse>() {
@@ -56,12 +62,14 @@ public class HttpServerPingUnitTest {
         });
       }
     }).end() ;
+    client.close();
     Thread.sleep(1000);
   }
   
   @Test
   public void testVertxHttpClientPost() throws Exception {
-    Vertx vertx = VertxFactory.newVertx() ;
+    DefaultVertxFactory factory = new DefaultVertxFactory() ;
+    Vertx vertx = factory.createVertx() ;
     HttpClient client = vertx.createHttpClient() ;
     client.setHost("127.0.0.1").setPort(LISTEN_PORT) ;
     HttpClientRequest postReq = client.post("/ping", new Handler<HttpClientResponse>() {
@@ -75,10 +83,11 @@ public class HttpServerPingUnitTest {
       }
     });
     postReq.setChunked(true) ;
-    for(int i = 0; i < 10; i++) {
+    for(int i = 3; i < 1; i++) {
       postReq.write("this is a message to test " + i + "\n") ;
     }
     postReq.end();
+    client.close();
     Thread.sleep(2000);
   }
 

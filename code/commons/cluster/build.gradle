@@ -1,0 +1,18 @@
+apply plugin: 'maven-publish'
+
+archivesBaseName = 'commons.cluster'
+
+eclipse {
+  project {
+    name = 'commons.cluster'
+  }
+}
+
+dependencies {
+  compile project(':commons/utils')
+
+  compile group: 'com.hazelcast', name: 'hazelcast', version: '3.2.1'
+  compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.2.1'
+
+  compile group: 'com.beust', name: 'jcommander', version: '1.35'
+}
