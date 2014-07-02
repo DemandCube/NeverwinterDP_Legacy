@@ -37,9 +37,9 @@ It Supports:
 
 Neverwinter is the combination of three major open source project that leverage the best in open source. 
 
-1. Sparkngin (powered by Nginx)
-2. Kafka
-3. Scribengin
+1. [Sparkngin](https://github.com/DemandCube/Sparkngin) - (powered by Netty)
+2. [Queuengin](https://github.com/DemandCube/Queuengin) - (powered by Kafka or Kinesis)
+3. [Scribengin](https://github.com/DemandCube/Scribengin) - (powered by Yarn)
 
 Now that we have used enough buzz words.  Neverwinter reliably captures lots of data and saves it to hadoop and other systems.
 
@@ -75,13 +75,13 @@ Components
 ----------
 
 1) Http/Rest/ZeroMQ Log Collection Endpoint - Sparkngin
-- [Sparkngin](https://github.com/DemandCube/Sparkngin)
+- [Sparkngin](https://github.com/DemandCube/Sparkngin) - powered by [Netty](http://netty.io/)
 
 2) Data Bus
-- [Kafka](http://kafka.apache.org/) or [Amazon Kinesis](http://aws.amazon.com/kinesis/) (Version 2)
+- [Queuengin](https://github.com/DemandCube/Queuengin) - powered by ([Kafka](http://kafka.apache.org/) or [Amazon Kinesis](http://aws.amazon.com/kinesis/))
 
 3) Data Pump/Transport
-- [Scribengin](https://github.com/DemandCube/Scribengin)
+- [Scribengin](https://github.com/DemandCube/Scribengin) - powered by   [Yarn](http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html)
 
 Related Projects
 ----------
