@@ -1,0 +1,4 @@
+<div>
+  <h3>DemandSpike Job <%=demandspikeJob.id%></h3>
+  task = <%=demandspikeJob.numOfTask%>
+<div>

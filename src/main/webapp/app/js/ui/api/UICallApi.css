@@ -1,0 +1,13 @@
+.UICallApi {
+  padding: 10px 15px;
+}
+
+.UICallApi code {
+  margin: 10px 20px;
+  display: block ;
+  color: blue ;
+}
+
+.UICallApi .description, .params, .demo {
+  margin: 10px 20px;
+}

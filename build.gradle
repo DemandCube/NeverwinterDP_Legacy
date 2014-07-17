@@ -1,0 +1,129 @@
+apply plugin: 'java'
+apply plugin: 'eclipse' 
+apply plugin: 'maven' 
+
+archivesBaseName = 'NeverwinterDP'
+
+eclipse {
+  project {
+    name = 'NeverwinterDP'
+  }
+
+  classpath {
+    downloadSources=true
+  }
+}
+
+eclipse.classpath.defaultOutputDir = file( 'build/classes' )
+
+group = 'com.neverwinterdp'
+sourceCompatibility = 1.7
+version = '1.0-SNAPSHOT'
+configurations.compile.transitive = true
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url "http://clojars.org/repo"
+  }
+}
+
+configurations.all {
+  exclude(group: 'ring', name: 'ring-core', version: '0.3.11')
+}
+
+dependencies {
+  compile group: 'com.neverwinterdp', name: 'commons.utils', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.api', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT', classifier: 'js'
+  compile group: 'com.neverwinterdp', name: 'commons.hadoop-framework', version: '1.0-SNAPSHOT'
+
+  compile group: 'com.neverwinterdp', name: 'commons.elasticsearch', version: '1.0-SNAPSHOT'
+
+  compile group: 'com.neverwinterdp', name: 'queuengin', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'sparkngin', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'demandspike', version: '1.0-SNAPSHOT'
+}
+
+test {
+  forkEvery = 1
+  ignoreFailures = true
+  testLogging.showStandardStreams = true
+
+  filter {
+    includeTestsMatching "*UnitTest"
+  }
+}
+
+task release (dependsOn: 'build') << {
+  def releaseDir = "${buildDir}/release/NeverwinterDP"
+  doRelease(releaseDir) ;
+}
+
+def doRelease(String releaseDir) {
+  println "\n\n"
+  println "*************************************************"
+  println "Preparing the release directory ${releaseDir}"
+  println "*************************************************"
+
+
+  def dependencyJars = [ 
+    "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "queuengin", "sparkngin",
+    "demandspike", "commons.elasticsearch",
+
+    "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava", "javassist",
+    'guice', 'javax.inject', 'hazelcast', 'aopalliance',
+    "kafka", "scala-library",
+    'zookeeper', 'zkclient',
+    "netty-all", 'jzlib', 'chronicle', "lang-6.1.4",
+    
+    "hadoop-common", "hadoop-hdfs", "hadoop-auth", 
+    "hadoop-yarn-api", "hadoop-yarn-common", "hadoop-yarn-client",
+    "protobuf",
+
+    "elasticsearch", "lucene",
+    
+    "metrics-core", "metrics-json", "metrics-annotation",
+    "commons-collections", "commons-configuration","commons-lang", "commons-cli",
+    "log4j", "slf4j-api", "slf4j-log4j12", "commons-logging"
+  ] ;
+
+  println "Copy the dependency library"
+  configurations.compile.each { File file -> 
+    if(isIn(dependencyJars, file)) {
+      println "  Copy $file.name to NeverwinterDP/libs"
+      copy {
+        from file
+        into "${releaseDir}/libs"
+      }
+    } else {
+      //println "Ignore $file.name "
+    }
+  }
+
+  copy {
+    from "${buildDir}/libs"
+    into "${releaseDir}/libs"
+  }
+
+  println "Copy and override app"
+  copy {
+    from "src/app"
+    into "${releaseDir}"
+  }
+
+  println "Copy and override webapp"
+  copy {
+    from "src/main/webapp"
+    into "${releaseDir}/webapp"
+  }
+}
+
+def isIn(set, File file) {
+  for(item in set) {
+    if(file.name.startsWith(item)) return true ;
+  }
+  return false ;
+}

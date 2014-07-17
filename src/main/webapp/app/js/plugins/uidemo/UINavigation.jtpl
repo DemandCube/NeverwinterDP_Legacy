@@ -1,0 +1,9 @@
+<div>
+  <h3 style="margin: 3px 0px">UI Demo</h3>
+  <hr/>
+
+  <div style="margin: 10px">
+    <div><span class="ui-action onSelectUIComponent" name="UITableDemo">UITable Demo</span></div>
+    <div><span class="ui-action onSelectUIComponent" name="UIBeanDemo">UIBean Demo</span></div>
+  </div>
+<div>

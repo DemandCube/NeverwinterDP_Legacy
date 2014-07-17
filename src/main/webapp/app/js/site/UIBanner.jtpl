@@ -1,0 +1,15 @@
+<div style="overflow: auto">
+  <div class="logo-text" style="float: left">
+    Neverwinter DP
+  </div>
+
+  <div style="float: right; padding-top: 3px">
+    <a class="ui-action" href="/app/index.html">Home</a> |
+    <a class="ui-action" href="/kibana/index.html" target="kibana">Kibana</a>
+  </div>
+
+  <div class="clearfix"><span/></div>
+
+  <hr/>
+<div>
+

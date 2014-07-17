@@ -1,0 +1,41 @@
+<div class="UICallApi">
+  <div>
+    <h6>Description</h6>
+    <div class="description">
+      <%=config.description.join()%>
+    </div>
+  </div>
+
+  <div>
+    <h6>Call Syntax</h6>
+    <code>
+      <%=config.syntax%>
+    </code>
+  </div>
+
+  <div>
+    <h6>Json Parameter</h6>
+
+    <%config.sampleParams.forEach(function(sample) {%>
+    <%  var json = JSON.stringify(sample.params, null, "  ");%>
+        <div class="params">
+          <%=sample.description%>
+        </div>
+        <code>
+          <%=json%>
+        </code>
+    <%});%>
+  </div>
+
+  <div>
+    <h6>Demo</h6>
+    <div class="demo">
+      <%config.demos.forEach(function(demo) {%>
+        <div>
+          <%=demo.description%> - 
+          <a class="ui-action onRunDemo" name="<%=demo.name%>">Run Demo</a>
+        </div>
+      <%});%>
+    </div>
+  </div>
+</div>

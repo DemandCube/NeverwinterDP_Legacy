@@ -1,0 +1,14 @@
+# comments begin with a '#'
+# the format is <mime type> <space separated file extensions>
+
+# the mime type "text/plain"
+text/plain txt text TXT jtpl
+
+# the mime type "text/xhtml"
+text/html html xhtml
+
+# the mime type "text/css"
+text/css css CSS
+
+# the mime type "application/javascript"
+application/javascript js

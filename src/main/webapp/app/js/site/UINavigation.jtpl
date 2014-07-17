@@ -1,0 +1,14 @@
+<div style="padding: 10px">
+  <div>
+    <h3 style="margin: 3px 0px">Modules</h3>
+    <hr/>
+    <div style="margin: 10px">
+      <%for(var i = 0; i < plugins.length; i++) {%>
+      <%  var plugin = plugins[i]; %>
+          <div>
+            <a class="ui-action onSelectPlugin" plugin="<%=plugin.name%>"><%=plugin.label%></a>
+          </div>
+      <%}%>
+    </div>
+  </div>
+</div>

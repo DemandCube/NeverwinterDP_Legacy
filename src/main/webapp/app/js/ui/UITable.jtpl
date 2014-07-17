@@ -1,0 +1,73 @@
+<%function renderDfltToolbar(config, toolbarConfig, tableId) {%>
+  <div class="UITableDefaultToolbar Toolbar">
+    <div>
+       <div style="float: left; padding-top: 6px">
+         <a class="onToggleColumnSelector ui-action" title="Columns">Cols</a>
+       </div>
+     <div style="float: left;">
+       <select class="onSelectDisplayRow text" name="displayRow">
+         <%var rowOpt = [5, 10, 20, 50, 100, 200, 500]; %>
+         <%for(var i = 0; i < rowOpt.length ; i++) {%>
+         <%  if(rowOpt[i] == 10) {%>
+               <option value="<%=rowOpt[i]%>" selected="true"><%=rowOpt[i]%></option>
+         <%  } else {%>
+               <option value="<%=rowOpt[i]%>"><%=rowOpt[i]%></option>
+         <%  }%>
+         <%}%>
+       </select>
+       
+       <select class="onDfltBeanFilter" name="selectBeanFilterField">
+         <%for(var i = 0; i < config.bean.fields.length ; i++) {%>
+         <%  if(config.bean.fields[i].filterable) {%>
+               <option value="<%=config.bean.fields[i].field%>"><%=config.bean.fields[i].label%></option>
+             <%}%>
+         <%}%>
+       </select>
+       
+       <input class="onDfltBeanFilter" type="search" value=""/>
+     </div>
+     <div style="float: right; padding-top: 8px"> 
+       <%if(toolbarConfig.actions != null) {%>
+       <%  var actions =  toolbarConfig.actions ;%>
+       <%  for(var i = 0; i < actions.length; i++) {%>
+             <a class="onDfltToolbarAction ui-action" action="<%=i%>">
+               <%=actions[i].label%>
+             </a>
+       <%  }%>
+       <%}%>
+     </div>
+     <div class="clearfix"><span/></div>
+    </div>
+    
+    <div class="ColumnSelector" style="display: none">
+      <%var fields = config.bean.fields ;%>
+      <%for(var i = 0; i < fields.length; i++) {%>
+      <%var checked = ""; %>
+      <%if(fields[i].toggled) checked = "checked"%>
+          <input id="<%=fields[i].field%><%=tableId%>" class="onToggleColumn" 
+                 type="checkbox" <%=checked%> name="<%=fields[i].field%>" value="true"/>
+          <label for="<%=fields[i].field%><%=tableId%>">
+            <%=fields[i].label%>
+          </label>
+      <%}%>
+    </div>
+  </div>
+<%}%>
+
+<%
+  function renderToolbars(config, tableId) {
+    if(config.toolbar == null) return ;
+    if(config.toolbar.dflt != null) {
+      renderDfltToolbar(config, config.toolbar.dflt, tableId) ;
+    }
+  }
+%>
+
+<div class="UITable">
+  <div class="UITableToolbars" style="padding-top: 5px">
+    <%renderToolbars(config, tableId) %>
+  </div>
+  
+  <div class="UITableRows">
+  </div>
+</div>

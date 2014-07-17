@@ -1,0 +1,57 @@
+<%function renderHeader(config, state, title) {%>
+  <div>
+    <h3 style="float: left; margin: 3px 0px"><%=title%></h3>
+    <%if(config.actions != null) { %>
+      <div style="float: right">
+        <%config.actions.forEach(function(action) { %>
+          <%var hidden = false; %>
+          <%if(state.actions[action.action] != null) hidden = state.actions[action.action].hidden ; %>
+          <%if(!hidden) { %>
+            <a class="ui-action onAction" action='<%=action.action%>'><%=action.label%></a>
+          <%}%>
+        <%})%>
+      </div>
+      <div><span class="clearfix"/></div>
+    <%}%>
+    <hr/>
+  </div>
+<%}%>
+
+<%function renderFooter(config, state, title) {%>
+  <%if(config.actions != null) {%>
+    <div>
+      <hr/>
+      <div style="float: right">
+        <%config.actions.forEach(function(action) { %>
+          <%var hidden = false; %>
+          <%if(state.actions[action.action] != null) hidden = state.actions[action.action].hidden ;%>
+          <%if(!hidden) {%>
+            <a class="ui-action onAction" action='<%=action.action%>'><%=action.label %></a>
+          <%}%>
+        <%})%>
+      </div>
+      <div><span class="clearfix"/></div>
+    </div>
+  <%}%>
+<%}%>
+
+<div class="UICollapsible">
+  <%renderHeader(config, state, title) ;%>
+  
+  <%components.forEach(function(comp, idx) { %>  
+    <div class="UICollapsibleBlock" style="padding: 10px 0px">
+      <%var icon = comp.collapible.collapsed ? "plus" : "minus"; %>
+      <%var display = comp.collapible.collapsed ? "none" : "block"; %>
+      <h4 style="margin: 0px; padding: 0px">
+        <a class="onToggleBlock ui-action" component="<%=idx%>"><span class="ui-icon ui-icon-<%=icon%>" style="display: inline-block"></span></a>
+        <%=comp.label%>
+      </h4>
+      
+      <div style="padding: 0px 15px; display: <%=display%>" 
+           class="UICollapsibleBlockContent<%=idx%>">
+      </div>
+    </div>
+  <%})%>  
+  
+  <%renderFooter(config, state, title) ;%>
+</div>

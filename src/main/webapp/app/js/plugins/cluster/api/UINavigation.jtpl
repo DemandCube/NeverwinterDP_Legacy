@@ -1,0 +1,9 @@
+<div>
+  <h3 style="margin: 3px 0px">Gateway API</h3>
+  <hr/>
+  <div style="margin: 10px">
+    <div><a class="ui-action onSelectUIComponent" name="Cluster">Cluster</a></div>
+    <div><a class="ui-action onSelectUIComponent" name="Server">Server</a></div>
+    <div><a class="ui-action onSelectUIComponent" name="Module">Module</a></div>
+</div>
+<div>

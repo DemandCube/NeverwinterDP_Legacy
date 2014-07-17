@@ -1,0 +1,19 @@
+.UIBeanCustomInputSelector {
+  position: absolute; 
+  padding: 5px 0px;
+  background: white; 
+  z-index: 2; 
+  display: none;
+}
+
+.UIBeanCustomInputSelector h4 {
+  margin: 0px ;
+  padding: 5px 2px;
+  border-bottom: 1px solid #ddd;
+}
+
+.UIBeanCustomInputSelector a {
+	display: block ;
+	padding: 2px 5px;
+	font-weight: bold ;
+}

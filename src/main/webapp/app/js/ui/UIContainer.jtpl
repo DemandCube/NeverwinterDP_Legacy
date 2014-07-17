@@ -1,0 +1,55 @@
+<%function renderHeader(config, state, title) {%>
+  <%if(state.hideHeader) return  ;%>
+  <div>
+    <h3 style="float: left; margin: 3px 0px"><%=title%></h3>
+    <%if(config.actions != null) { %>
+      <div style="float: right">
+        <%config.actions.forEach(function(action) { %>
+          <%var hidden = false; %>
+          <%if(state.actions[action.action] != null) hidden = state.actions[action.action].hidden ; %>
+          <%if(!hidden) { %>
+            <a class="ui-action onAction" action='<%=action.action%>'><%=action.label%></a>
+          <%}%>
+        <%})%>
+      </div>
+      <div><span class="clearfix"/></div>
+    <%}%>
+    <hr/>
+  </div>
+<%}%>
+
+<%function renderFooter(config, state, title) {%>
+  <%if(state.hideFooter) return  ;%>
+  <%if(config.actions != null) {%>
+    <div>
+      <hr/>
+      <div style="float: right">
+        <%config.actions.forEach(function(action) { %>
+          <%var hidden = false; %>
+          <%if(state.actions[action.action] != null) hidden = state.actions[action.action].hidden ;%>
+          <%if(!hidden) {%>
+            <a class="ui-action onAction" action='<%=action.action%>'><%=action.label %></a>
+          <%}%>
+        <%})%>
+      </div>
+      <div><span class="clearfix"/></div>
+    </div>
+  <%}%>
+<%}%>
+
+<div class="UIContainer">
+  <%renderHeader(config, state, title) ;%>
+  
+  <%components.forEach(function(comp, idx) { %>  
+    <div class="UIContainerBlock" style="padding: 10px 0px">
+      <h4 style="margin: 0px; padding: 0px">
+        <%=comp.label%>
+      </h4>
+      
+      <div class="UIContainerBlockContent<%=idx%>">
+      </div>
+    </div>
+  <%})%>  
+  
+  <%renderFooter(config, state, title) ;%>
+</div>

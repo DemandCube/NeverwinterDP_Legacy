@@ -1,6 +1,0 @@
-dependencies {
-  compile project(':queuengin')
-  compile project(':sparkngin')
-  compile project(':scribengin')
-}
-
