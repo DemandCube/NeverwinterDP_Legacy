@@ -8,7 +8,7 @@ Community
 ======
   [Join us] (https://github.com/DemandCube/NeverwinterDP/blob/master/README.md#join-us-if) if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
 
-- [Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- [Developer Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
 - IRC channel #neverwinterdp on irc.freenode.net
 - [Google Hangout] (http://www.google.com/hangouts/)
   - It's what commiters use to chat directly but have to connect with us first on the mailing list, then request an invite there.
@@ -43,11 +43,20 @@ Neverwinter is the combination of three major open source project that leverage 
 
 Now that we have used enough buzz words.  Neverwinter reliably captures lots of data and saves it to hadoop and other systems.
 
-WHAT CAN NEVERWINTER DO?
+WHAT CAN NEVERWINTERDP DO?
 ========================
-Neverwinter allows data ingestion from any system that can emit http/rest (or zeromq) calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
+Neverwinter allows data ingestion from any system that can emit http/rest (or other protocols) calls and then publish this data to a down stream database, including Hive, HBase, relational databases or even proprietary data stores. A single Neverwinter pipeline can combine data from multiple sources and deliver them to multiple sources, allowing for data to be delivered to multiple team or an entire organization.
 
 Neverwinter is targeted at data and analytics engineering teams who expect response times ranging from sub-second to minutes. Neverwinter breaks the false choice between having  a batch or real-time system. Also the false choice between having a fast or maintainable system.
+
+WHO SHOULD USE NDP?
+========================
+* Gaming industry
+* Media Companies
+* Publisher
+* Telecom
+* Car Companies
+* Utilities
 
 Goals
 ---------
