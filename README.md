@@ -396,6 +396,9 @@ cd  build/release/NeverwinterDP
 #Run test script
 ./bin/jsrun.sh  jscript/local-test.js
 
+#At this point you can point your browser to this url to see status
+http://localhost:8080/app/index.html
+
 
 #To kill the servers
 ./bin/shell.sh -c server exit
