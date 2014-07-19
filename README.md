@@ -345,6 +345,54 @@ $ patch -p0 < SPARKNGIN-1234-0.patch # When using git diff --no-prefix
   - Announce on the mailing list and request code review
 
 
+How to Build NeverwinterDP
+======
+```
+mkdir workspace
+cd workspace
+git clone https://github.com/DemandCube/NeverwinterDP-Commons
+git clone https://github.com/DemandCube/Queuengin
+git clone https://github.com/DemandCube/Sparkngin
+git clone https://github.com/DemandCube/Scribengin
+git clone https://github.com/DemandCube/Demandspike
+
+cd NeverwinterDP-Commons
+gradle clean realease
+cd ../
+
+cd Queuengin
+gradle clean realease
+cd ../
+
+cd Sparkngin
+gradle clean realease
+cd ../
+
+cd Scribengin
+gradle clean realease
+cd ../
+
+cd Demandspike
+gradle clean realease
+cd ../
+
+git clone https://github.com/DemandCube/NeverwinterDP
+cd NeverwinterDP
+gradle clean realease
+
+cd  build/release/NeverwinterDP
+
+#To launch servers, you have two choices - single node server or multi node server
+./bin/local-single-jvm-server.sh 
+#or  
+./bin/local-multi-jvm-server.sh to launch the servers
+
+#Run test script
+./bin/jsrun.sh  jscript/local-test.js
+
+```
+
+
 ## Github Help
   * [How push from your local repo to github](https://help.github.com/articles/pushing-to-a-remote#pushing-a-branch)
   * [How to send a pull request](https://help.github.com/articles/using-pull-requests)
