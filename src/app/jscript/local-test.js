@@ -52,7 +52,7 @@ var ClusterEnv = {
     this.kafkaCluster.installByServer() ;
     this.sparknginCluster.installByServer() ;
     this.demandspikeCluster.installByServer() ;
-    ClusterShell.module.list() ;
+    ClusterShell.module.list("module list") ;
   },
 
   uninstall: function() {
@@ -98,19 +98,19 @@ function runAll() {
 }
 
 function runSingle() {
-  var jobParams = {
+  var command = 
     //test kafka with 1k message size
-    "driver": "kafka", "driver:request.required.acks": "1",
-    "broker-connect": KAFKA_CONFIG.kafkaConnect, "topic": "metrics.consumer", 
-    "broker-connect": KAFKA_CONFIG.kafkaConnect, "topic": "metrics.consumer", 
-    "num-of-task": 2,  "num-of-thread": 2, "message-size": 1024,
-    "member-role": "demandspike", "max-duration": 60000, "max-num-of-message": 3000000
-  }
+    "demandspike submit " +
+    "  --driver kafka  --driver:request.required.acks=1" +
+    "  --broker-connect " + KAFKA_CONFIG.kafkaConnect + 
+    "  --topic metrics.consumer" + 
+    "  --num-of-task  2 --num-of-thread 2 --message-size 1024" +
+    "  --member-role demandspike --max-duration 60000 --max-num-of-message 3000000" ;
 
   ClusterEnv.install() ;
-  ClusterEnv.demandspikeCluster.submitDemandSpikeJob(jobParams, true) ;
-  ClusterShell.server.metric({}) ;
-  ClusterShell.server.clearMetric({"expression": "*"}) ;
+  ClusterEnv.demandspikeCluster.submitDemandSpikeJob(command, 60000) ;
+  ClusterShell.server.metric("server metric") ;
+  ClusterShell.server.metricClear("server metric-clear --expression *") ;
   ClusterEnv.uninstall() ;
 }
 
@@ -131,9 +131,9 @@ function runKafkaRandomFailure() {
   }
 
   ClusterEnv.install() ;
-  ClusterEnv.demandspikeCluster.submitDemandSpikeJob(jobParams, true) ;
-  ClusterShell.server.metric({}) ;
-  ClusterShell.server.clearMetric({"expression": "*"}) ;
+  //ClusterEnv.demandspikeCluster.submitDemandSpikeJob(jobParams, true) ;
+  //ClusterShell.server.metric({}) ;
+  //ClusterShell.server.clearMetric({"expression": "*"}) ;
   ClusterEnv.uninstall() ;
 }
 

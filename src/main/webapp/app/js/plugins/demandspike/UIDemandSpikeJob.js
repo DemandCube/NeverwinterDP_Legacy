@@ -52,6 +52,29 @@ define([
     }
   });
 
+  var UIMemberSelector = UIBean.extend({
+    label: "Member Selector",
+
+    config: {
+      beans: {
+        memberSelector: {
+          name: 'memberSelector', label: 'Member Selector',
+          fields: [
+            { field: "memberUuid",   label: "Member Uuid" },
+            { field: "memberName",   label: "Member Name" },
+            { field: "memberRole",   label: "Member Role" },
+            { field: "timeOut",   label: "Timeout" },
+          ]
+        }
+      }
+    },
+
+    onInit: function(options) {
+      this.bind('memberSelector', options.memberSelector, false) ;
+      this.setReadOnly(true);
+    }
+  });
+
   var UIDemandSpikeJob = UIContainer.extend({
     label: "Running DemandSpike Job", 
     config: {
@@ -62,7 +85,8 @@ define([
       this.demandspikeJob = options.demandspikeJob ;
       if(this.demandspikeJob == null) {
         this.demandspikeJob = {
-          taskConfig: {}
+          taskConfig: {},
+          memberSelector: {}
         } ;
       }
       this.fromMember = options.fromMember == null ? {} : options.fromMember ;
@@ -72,6 +96,7 @@ define([
 
       this.add(new UIJobConifg({demandspikeJob: this.demandspikeJob})) ;
       this.add(new UITaskConfig({taskConfig: this.demandspikeJob.taskConfig})) ;
+      this.add(new UIMemberSelector({memberSelector: this.demandspikeJob.memberSelector})) ;
     }
   }) ;
 

@@ -4,8 +4,8 @@ define([
 ], function($, Server) {
 
   function ClusterRegistration() {
-    this.clusterRegistration = Server.clusterRequest("cluster", "registration", {} ) ;
-
+    this.clusterRegistration = Server.clusterRequest("cluster registration") ;
+    console.log(this.clusterRegistration) ;
     this.getMembers = function() {
       var serverReg = this.clusterRegistration.serverRegistration ;
       var holder = [] ;
@@ -45,8 +45,12 @@ define([
 
     getClusterRegistration: function() { return this.clusterRegistration ; } ,
 
-    call: function(group, command, params) {
-      return Server.clusterRequest(group, command, params ) ;
+    call: function(command) {
+      return Server.clusterRequest(command) ;
+    },
+
+    execute: function(command) {
+      return Server.clusterRequest(command) ;
     }
   }
   return ClusterGateway ;

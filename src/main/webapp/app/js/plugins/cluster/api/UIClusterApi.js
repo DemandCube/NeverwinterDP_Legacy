@@ -13,10 +13,10 @@ define([
       description: [
         "This method allow the client to load the entire cluster information, the info, services, status of each server."
       ],
-      syntax: "ClusterGateway.call('cluster', 'registration', {})",
+      syntax: "ClusterGateway.execute('cluster registration')",
       sampleParams: [
         {
-          description: "An empty or null object",
+          description: "No parameter is required",
           params: {}
         }
       ],
@@ -27,7 +27,7 @@ define([
           name: "cluster-registration",
           description: "Load the cluster registration",
           onRunDemo: function(thisUI) {
-            var result = ClusterGateway.call('cluster', 'registration', {}) ;
+            var result = ClusterGateway.execute("cluster registration") ;
             thisUI.popupJSONResult(result) ;
           }
         }

@@ -64,7 +64,7 @@ define([
     },
 
     onInit: function(options) {
-      var results = ClusterGateway.call('demandspike', 'status', {"member-role" : "demandspike"}) ;
+      var results = ClusterGateway.execute('demandspike status --member-role demandspike') ;
       var fromMember = results[0].fromMember ;
       var job = results[0].result.runningJob ;
 

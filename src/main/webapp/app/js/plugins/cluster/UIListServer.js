@@ -90,7 +90,7 @@ define([
     },
 
     onInit: function(config) {
-      var result = ClusterGateway.call('server', 'ping', {}) ;
+      var result = ClusterGateway.execute('server ping') ;
       this.setBeans(result) ;
     }
   });

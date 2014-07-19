@@ -44,7 +44,7 @@ define([
     },
 
     onInit: function(options) {
-      var results = ClusterGateway.call('module', 'list', {}) ;
+      var results = ClusterGateway.execute('module list') ;
       for(var i = 0; i< results.length; i++) {
         var fromMember = results[i].fromMember ;
         var modules = results[i].result ;

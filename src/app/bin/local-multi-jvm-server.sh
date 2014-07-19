@@ -14,7 +14,7 @@ if $cygwin; then
   APP_DIR=`cygpath --absolute --windows "$APP_DIR"`
 fi
 
-JAVA_OPTS="-Xshare:auto -Xms128m -Xmx256m -XX:-UseSplitVerifier" 
+JAVA_OPTS="-Xshare:auto -Xms128m -Xmx192m -XX:-UseSplitVerifier" 
 APP_OPT="-Dapp.dir=$APP_DIR -Duser.dir=$APP_DIR"
 LOG_OPT="-Dlog4j.configuration=file:$APP_DIR/config/log4j.properties"
 

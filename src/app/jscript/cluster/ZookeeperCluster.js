@@ -8,25 +8,27 @@ function ZookeeperCluster(config) {
   this.config =  config != undefined ? config : this.ZOOKEEPER_DEFAULT_CONFIG ;
 
   this.installByRole = function() {
-    var params = { 
-      "member-role": this.config.serverRole,  "autostart": true, "module": ["Zookeeper"],
-      "-Pmodule.data.drop": "true" ,
-      "-Pzk:clientPort": this.config.listenPort.toString()
-    };
     console.h1("Install the module Zookeeper on the zookeeper role servers") ;
-    ClusterShell.server.install(params) ;
+    ClusterShell.module.install(
+      "module install " +
+      "  --member-role " + this.config.serverRole +
+      "  --autostart --module Zookeeper" +
+      "  -Pmodule.data.drop=true" +
+      "  -Pzk:clientPort=" + this.config.listenPort.toString()
+    ) ;
   };
 
   this.installByServer = function() {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
-      var params = { 
-        "member-name": server,  "autostart": true, "module": ["Zookeeper"],
-        "-Pmodule.data.drop": "true" ,
-        "-Pzk:clientPort": (this.config.listenPort + i).toString()
-      };
       console.h1("Install the module Zookeeper on the " + server + " server") ;
-      ClusterShell.server.install(params) ;
+      ClusterShell.module.install(
+        "module install" +
+        "  --member-name " + server +
+        "  --autostart --module Zookeeper" +
+        "  -Pmodule.data.drop=true" +
+        "  -Pzk:clientPort=" + (this.config.listenPort + i)
+      ) ;
     }
   };
 
@@ -34,11 +36,15 @@ function ZookeeperCluster(config) {
     var params = { 
       "member-role": this.config.serverRole,  "module": ["Zookeeper"], "timeout": 20000 
     }
-    ClusterShell.server.uninstall(params) ;
+    ClusterShell.module.uninstall(
+      "module uninstall" +
+      "  --member-role " +  this.config.serverRole +
+      "  --module Zookeeper --timeout 20000" 
+    ) ;
   };
 
   this.metric = function() {
     var params = { "member-role": this.config.serverRole }
-    ClusterShell.server.metric(params) ;
+    ClusterShell.server.metric("server metric  --member-role " + this.config.serverRole) ;
   };
 }

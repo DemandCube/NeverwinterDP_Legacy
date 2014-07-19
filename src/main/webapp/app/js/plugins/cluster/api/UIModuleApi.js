@@ -5,7 +5,13 @@ define([
   'service/ClusterGateway',
   'ui/UICollapsible',
   'ui/api/UICallApi',
-], function($, _, Backbone, ClusterGateway, UICollabsible, UICallApi) {
+  'ui/api/CommonParameters',
+], function($, _, Backbone, ClusterGateway, UICollabsible, UICallApi, CommonParameters) {
+  var commonParameters = [
+    { name: "--member-role", description: "Select the target member by role", sample: "--membe-role generic" },
+    { name: "--member-name", description: "Select the target member by member name", sample: "--member-name generic" },
+    { name: "--member-uuid", description: "Select the target member by member uuid" },
+  ];
 
   var configs = [
     {
@@ -13,25 +19,20 @@ define([
       description: [
         "This method allow the client to list the avaialble and installed module and services on each server."
       ],
-      syntax: "ClusterGateway.call('module', 'list', {...})",
-      sampleParams: [
-        {
-          description: "List all the available modules",
-          params: {"type": "available"}
-        },
-        {
-          description: "List all the installed modules",
-          params: {"type": "installed"}
-        }
+      syntax: "ClusterGateway.execute('module list [--param value]*')",
+
+      commonParameters: CommonParameters.memberSelector,
+
+      parameters: [
+        { name: "--type", defaultValue: "available", description: "Status type of the module , can be available or installed", sample: "--type installed" }
       ],
-      paramDescription: [
-      ],
+
       demos: [
         {
           name: "module-list-available",
           description: "List the avaialble modules",
           onRunDemo: function(thisUI) {
-            var result = ClusterGateway.call('module', 'list', {"type": "available"}) ;
+            var result = ClusterGateway.execute('module list --type available') ;
             thisUI.popupJSONResult(result) ;
           }
         },
@@ -39,7 +40,7 @@ define([
           name: "module-list-installed",
           description: "List the installed modules",
           onRunDemo: function(thisUI) {
-            var result = ClusterGateway.call('module', 'list', {"type": "installed"}) ;
+            var result = ClusterGateway.execute('module list --type installed') ;
             thisUI.popupJSONResult(result) ;
           }
         }

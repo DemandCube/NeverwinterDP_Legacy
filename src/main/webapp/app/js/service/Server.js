@@ -57,11 +57,9 @@ define([
     },
 
     /**@memberOf service.Server */
-    clusterRequest : function(group, command, params) {
-      var request = {
-        group: group , command: command, params: params
-      }
-      response = this.POST("/cluster/rest", request) ;
+    clusterRequest : function(command) {
+      var request = { command: command }
+      var response = this.POST("/cluster/rest", request) ;
       if(response.data == null) {
         console.log("Request Error") ;
         console.printJSON(response) ;

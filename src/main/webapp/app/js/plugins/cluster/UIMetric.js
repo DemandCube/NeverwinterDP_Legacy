@@ -152,7 +152,7 @@ define([
     onRefresh: function() {
       this.clear() ;
 
-      var results = ClusterGateway.call('server', 'metric', {'member-name': this.memberName}) ;
+      var results = ClusterGateway.execute('server metric --member-name ' +  this.memberName) ;
       var metricRegistry = results[0].result.registry ;
 
       var asArray = function(map) {

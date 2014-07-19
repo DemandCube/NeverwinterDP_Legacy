@@ -13,7 +13,7 @@ define([
     },
 
     onInit: function(options) {
-      var results = ClusterGateway.call('server', 'registration', {}) ;
+      var results = ClusterGateway.execute('server registration') ;
       for(var i = 0; i< results.length; i++) {
         var serverRegistration = results[i].result ;
         var uiServerReg = new UIServerRegistration( {serverRegistration: serverRegistration}) ;

@@ -18,30 +18,43 @@ function SparknginCluster(config) {
       "-Pforwarder-class": this.config.forwarderClass
     };
     console.h1("Install the module sparkngin on the sparkngin role servers") ;
-    ClusterShell.server.install(params) ;
+    ClusterShell.module.install(
+      "module install " +
+      "  --member-role " + this.serverConfig.serverRole +
+      "  --autostart --module Sparkngin" +
+      "  -Pmodule.data.drop=true" +
+      "  -Phttp-listen-port=" + this.config.httpListenPort,
+      "  -Pforwarder-class=" + this.config.forwarderClass
+    ) ;
   };
 
   this.installByServer = function() {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
-      var params = { 
-        "member-name": server,  "autostart": true, "module": ["Sparkngin"],
-        "-Pmodule.data.drop": "true",
-        "-Phttp-listen-port": (this.config.httpListenPort + i).toString(),
-        "-Pforwarder-class": this.config.forwarderClass
-      };
       console.h1("Install the module Sparkngin on the " + server + " server") ;
-      ClusterShell.server.install(params) ;
+      ClusterShell.module.install(
+        "module install " +
+        "  --member-name " +  server +
+        "  --autostart --module Sparkngin" +
+        "  -Pmodule.data.drop=true" +
+        "  -Phttp-listen-port=" + (this.config.httpListenPort + i) +
+        "  -Pforwarder-class=" + this.config.forwarderClass
+      ) ;
     }
   };
 
   this.uninstall = function() {
-    var params = { "member-role": "sparkngin",  "module": ["Sparkngin"], "timeout": 20000 } ;
-    ClusterShell.server.uninstall(params) ;
+    ClusterShell.module.uninstall(
+      "module uninstall " +
+      "  --member-role " + this.config.serverRole +
+      "  --module Sparkngin --timeout 20000"
+    ) ;
   };
 
   this.metric = function() {
     var params = { "member-role": this.config.serverRole }
-    ClusterShell.server.metric(params) ;
+    ClusterShell.server.metric(
+      "server metric --member-role " +  this.config.serverRole
+    ) ;
   };
 }

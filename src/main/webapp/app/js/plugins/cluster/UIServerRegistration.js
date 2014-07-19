@@ -128,7 +128,7 @@ define([
         registration = options.serverRegistration ;
       } else {
         console.log('member name = ' + options.memberName) ;
-        var results = ClusterGateway.call('server', 'registration', {'member-name': options.memberName}) ;
+        var results = ClusterGateway.execute('server registration --member-name ' + options.memberName) ;
         registration = results[0].result ;
       }
       this.label = "Server Registration For " + registration.clusterMember.memberName ;  

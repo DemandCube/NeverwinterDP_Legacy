@@ -9,48 +9,58 @@ function DemandSpikeCluster(config) {
   this.config =  config != undefined ? config : this.DEMAND_SPIKE_DEFAULT_CONFIG ;
 
   this.installByRole = function() {
-    var params = { 
-      "member-role": "demandspike",  "autostart": true, "module": ["DemandSpike"],
-      "-Pmodule.data.drop": "true" 
-    }
-    console.h1("Install the module sparkngin on the demandspike role servers") ;
-    ClusterShell.server.install(params) ;
+    console.h1("Install the module DemandSpike on the demandspike role servers") ;
+    ClusterShell.module.install(
+      "module install " +
+      "  --member-role " + this.config.serverRole +
+      "  --autostart --module DemandSpike" +
+      "  -Pmodule.data.drop=true" 
+    ) ;
   };
 
   this.installByServer = function() {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
-      var params = { 
-        "member-name": server,  "autostart": true, "module": ["DemandSpike"],
-        "-Pmodule.data.drop": "true" 
-      };
-      console.h1("Install the module Zookeeper on the " + server + " server") ;
-      ClusterShell.server.install(params) ;
+      console.h1("Install the module DemandSpike on the " + server + " server") ;
+      ClusterShell.module.install(
+        "module install " +
+        "  --member-name " + server +
+        "  --autostart --module DemandSpike" +
+        "  -Pmodule.data.drop=true" 
+      ) ;
     }
   };
 
   this.uninstall = function() {
-    var params = { "member-role": "demandspike",  "module": ["DemandSpike"], "timeout": 20000 } ;
-    ClusterShell.server.uninstall(params) ;
+    console.h1("Uninstall the module DemandSpike on the server role " + this.config.serverRole) ;
+    ClusterShell.module.uninstall(
+      "module uninstall " +
+      "  --member-role " + this.config.serverRole +
+      "  --module DemandSpike --timeout 20000"
+    ) ;
   };
 
-  this.submitDemandSpikeJob = function(params, wait) {
-    cluster.ClusterGateway.plugin('demandspike','submit', {
-      params: params,
+  this.submitDemandSpikeJob = function(command, waitTime) {
+    cluster.ClusterGateway.execute({
+      command: command,
       onResponse: function(resp) {
         console.h1("Submit a demandspike job");
         new cluster.ResponsePrinter(console, resp).print();
         Assert.assertTrue(resp.success && !resp.isEmpty()) ;
       }
     });
-    if(wait) {
-      console.h1("Wait for " + params["max-duration"] + "ms");
-      java.lang.Thread.sleep(params["max-duration"]);
+    if(waitTime) {
+      console.h1("Wait for " + waitTime + "ms");
+      java.lang.Thread.sleep(waitTime);
     }
   } ;
 
   this.metric = function() {
     var params = { "member-role": this.config.serverRole, "filter": "*DemandSpike*" }
-    ClusterShell.server.metric(params) ;
+    ClusterShell.server.metric(
+      "server metric " +
+      "  --member-role " + this.config.serverRole +
+      "  --filter *DemandSpike*"
+    ) ;
   };
 }
