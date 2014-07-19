@@ -387,8 +387,20 @@ cd  build/release/NeverwinterDP
 #or  
 ./bin/local-multi-jvm-server.sh to launch the servers
 
+#At this point, we need to wait for the servers to come up
+#Make sure that there are 9 server are RUNNING before you run local-test.js by running this step
+./bin/shell.sh -c server ping
+
+
+
 #Run test script
 ./bin/jsrun.sh  jscript/local-test.js
+
+
+#To kill the servers
+./bin/shell.sh -c server exit
+#or
+pkill -9 -f neverwinter
 
 ```
 
