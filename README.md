@@ -393,6 +393,14 @@ cd  build/release/NeverwinterDP
 #At this point you can point your browser to this url to see status
 http://localhost:8080/app/index.html
 
+#In Queuengin , Scribengin, DemandSpike. You can run gradle release after build and install, 
+#you will find the release in build/release/project directory 
+#and run some test in each release. For example in Queuengin,
+
+cd build/release/Queuengin/bin
+./server.sh  to launch the server
+./shell.sh -c server ping to check the status
+./shell.sh -f  hello-xyz.csh to launch the batch script test , 
 
 #To kill the servers
 ./bin/shell.sh -c server exit
