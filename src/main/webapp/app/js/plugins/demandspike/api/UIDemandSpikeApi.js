@@ -5,7 +5,8 @@ define([
   'service/ClusterGateway',
   'ui/UICollapsible',
   'ui/api/UICallApi',
-], function($, _, Backbone, ClusterGateway, UICollabsible, UICallApi) {
+  'ui/api/CommonParameters',
+], function($, _, Backbone, ClusterGateway, UICollabsible, UICallApi, CommonParameters) {
 
   var configs = [
     {
@@ -14,6 +15,10 @@ define([
         "This method allow the client to list the status of the waitting jobs and running job."
       ],
       syntax: "ClusterGateway.execute('demandspike status [--param value]*')",
+
+      commonParameters: CommonParameters.memberSelector,
+
+      parameters: [ ],
 
       demos: [
         {

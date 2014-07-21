@@ -357,28 +357,24 @@ git clone https://github.com/DemandCube/Scribengin
 git clone https://github.com/DemandCube/Demandspike
 
 cd NeverwinterDP-Commons
-gradle clean realease
-cd ../
+gradle clean build install
 
-cd Queuengin
-gradle clean realease
-cd ../
+cd ../Queuengin
+gradle clean build install
 
-cd Sparkngin
-gradle clean realease
-cd ../
+cd ../Sparkngin
+gradle clean build install
 
-cd Scribengin
-gradle clean realease
-cd ../
+cd ../Scribengin
+gradle clean build install
 
-cd Demandspike
-gradle clean realease
-cd ../
+cd ../Demandspike
+gradle clean build install
 
+cd ..
 git clone https://github.com/DemandCube/NeverwinterDP
 cd NeverwinterDP
-gradle clean realease
+gradle clean build realease
 
 cd  build/release/NeverwinterDP
 
@@ -390,8 +386,6 @@ cd  build/release/NeverwinterDP
 #At this point, we need to wait for the servers to come up
 #Make sure that there are 9 server are RUNNING before you run local-test.js by running this step
 ./bin/shell.sh -c server ping
-
-
 
 #Run test script
 ./bin/jsrun.sh  jscript/local-test.js
@@ -424,8 +418,6 @@ If you can't actually move issues around let me (Steve) know.
 - "Working on documentation and automated tests" - are tickets your finishing the documentation and creating, unit, integration, configuration management/deployment (Ansible) installation tests.
 - "In documentation and automated test review" - review specifically of the documentation and test.  Follows the same process as code reviews.  A review should be requested on the mailinglist.
 - "Done" - The task should pass the automated integration test review from Jenkins
-
-
 
 * * *
 
