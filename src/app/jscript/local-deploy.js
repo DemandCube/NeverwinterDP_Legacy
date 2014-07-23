@@ -9,8 +9,8 @@ var appDir = java.lang.System.getProperty("app.dir") ;
 
 this.HTTP_CONFIG = {
   listenPort: 8080, 
-  //webappDir: appDir + "/webapp",
-  webappDir: "/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP/src/main/webapp",
+  webappDir: appDir + "/webapp",
+  //webappDir: "/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP/src/main/webapp",
   serverRole: "generic", 
   servers: ["generic"]
 };
