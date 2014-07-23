@@ -2,12 +2,13 @@ ScriptRunner.require("cluster/ElasticSearchCluster.js");
 ScriptRunner.require("cluster/HttpCluster.js");
 ScriptRunner.require("cluster/ZookeeperCluster.js");
 ScriptRunner.require("cluster/KafkaCluster.js");
+ScriptRunner.require("cluster/KafkaConsumerCluster.js");
 ScriptRunner.require("cluster/SparknginCluster.js");
 ScriptRunner.require("cluster/DemandSpikeCluster.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
 
-this.HTTP_CONFIG = {
+var HTTP_CONFIG = {
   listenPort: 8080, 
   webappDir: appDir + "/webapp",
   //webappDir: "/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP/src/main/webapp",
@@ -15,13 +16,13 @@ this.HTTP_CONFIG = {
   servers: ["generic"]
 };
 
-this.ES_CONFIG = {
+var ES_CONFIG = {
   serverRole: "elasticsearch", 
   servers: ["elasticsearch1", "elasticsearch2"]
 };
 
 
-this.KAFKA_CONFIG = {
+var KAFKA_CONFIG = {
   port: 9092, 
   zookeeperConnect: "127.0.0.1:2181",
   serverRole: "kafka", 
@@ -29,7 +30,12 @@ this.KAFKA_CONFIG = {
   kafkaConnect: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
 };
 
-this.SPARKNGIN_CONFIG = {
+var KAFKA_CONSUMER_CONFIG = {
+  serverRole: "generic", 
+  servers: ["generic"]
+};
+
+var SPARKNGIN_CONFIG = {
   serverRole: "sparkngin", 
   servers: ["sparkngin1"],
   httpListenPort: 7080,
@@ -42,6 +48,7 @@ var ClusterEnv = {
   esCluster: new ElasticSearchCluster(ES_CONFIG) ,
   zkCluster: new ZookeeperCluster() ,
   kafkaCluster: new KafkaCluster(KAFKA_CONFIG),
+  kafkaConsumerCluster: new KafkaConsumerCluster(KAFKA_CONSUMER_CONFIG),
   sparknginCluster: new SparknginCluster(SPARKNGIN_CONFIG),
   demandspikeCluster: new DemandSpikeCluster(),
 
@@ -50,6 +57,7 @@ var ClusterEnv = {
     this.esCluster.installByServer() ;
     this.zkCluster.installByServer() ;
     this.kafkaCluster.installByServer() ;
+    this.kafkaConsumerCluster.installByServer() ;
     this.sparknginCluster.installByServer() ;
     this.demandspikeCluster.installByServer() ;
     ClusterShell.module.list("module list") ;
@@ -59,6 +67,7 @@ var ClusterEnv = {
     this.demandspikeCluster.uninstall() ;
     this.sparknginCluster.uninstall() ;
     this.kafkaCluster.uninstall() ;
+    this.kafkaConsumerCluster.uninstall() ;
     this.zkCluster.uninstall() ;
     this.httpCluster.uninstall() ;
     this.esCluster.uninstall() ;

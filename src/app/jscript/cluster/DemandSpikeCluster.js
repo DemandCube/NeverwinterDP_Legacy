@@ -40,19 +40,17 @@ function DemandSpikeCluster(config) {
     ) ;
   };
 
-  this.submitDemandSpikeJob = function(command, waitTime) {
+  this.submitDemandSpikeJob = function(job) {
+    var jsonJOB = JSONStringify(job, null, "  ") ;
     cluster.ClusterGateway.execute({
-      command: command,
+      command: "demandspike submit " + 
+               "  --member-role " + this.config.serverRole +
+               "  #{data " + jsonJOB + "}#",
       onResponse: function(resp) {
-        console.h1("Submit a demandspike job");
         new cluster.ResponsePrinter(console, resp).print();
         Assert.assertTrue(resp.success && !resp.isEmpty()) ;
       }
-    });
-    if(waitTime) {
-      console.h1("Wait for " + waitTime + "ms");
-      java.lang.Thread.sleep(waitTime);
-    }
+    }) ;
   } ;
 
   this.metric = function() {
