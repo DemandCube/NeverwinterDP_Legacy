@@ -10,11 +10,11 @@ define([
 
   var configs = [
     {
-      label: "Status",
+      label: "Scheduler status",
       description: [
         "This method allow the client to list the status of the waitting jobs and running job."
       ],
-      syntax: "ClusterGateway.execute('demandspike status [--param value]*')",
+      syntax: "ClusterGateway.execute('demandspike scheduler [--param value]*')",
 
       commonParameters: CommonParameters.memberSelector,
 
@@ -22,10 +22,10 @@ define([
 
       demos: [
         {
-          name: "demandspike-status",
+          name: "demandspike-scheduler",
           description: "Get the service scheduler status",
           onRunDemo: function(thisUI) {
-            var result = ClusterGateway.execute('demandspike status --member-role demandspike') ;
+            var result = ClusterGateway.execute('demandspike scheduler --member-role demandspike') ;
             thisUI.popupJSONResult(result) ;
           }
         }

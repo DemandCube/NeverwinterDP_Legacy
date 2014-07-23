@@ -4,79 +4,74 @@ define([
   'backbone',
   'ui/UIContainer',
   'ui/UIBean',
-], function($, _, Backbone, UIContainer, UIBean) {
+  'ui/UITable',
+  'ui/UIContent',
+], function($, _, Backbone, UIContainer, UIBean, UITable, UIContent) {
 
-  var UIJobConifg = UIBean.extend({
+  var UIJobInfo = UIBean.extend({
     label: "Job Config",
 
     config: {
       beans: {
-        jobConfig: {
-          name: 'jobConfig', label: 'Job',
+        jobInfo: {
+          name: 'jobInfo', label: 'Job',
           fields: [
             { field: "id",   label: "ID" },
-            { field: "numOfTask",   label: "Num Of Task" },
-            { field: "numOfThread",   label: "Num Of Thread" },
-          ]
+            { field: "description",   label: "Description" },
+          ],
+          view: {
+            actions: [
+              {
+                action:'viewConsoleOutput', label: "Console Output", icon: "gear",
+                onClick: function(thisUI, beanConfig, beanState) { 
+                  var job = beanState.bean ;
+                  var consoleOutput = "No Console Output available" ;
+                  if(job.outputAttributes != null) {
+                    consoleOutput = job.outputAttributes.consoleOutput ;
+                  }
+                  var uiConsoleOutput = new UIContent({content: consoleOutput}) ;
+                  uiConsoleOutput.label = "Console Output" ;
+                  var uiBreadcumbs = thisUI.getAncestorOfType('UIBreadcumbs') ;
+                  uiBreadcumbs.push(uiConsoleOutput) ;
+                }
+              }
+            ]
+          }
         }
       }
     },
 
     onInit: function(options) {
-      this.bind('jobConfig', options.demandspikeJob, false) ;
+      this.bind('jobInfo', options.demandspikeJob, false) ;
       this.setReadOnly(true);
     }
   });
 
-  var UITaskConfig = UIBean.extend({
-    label: "Task Config",
-
+  var UITasks = UITable.extend({
+    label: "Task Command",
     config: {
-      beans: {
-        taskConfig: {
-          name: 'taskConfig', label: 'Task Config',
-          fields: [
-            { field: "type",   label: "Type" },
-            { field: "messageSize",   label: "Message Size" },
-            { field: "maxDuration",   label: "Max Duration" },
-            { field: "maxNumOfMessage",   label: "Max Num Of Message" },
-            { field: "sendPeriod",   label: "Send Period" },
-          ]
+      toolbar: {
+        dflt: {
+          actions: [ ]
         }
+      },
+      
+      bean: {
+        label: 'Task Command',
+        fields: [
+          { field: "description",   label: "Description", toggled: true },
+          { field: "command",   label: "Command", toggled: true },
+        ]
       }
     },
 
     onInit: function(options) {
-      this.bind('taskConfig', options.taskConfig, false) ;
-      this.setReadOnly(true);
-    }
-  });
-
-  var UIMemberSelector = UIBean.extend({
-    label: "Member Selector",
-
-    config: {
-      beans: {
-        memberSelector: {
-          name: 'memberSelector', label: 'Member Selector',
-          fields: [
-            { field: "memberUuid",   label: "Member Uuid" },
-            { field: "memberName",   label: "Member Name" },
-            { field: "memberRole",   label: "Member Role" },
-            { field: "timeOut",   label: "Timeout" },
-          ]
-        }
-      }
-    },
-
-    onInit: function(options) {
-      this.bind('memberSelector', options.memberSelector, false) ;
-      this.setReadOnly(true);
+      this.setBeans(options.tasks) ;
     }
   });
 
   var UIDemandSpikeJob = UIContainer.extend({
-    label: "Running DemandSpike Job", 
+    label: "DemandSpike Job", 
     config: {
       actions: [ ]
     },
@@ -85,8 +80,6 @@ define([
       this.demandspikeJob = options.demandspikeJob ;
       if(this.demandspikeJob == null) {
         this.demandspikeJob = {
-          taskConfig: {},
-          memberSelector: {}
         } ;
       }
       this.fromMember = options.fromMember == null ? {} : options.fromMember ;
@@ -94,9 +87,9 @@ define([
       this.setHideHeader(true);
       this.setHideFooter(true);
 
-      this.add(new UIJobConifg({demandspikeJob: this.demandspikeJob})) ;
-      this.add(new UITaskConfig({taskConfig: this.demandspikeJob.taskConfig})) ;
-      this.add(new UIMemberSelector({memberSelector: this.demandspikeJob.memberSelector})) ;
+      this.add(new UIJobInfo({demandspikeJob: this.demandspikeJob})) ;
+
+      this.add(new UITasks({tasks: this.demandspikeJob.tasks})) ;
     }
   }) ;
 

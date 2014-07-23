@@ -1,0 +1,19 @@
+{
+  "id":   "demandspike-hello-job",
+  "description": "Sample DemandSpike job",
+
+  "tasks": [
+    {
+      "description": "clean metric task",
+      "command":     "server metric-clear --expression *"
+    },
+    {
+      "description": "send by the dummy driver",
+      "command":     "demandspike:job send --max-num-of-message 1000"
+    },
+    {
+      "description": "send by the kafka driver",
+      "command":     "demandspike:job send --driver kafka --broker-connect 127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094 --topic metrics.consumer --max-num-of-message 1000"
+    }
+  ]
+}

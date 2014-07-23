@@ -28,7 +28,7 @@ define([
       if(this.config.highlightSyntax != null) {
         params.highlightSyntax = 'lang-' + this.config.highlightSyntax ;
       }
-      $(this.el).append(this._template(params));
+      $(this.el).html(this._template(params));
       $(this.el).prettify();
     }
   });
