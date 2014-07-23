@@ -71,9 +71,11 @@ Goals
 
 Use-Cases / Examples
 ---------
-- [Twitch's Data Pipeline] (http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
-- [Linkedin's Data Pipeline] (http://sites.computer.org/debull/A12june/pipeline.pdf)
-- [Pod Cast] (http://wp.me/pTu1i-b5)
+- [Twitch's Data Pipeline](http://ossareh.posthaven.com/the-twitch-statistics-pipeline)
+- [Linkedin's Data Pipeline](http://sites.computer.org/debull/A12june/pipeline.pdf)
+- [Pod Cast](http://wp.me/pTu1i-b5)
+- [Metamarkest Data Pipeline](https://metamarkets.com/2014/building-a-data-pipeline-that-handles-billions-of-events-in-real-time/?utm_source=twitterfeed&utm_medium=twitter)
+- [Addthis Data Pipeline](http://www.addthis.com/blog/2013/04/16/building-a-distributed-system-with-akka-remote-actors/#.U87OAYBdXR0)
 - Usertracking and Profiling
 - Ad data tracking
 - System Event Capture
@@ -400,6 +402,18 @@ http://localhost:8080/app/index.html
 ./bin/shell.sh -c server exit
 #or
 pkill -9 -f neverwinter
+
+
+In Queuengin , Scribengin, DemandSpike. You can run gradle release after build and install, you will find the release in build/release/project directory 
+and run some test in each release. For example in Queuengin,
+
+cd build/release/Queuengin/bin
+#To launch the server
+./server.sh 
+#Ping to check the server status
+./shell.sh -c server ping 
+#To launch the batch script tets
+./shell.sh -f  hello-xyz.csh 
 
 ```
 
