@@ -387,12 +387,14 @@ cd  build/release/NeverwinterDP
 #Make sure that there are 9 server are RUNNING before you run local-test.js by running this step
 ./bin/shell.sh -c server ping
 
-#Run test script
-./bin/jsrun.sh  jscript/local-test.js
+#Run the script to deploy the services. This script will install kafka, sparkngin, demandspike ... services on the servers with the conresponding role
+./bin/jsrun.sh  jscript/local-deploy.js
 
 #At this point you can point your browser to this url to see status
 http://localhost:8080/app/index.html
 
+#Run the script to deploy some demandspike job to demandspike scheduler service
+./bin/jsrun.sh  jscript/local-test.js
 
 #To kill the servers
 ./bin/shell.sh -c server exit
