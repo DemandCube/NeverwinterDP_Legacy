@@ -24,6 +24,15 @@ function runGradle() {
   cd $APP_DIR
 }
 
+function runGit() { 
+  cd $APP_DIR/NeverwinterDP-Commons && git $@
+  cd $APP_DIR/Queuengin && git $@
+  cd $APP_DIR/Sparkngin && git $@
+  cd $APP_DIR/Scribengin && git $@
+  cd $APP_DIR/DemandSpike && git $@
+  cd $APP_DIR
+}
+
 
 function release() {
   echo "do release"
@@ -35,6 +44,8 @@ shift
 
 if [ "$COMMAND" = "gradle" ] ; then
   runGradle $@
+elif [ "$COMMAND" = "git" ] ; then
+  runGit $@
 elif [ "$COMMAND" = "release" ] ; then
   release $@
 else
