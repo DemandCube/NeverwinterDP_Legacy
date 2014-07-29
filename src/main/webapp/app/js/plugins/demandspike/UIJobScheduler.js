@@ -24,17 +24,12 @@ define([
           view: {
             actions: [
               {
-                action:'viewConsoleOutput', label: "Console Output", icon: "gear",
+                action:'detail', label: "Detail", icon: "gear",
                 onClick: function(thisUI, beanConfig, beanState) { 
                   var job = beanState.bean ;
-                  var consoleOutput = "No Console Output available" ;
-                  if(job.outputAttributes != null) {
-                    consoleOutput = job.outputAttributes.consoleOutput ;
-                  }
-                  var uiConsoleOutput = new UIContent({content: consoleOutput}) ;
-                  uiConsoleOutput.label = "Console Output" ;
+                  var uiDemandSpikeJob = new UIDemandSpikeJob({demandspikeJob: job}) ;
                   var uiBreadcumbs = thisUI.getAncestorOfType('UIBreadcumbs') ;
-                  uiBreadcumbs.push(uiConsoleOutput) ;
+                  uiBreadcumbs.push(uiDemandSpikeJob) ;
                 }
               }
             ]
@@ -45,7 +40,9 @@ define([
 
     onInit: function(options) {
       var job = options.demandspikeJob ;
-      if(job == null) job = {} ;
+      if(job == null) {
+        job = {tasks: []} ;
+      }
       this.bind('job', job, false) ;
       this.setReadOnly(true);
     }
@@ -64,7 +61,7 @@ define([
         label: 'Waitting Job',
         fields: [
           { 
-            field: "id",   label: "ID", toggled: true,
+            field: "description",   label: "Description", toggled: true,
             onClick: function(thisTable, row) {
               var bean = thisTable.getItemOnCurrentPage(row) ;
               var uiDemandSpikeJob = new UIDemandSpikeJob({demandspikeJob: bean}) ;
@@ -72,7 +69,7 @@ define([
               uiBreadcumbs.push(uiDemandSpikeJob) ;
             }
           },
-          { field: "description",   label: "Description", toggled: true }
+          { field: "id",   label: "ID", toggled: true, }
         ]
       }
     }
@@ -85,7 +82,8 @@ define([
         {
           action: "refresh", label: "Refresh",
           onClick: function(thisUI) {
-            console.log("on click refresh") ;
+            thisUI.onRefresh() ;
+            thisUI.render() ;
           }
         },
         { 
@@ -98,10 +96,15 @@ define([
     },
 
     onInit: function(options) {
+      this.onRefresh() ;
+    },
+
+    onRefresh: function() {
       var results = ClusterGateway.execute('demandspike scheduler --member-role demandspike') ;
       var fromMember = results[0].fromMember ;
       var schedulerInfo = results[0].result ;
 
+      this.clear() ;
       this.add(new UIRunningJob({demandspikeJob: schedulerInfo.runningJob, fromMember: fromMember})) ;
 
       var uiWaittingJobs = new UIListDemandSpikeJob() ;

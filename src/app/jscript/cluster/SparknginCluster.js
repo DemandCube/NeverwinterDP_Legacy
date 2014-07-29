@@ -5,26 +5,22 @@ function SparknginCluster(config) {
     serverRole: "sparkngin", 
     servers: ["sparkngin1"],
     httpListenPort: 8080,
-    forwarderClass: "com.neverwinterdp.sparkngin.http.NullDevMessageForwarder"
+    forwarderClass: "com.neverwinterdp.sparkngin.http.NullDevMessageForwarder",
+    kafkaBroker: "127.0.0.1:9092",
   };
 
   this.config =  config != undefined ? config : this.SPARKNGIN_DEFAULT_CONFIG ;
 
   this.installByRole = function() {
-    var params = { 
-      "member-role": "sparkngin",  "autostart": true, "module": ["Sparkngin"],
-      "-Pmodule.data.drop": "true",
-      "-Phttp-listen-port": this.config.httpListenPort.toString(),
-      "-Pforwarder-class": this.config.forwarderClass
-    };
     console.h1("Install the module sparkngin on the sparkngin role servers") ;
     ClusterShell.module.install(
       "module install " +
       "  --member-role " + this.serverConfig.serverRole +
       "  --autostart --module Sparkngin" +
       "  -Pmodule.data.drop=true" +
-      "  -Phttp-listen-port=" + this.config.httpListenPort,
-      "  -Pforwarder-class=" + this.config.forwarderClass
+      "  -Psparkngin:http-listen-port=" + this.config.httpListenPort +
+      "  -Psparkngin:forwarder-class=" + this.config.forwarderClass +
+      "  -Pkafka-producer:metadata.broker.list=" + this.config.kafkaBroker
     ) ;
   };
 
@@ -37,8 +33,9 @@ function SparknginCluster(config) {
         "  --member-name " +  server +
         "  --autostart --module Sparkngin" +
         "  -Pmodule.data.drop=true" +
-        "  -Phttp-listen-port=" + (this.config.httpListenPort + i) +
-        "  -Pforwarder-class=" + this.config.forwarderClass
+        "  -Psparkngin:http-listen-port=" + (this.config.httpListenPort + i) +
+        "  -Psparkngin:forwarder-class=" + this.config.forwarderClass +
+        "  -Pkafka-producer:metadata.broker.list=" + this.config.kafkaBroker
       ) ;
     }
   };
@@ -52,7 +49,6 @@ function SparknginCluster(config) {
   };
 
   this.metric = function() {
-    var params = { "member-role": this.config.serverRole }
     ClusterShell.server.metric(
       "server metric --member-role " +  this.config.serverRole
     ) ;

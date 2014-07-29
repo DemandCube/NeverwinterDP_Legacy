@@ -18,25 +18,7 @@ define([
           fields: [
             { field: "id",   label: "ID" },
             { field: "description",   label: "Description" },
-          ],
-          view: {
-            actions: [
-              {
-                action:'viewConsoleOutput', label: "Console Output", icon: "gear",
-                onClick: function(thisUI, beanConfig, beanState) { 
-                  var job = beanState.bean ;
-                  var consoleOutput = "No Console Output available" ;
-                  if(job.outputAttributes != null) {
-                    consoleOutput = job.outputAttributes.consoleOutput ;
-                  }
-                  var uiConsoleOutput = new UIContent({content: consoleOutput}) ;
-                  uiConsoleOutput.label = "Console Output" ;
-                  var uiBreadcumbs = thisUI.getAncestorOfType('UIBreadcumbs') ;
-                  uiBreadcumbs.push(uiConsoleOutput) ;
-                }
-              }
-            ]
-          }
+          ]
         }
       }
     },
@@ -44,29 +26,6 @@ define([
     onInit: function(options) {
       this.bind('jobInfo', options.demandspikeJob, false) ;
       this.setReadOnly(true);
-    }
-  });
-
-  var UITasks = UITable.extend({
-    label: "Task Command",
-    config: {
-      toolbar: {
-        dflt: {
-          actions: [ ]
-        }
-      },
-      
-      bean: {
-        label: 'Task Command',
-        fields: [
-          { field: "description",   label: "Description", toggled: true },
-          { field: "command",   label: "Command", toggled: true },
-        ]
-      }
-    },
-
-    onInit: function(options) {
-      this.setBeans(options.tasks) ;
     }
   });
 
@@ -89,7 +48,19 @@ define([
 
       this.add(new UIJobInfo({demandspikeJob: this.demandspikeJob})) ;
 
-      this.add(new UITasks({tasks: this.demandspikeJob.tasks})) ;
+      var uiScriptProps = new UIContent({content: JSON.stringify(this.demandspikeJob.scriptProperties, null, "  ")}) ;
+      uiScriptProps.label = "Script Properties" ;
+      this.add(uiScriptProps) ;
+
+      var uiScript = new UIContent({content: this.demandspikeJob.script, highlightSyntax: 'javascript'}) ;
+      uiScript.label = "Script" ;
+      this.add(uiScript) ;
+
+      var consoleOutput = "No Console Output available" ;
+      if(this.demandspikeJob.outputAttributes != null) {
+        consoleOutput = this.demandspikeJob.outputAttributes.consoleOutput ;
+      }
+      this.add(new UIContent({content: consoleOutput})) ;
     }
   }) ;
 

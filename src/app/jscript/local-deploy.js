@@ -10,8 +10,8 @@ var appDir = java.lang.System.getProperty("app.dir") ;
 
 var HTTP_CONFIG = {
   listenPort: 8080, 
-  webappDir: appDir + "/webapp",
-  //webappDir: "/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP/src/main/webapp",
+  //webappDir: appDir + "/webapp",
+  webappDir:  appDir + "/../../../src/main/webapp",
   serverRole: "generic", 
   servers: ["generic"]
 };
@@ -39,8 +39,9 @@ var SPARKNGIN_CONFIG = {
   serverRole: "sparkngin", 
   servers: ["sparkngin1"],
   httpListenPort: 7080,
-  forwarderClass: "com.neverwinterdp.sparkngin.http.NullDevMessageForwarder",
-  sparknginConnect: "127.0.0.1:7070"
+  forwarderClass: "com.neverwinterdp.sparkngin.http.KafkaMessageForwarder",
+  kafkaBroker: KAFKA_CONFIG.kafkaConnect,
+  sparknginConnect: "127.0.0.1:7080"
 };
 
 var ClusterEnv = {
