@@ -37,3 +37,9 @@ SHELL.exec(
 );
 
 SHELL.exec("server metric");
+
+SHELL.exec(":echo Reset the kafka replication configuration to 2") ;
+SHELL.exec(
+   "service configure --member-role kafka   --module Kafka         --service-id KafkaClusterService         --timeout 60000" +
+   "  -Pkafka:default.replication.factor=2"
+);

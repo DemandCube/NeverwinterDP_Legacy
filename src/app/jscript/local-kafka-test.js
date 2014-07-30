@@ -1,6 +1,15 @@
 ScriptRunner.require("cluster/DemandSpikeCluster.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
+
+var config = {
+  MAX_DURATION: 60000 ,
+  KAFKA_BROKER: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094",
+  MESSAGE_SIZE: 1024,
+  REQUESR_ACK: 1,
+  REPLICATION: 2
+}
+
 var MAX_DURATION = 60000 ;
 var KAFKA_BROKER = "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094" 
 
@@ -37,8 +46,13 @@ for(var i = 0; i < 2; i++) {
   submitDemandSpikeJob(jsFile, desc, 1024, i, 2) ;
 }
 
+jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-service-failure-load-test-job.js" ;
+var desc = "Kafka load test with the service failure simulation"  ;
+submitDemandSpikeJob(jsFile, desc, 1024, 1, 2) ;
+
 jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-replication-load-test-job.js" ;
 for(var i = 1; i <= 3; i++) {
   var desc = "Kafka load test with replication = " + i  ;
   submitDemandSpikeJob(jsFile, desc, 1024, 1, i) ;
 }
+
