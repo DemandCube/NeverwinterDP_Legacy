@@ -396,7 +396,10 @@ cd  build/release/NeverwinterDP
 http://localhost:8080/app/index.html
 
 #Run the script to deploy some demandspike job to demandspike scheduler service
-./bin/jsrun.sh  jscript/local-test.js
+#Those 2 commands will submit various kafka and sparkngin demandspike job test to a job scheduler
+#Go to the webui , click the DemandSpike then Job Scheduler to monitor the test results.
+./bin/jsrun.sh  jscript/local-kafka-test.js
+./bin/jsrun.sh  jscript/local-sparkngin-test.js
 
 #To kill the servers
 ./bin/shell.sh -c server exit
