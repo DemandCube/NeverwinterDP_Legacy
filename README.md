@@ -376,7 +376,7 @@ gradle clean build install
 cd ..
 git clone https://github.com/DemandCube/NeverwinterDP
 cd NeverwinterDP
-gradle clean build realease
+gradle clean build release
 
 cd  build/release/NeverwinterDP
 
