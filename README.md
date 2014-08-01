@@ -436,7 +436,11 @@ shutdown properly and it will cause the problem for the next build or test.
 You can remove elastic search log appender in config/log4j.properties
 6. Too many open files probem.  If you run multi jvm env you may run into too many open files problem  check 
 this for the solution http://superuser.com/questions/433746/is-there-a-fix-for-the-too-many-open-files-in-system-error-on-os-x-10-7-1. 
-If you have the problem  on linux , I believe there is a ulimit command to check and update , You can also update the /etc  config file.
+If you have the problem  on linux you can update the /etc/security/limits.conf and add:
+tuan            soft    nofile          16384
+tuan            hard    nofile          16384
+tuan            soft    nproc           1024
+tuan            hard    nproc           1024
 
 
 
