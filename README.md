@@ -357,6 +357,7 @@ git clone https://github.com/DemandCube/Queuengin
 git clone https://github.com/DemandCube/Sparkngin
 git clone https://github.com/DemandCube/Scribengin
 git clone https://github.com/DemandCube/Demandspike
+git clone https://github.com/DemandCube/NeverwinterDP
 
 cd NeverwinterDP-Commons
 gradle clean build install
@@ -373,10 +374,8 @@ gradle clean build install
 cd ../Demandspike
 gradle clean build install
 
-cd ..
-git clone https://github.com/DemandCube/NeverwinterDP
-cd NeverwinterDP
-gradle clean build release
+cd ../NeverwinterDP
+gradle clean build install release
 
 cd  build/release/NeverwinterDP
 
