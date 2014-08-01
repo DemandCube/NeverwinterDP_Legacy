@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/DemandSpikeCluster.js");
+ScriptRunner.require("cluster/RingBearerCluster.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
 
@@ -13,10 +13,10 @@ var config = {
 var MAX_DURATION = 60000 ;
 var KAFKA_BROKER = "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094" 
 
-function submitDemandSpikeJob(jsFile, description, messageSize, requestAck, replication) {
+function submitRingBearerJob(jsFile, description, messageSize, requestAck, replication) {
   cluster.ClusterGateway.execute({
-    command: "demandspike submit " + 
-             "  --member-role demandspike" +
+    command: "ringbearer submit " + 
+             "  --member-role ringbearer" +
              "  --description \"" + description + "\"" +
              "  -PMAX_DURATION="  + MAX_DURATION +
              "  -PKAFKA_BROKER="  + KAFKA_BROKER +
@@ -32,27 +32,27 @@ function submitDemandSpikeJob(jsFile, description, messageSize, requestAck, repl
   }) ;
 } ;
 
-submitDemandSpikeJob(appDir + "/jscript/demandspike/job/kafka/hello-job.js", "Hello Demandspike Job",  1024, 1, 2) ;
+submitRingBearerJob(appDir + "/jscript/ringbearer/job/kafka/hello-job.js", "Hello RingBearer Job",  1024, 1, 2) ;
 
-var jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-message-size-load-test-job.js" ;
+var jsFile = appDir + "/jscript/ringbearer/job/kafka/kafka-message-size-load-test-job.js" ;
 for(var i = 1; i <= 3; i++) {
   var desc = "Kafka load test with " + i + "kb message size" ;
-  submitDemandSpikeJob(jsFile, desc, 1024 * i, 1, 2) ;
+  submitRingBearerJob(jsFile, desc, 1024 * i, 1, 2) ;
 }
 
-jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-request-ack-load-test-job.js" ;
+jsFile = appDir + "/jscript/ringbearer/job/kafka/kafka-request-ack-load-test-job.js" ;
 for(var i = 0; i < 2; i++) {
   var desc = "Kafka load test with request ack = " + i  ;
-  submitDemandSpikeJob(jsFile, desc, 1024, i, 2) ;
+  submitRingBearerJob(jsFile, desc, 1024, i, 2) ;
 }
 
-jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-service-failure-load-test-job.js" ;
+jsFile = appDir + "/jscript/ringbearer/job/kafka/kafka-service-failure-load-test-job.js" ;
 var desc = "Kafka load test with the service failure simulation"  ;
-submitDemandSpikeJob(jsFile, desc, 1024, 1, 2) ;
+submitRingBearerJob(jsFile, desc, 1024, 1, 2) ;
 
-jsFile = appDir + "/jscript/demandspike/job/kafka/kafka-replication-load-test-job.js" ;
+jsFile = appDir + "/jscript/ringbearer/job/kafka/kafka-replication-load-test-job.js" ;
 for(var i = 1; i <= 3; i++) {
   var desc = "Kafka load test with replication = " + i  ;
-  submitDemandSpikeJob(jsFile, desc, 1024, 1, i) ;
+  submitRingBearerJob(jsFile, desc, 1024, 1, i) ;
 }
 

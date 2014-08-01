@@ -46,4 +46,4 @@ startServer -Pserver.name=kafka3 -Pserver.roles=kafka
 
 startServer -Pserver.name=sparkngin1 -Pserver.roles=sparkngin
 
-startServer -Pserver.name=demandspike1 -Pserver.roles=demandspike
+startServer -Pserver.name=ringbearer1 -Pserver.roles=ringbearer

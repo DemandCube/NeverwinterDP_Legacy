@@ -21,6 +21,7 @@ function runGradle() {
   cd $APP_DIR/Sparkngin && gradle $@
   cd $APP_DIR/Scribengin && gradle $@
   cd $APP_DIR/DemandSpike && gradle $@
+  cd $APP_DIR/NeverwinterDP && gradle $@
   cd $APP_DIR
 }
 
@@ -30,6 +31,7 @@ function runGit() {
   cd $APP_DIR/Sparkngin && git $@
   cd $APP_DIR/Scribengin && git $@
   cd $APP_DIR/DemandSpike && git $@
+  cd $APP_DIR/NeverwinterDP && git $@
   cd $APP_DIR
 }
 

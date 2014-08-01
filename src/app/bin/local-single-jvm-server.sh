@@ -38,4 +38,4 @@ startServer \
   -Pkafka2:server.name=kafka2 -Pkafka2:server.roles=kafka \
   -Pkafka3:server.name=kafka3 -Pkafka3:server.roles=kafka \
   -Psparkngin1:server.name=sparkngin1 -Psparkngin1:server.roles=sparkngin \
-  -Pdemandspike1:server.name=demandspike1 -Pdemandspike1:server.roles=demandspike
+  -Pringbearer1:server.name=ringbearer1 -Pringbearer1:server.roles=ringbearer

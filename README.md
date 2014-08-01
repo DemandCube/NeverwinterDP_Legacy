@@ -401,6 +401,9 @@ http://localhost:8080/app/index.html
 ./bin/jsrun.sh  jscript/local-kafka-test.js
 ./bin/jsrun.sh  jscript/local-sparkngin-test.js
 
+#To run the single job:
+./bin/jsrun.sh  jscript/ringbearer/job/kafka/hello-job.js
+
 #To kill the servers
 ./bin/shell.sh -c server exit
 #or

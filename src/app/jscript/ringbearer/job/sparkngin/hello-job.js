@@ -9,10 +9,10 @@ SHELL.exec(":echo MAX_DURATION     = " + MAX_DURATION) ;
 SHELL.exec(":echo SPARKNGIN_BROKER = " + SPARKNGIN_BROKER) ;
 
 SHELL.exec("server metric-clear --expression *");
-SHELL.exec("demandspike:job send --max-num-of-message 1000") ;
+SHELL.exec("ringbearer:job send --max-num-of-message 1000") ;
 
 SHELL.exec(
-  "demandspike:job send " + 
+  "ringbearer:job send " + 
   "  --driver sparkngin --broker-connect " + SPARKNGIN_BROKER +  
   "  --topic metrics.consumer --max-num-of-message 1000"
 ) ;

@@ -1,14 +1,14 @@
-ScriptRunner.require("cluster/DemandSpikeCluster.js");
+ScriptRunner.require("cluster/RingBearerCluster.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
 
 var MAX_DURATION = 60000 ;
 var SPARKNGIN_BROKER = "127.0.0.1:7080" ;
 
-function submitDemandSpikeJob(jsFile, description, maxDuration, sparknginBroker) {
+function submitRingBearerJob(jsFile, description, maxDuration, sparknginBroker) {
   cluster.ClusterGateway.execute({
-    command: "demandspike submit " + 
-             "  --member-role demandspike" +
+    command: "ringbearer submit " + 
+             "  --member-role ringbearer" +
              "  --description \"" + description + "\"" +
              "  -PMAX_DURATION="  + maxDuration +
              "  -PSPARKNGIN_BROKER="  + sparknginBroker +
@@ -21,5 +21,5 @@ function submitDemandSpikeJob(jsFile, description, maxDuration, sparknginBroker)
   }) ;
 } ;
 
-submitDemandSpikeJob(appDir + "/jscript/demandspike/job/sparkngin/hello-job.js", "Hello Demandspike Sparkngin Job", MAX_DURATION, SPARKNGIN_BROKER) ;
-submitDemandSpikeJob(appDir + "/jscript/demandspike/job/sparkngin/load-test-job.js", "Sparkngin load test", MAX_DURATION, SPARKNGIN_BROKER) ;
+submitRingBearerJob(appDir + "/jscript/ringbearer/job/sparkngin/hello-job.js", "Hello RingBearer Sparkngin Job", MAX_DURATION, SPARKNGIN_BROKER) ;
+submitRingBearerJob(appDir + "/jscript/ringbearer/job/sparkngin/load-test-job.js", "Sparkngin load test", MAX_DURATION, SPARKNGIN_BROKER) ;

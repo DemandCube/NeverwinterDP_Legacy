@@ -1,10 +1,10 @@
 define([
   'jquery',
   'plugins/cluster/Plugin',
-  'plugins/demandspike/Plugin',
+  'plugins/ringbearer/Plugin',
   'plugins/elasticsearch/Plugin',
   'plugins/uidemo/Plugin',
-], function($, ClusterPlugin, DemandSpikePlugin, ElasticsearchPlugin, UIDemoPlugin) {
+], function($, ClusterPlugin, RingBearerPlugin, ElasticsearchPlugin, UIDemoPlugin) {
   var PluginManager = {
     plugins: [] ,
     
@@ -25,7 +25,7 @@ define([
   };
 
   PluginManager.addPlugin(ClusterPlugin) ;
-  PluginManager.addPlugin(DemandSpikePlugin) ;
+  PluginManager.addPlugin(RingBearerPlugin) ;
   PluginManager.addPlugin(ElasticsearchPlugin) ;
   PluginManager.addPlugin(UIDemoPlugin) ;
 

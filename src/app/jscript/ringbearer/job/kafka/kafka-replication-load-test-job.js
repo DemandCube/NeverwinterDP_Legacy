@@ -29,7 +29,7 @@ SHELL.exec("service start     --member-role kafka   --module Kafka         --ser
 SHELL.exec("service start     --member-role generic --module KafkaConsumer --service-id KafkaMetricsConsumerService --timeout 60000");
 
 SHELL.exec(
-    "demandspike:job send " + 
+    "ringbearer:job send " + 
     "  --driver kafka  --driver:request.required.acks=" + REQUEST_ACK +
     "  --broker-connect " + KAFKA_BROKER + 
     "  --topic metrics.consumer --max-num-of-message 5000000 --max-duration " + MAX_DURATION + 

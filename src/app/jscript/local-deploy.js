@@ -4,7 +4,7 @@ ScriptRunner.require("cluster/ZookeeperCluster.js");
 ScriptRunner.require("cluster/KafkaCluster.js");
 ScriptRunner.require("cluster/KafkaConsumerCluster.js");
 ScriptRunner.require("cluster/SparknginCluster.js");
-ScriptRunner.require("cluster/DemandSpikeCluster.js");
+ScriptRunner.require("cluster/RingBearerCluster.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
 
@@ -51,7 +51,7 @@ var ClusterEnv = {
   kafkaCluster: new KafkaCluster(KAFKA_CONFIG),
   kafkaConsumerCluster: new KafkaConsumerCluster(KAFKA_CONSUMER_CONFIG),
   sparknginCluster: new SparknginCluster(SPARKNGIN_CONFIG),
-  demandspikeCluster: new DemandSpikeCluster(),
+  ringbearerCluster: new RingBearerCluster(),
 
   install: function() {
     this.httpCluster.installByServer() ;
@@ -60,12 +60,12 @@ var ClusterEnv = {
     this.kafkaCluster.installByServer() ;
     this.kafkaConsumerCluster.installByServer() ;
     this.sparknginCluster.installByServer() ;
-    this.demandspikeCluster.installByServer() ;
+    this.ringbearerCluster.installByServer() ;
     ClusterShell.module.list("module list") ;
   },
 
   uninstall: function() {
-    this.demandspikeCluster.uninstall() ;
+    this.ringbearerCluster.uninstall() ;
     this.sparknginCluster.uninstall() ;
     this.kafkaCluster.uninstall() ;
     this.kafkaConsumerCluster.uninstall() ;

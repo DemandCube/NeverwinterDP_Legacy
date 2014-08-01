@@ -23,7 +23,7 @@ SHELL.exec("service start   --member-role generic   --module KafkaConsumer --ser
 SHELL.exec("service start   --member-role sparkngin --module Sparkngin     --service-id SparknginClusterHttpService --timeout 60000");
 
 SHELL.exec(
-  "demandspike:job send " + 
+  "ringbearer:job send " + 
   "  --driver sparkngin --broker-connect " + SPARKNGIN_BROKER +  
   "  --topic metrics.consumer --max-num-of-message 5000000 --max-duration " + MAX_DURATION 
 ) ;

@@ -1,0 +1,8 @@
+<div>
+  <h3 style="margin: 3px 0px">RingBearer</h3>
+  <hr/>
+
+  <div style="margin: 10px">
+    <div><span class="ui-action onSelectUIComponent" name="UIJobScheduler">Job Scheduler</span></div>
+  </div>
+<div>
