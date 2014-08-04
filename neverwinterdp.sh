@@ -15,33 +15,67 @@ if $cygwin; then
   APP_DIR=`cygpath --absolute --windows "$APP_DIR"`
 fi
 
+function printHeader() {
+	echo ""
+	echo "****************************************************************************************"
+	echo ""
+	echo "Project: $1"
+	echo ""
+	echo "****************************************************************************************"
+	echo ""
+	echo ""
+}
+
 function runGradle() {
+  printHeader "NeverwinterDP-Commons"
   echo "NeverwinterDP-Commons: gradle $@" 
   cd $APP_DIR/NeverwinterDP-Commons && gradle $@
+  
+  printHeader "Queuengin"
   echo "Queuengin: gradle $@"
   cd $APP_DIR/Queuengin && gradle $@
+  
+  printHeader "Sparkngin"
   echo "Sparkngin: gradle $@"
   cd $APP_DIR/Sparkngin && gradle $@
+  
+  printHeader "Scribengin"
   echo "Scribengin: gradle $@"
   cd $APP_DIR/Scribengin && gradle $@
+  
+  printHeader "DemandSpike"
   echo "DemandSpike: gradle $@"
   cd $APP_DIR/DemandSpike && gradle $@
+  
+  printHeader "NeverwinterDP"
   echo "NeverwinterDP: gradle $@"
   cd $APP_DIR/NeverwinterDP && gradle $@
   cd $APP_DIR
 }
 
 function runGit() { 
+  
+  printHeader "NeverwinterDP-Commons"
   echo "NeverwinterDP-Commons: git $@"
   cd $APP_DIR/NeverwinterDP-Commons && git $@
+  
+  printHeader "Queuengin"
   echo "Queuengin: git $@"
   cd $APP_DIR/Queuengin && git $@
+  
+  printHeader "Sparkngin"
   echo "Sparkngin: git $@"
   cd $APP_DIR/Sparkngin && git $@
+  
+  printHeader "Scribengin"
   echo "Scribengin: git $@"
   cd $APP_DIR/Scribengin && git $@
+  
+  printHeader "DemandSpike"
   echo "DemandSpike: git $@"
   cd $APP_DIR/DemandSpike && git $@
+  
+  printHeader "NeverwinterDP"
   echo "NeverwinterDP: git $@"
   cd $APP_DIR/NeverwinterDP && git $@
   cd $APP_DIR
@@ -51,6 +85,8 @@ function runGit() {
 function release() {
   echo "do release"
 }
+
+
 
 
 COMMAND=$1
