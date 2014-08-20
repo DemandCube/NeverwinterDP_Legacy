@@ -449,7 +449,7 @@ tuan            hard    nproc           1024
   * [How to send a pull request](https://help.github.com/articles/using-pull-requests)
   * [How to sync a forked repo on github](https://help.github.com/articles/syncing-a-fork)
   * [Other Suggested Git Workflows](https://cwiki.apache.org/confluence/display/KAFKA/Git+Workflow)
-
+  * [How to Branch](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches)
 
 ## Kanban Board
 If you can't actually move issues around let me (Steve) know.
@@ -693,7 +693,7 @@ Kafka Resources
 - Interested Potential Contributor: Andrew Otto <otto@wikimedia.org>
 
 
-Four Level Protocol Stack
+Four Level Rosetta Protocol Stack
 =====
 - Level 0 Raw
 - Level 1 Envelop Framework (Leverage Avro/Protocol Buffers/Thrift)
@@ -704,7 +704,7 @@ Four Level Protocol Stack
 
 Preferred Development Tools
 - [Ansible] (http://www.ansibleworks.com/)
-- [Vangrant] (http://www.vagrantup.com/)
+- [Vagrant] (http://www.vagrantup.com/)
 - [Virtualbox] (https://www.virtualbox.org/)
 - [Gradle] (http://www.gradle.org/)
 - [YourKit] (http://www.yourkit.com)

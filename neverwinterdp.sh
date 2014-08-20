@@ -86,7 +86,38 @@ function release() {
   echo "do release"
 }
 
-
+function runCheckout() { 
+  
+  printHeader "NeverwinterDP-Commons"
+  echo "NeverwinterDP-Commons: git clone https://github.com/DemandCube/NeverwinterDP-Commons.git"
+  if [ ! -d $APP_DIR/NeverwinterDP-Commons ] ; then
+    cd $APP_DIR && git clone https://github.com/DemandCube/NeverwinterDP-Commons.git
+  fi
+  
+  printHeader "Queuengin"
+  echo "Queuengin: git clone https://github.com/DemandCube/Queuengin.git"
+  if [ ! -d $APP_DIR/Queuengin ] ; then
+    cd $APP_DIR && git clone https://github.com/DemandCube/Queuengin.git
+  fi
+  
+  printHeader "Sparkngin"
+  echo "Sparkngin: git clone https://github.com/DemandCube/Sparkngin.git"
+  if [ ! -d $APP_DIR/Sparkngin ] ; then
+    cd $APP_DIR && git clone https://github.com/DemandCube/Sparkngin.git
+  fi
+  
+  printHeader "Scribengin"
+  echo "Scribengin: git clone https://github.com/DemandCube/Scribengin.git"
+  if [ ! -d $APP_DIR/Scribengin ] ; then
+    cd $APP_DIR && git clone https://github.com/DemandCube/Scribengin.git
+  fi
+  
+  printHeader "DemandSpike"
+  echo "DemandSpike: git clone https://github.com/DemandCube/DemandSpike.git"
+  if [ ! -d $APP_DIR/DemandSpike ] ; then
+    cd $APP_DIR && git clone https://github.com/DemandCube/DemandSpike.git
+  fi
+}
 
 
 COMMAND=$1
@@ -98,6 +129,8 @@ elif [ "$COMMAND" = "git" ] ; then
   runGit $@
 elif [ "$COMMAND" = "release" ] ; then
   release $@
+elif [ "$COMMAND" = "checkout" ] ; then
+  runCheckout
 else
   echo "This command will run git or gradle against all projects."
   echo "Projects:"
@@ -109,7 +142,7 @@ else
   echo "	NeverwinterDP"
   echo ""
   echo "Avaliable Commands: "
-  echo "  build: Run gradle against all projects"
+  echo "  gradle: Run gradle against all projects"
   echo "  git: Run git against all projects"
   echo ""
   echo "e.g."
@@ -126,6 +159,11 @@ else
   echo "	./neverwinterdp.sh gradle clean build install"
   echo ""
   echo "Will clean and build code in NeverwinterDP-Commons, Queuengin, Sparkngin, Scribengin, DemandSpike, NeverwinterDP"
+  echo ""
+  echo ""
+  echo "	./neverwinterdp.sh checkout"
+  echo ""
+  echo "Will clone the other repos NeverwinterDP-Commons, Queuengin, Sparkngin, Scribengin, DemandSpike"
   echo ""
   echo ""
 fi
