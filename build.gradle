@@ -39,6 +39,7 @@ dependencies {
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT', classifier: 'js'
   compile group: 'com.neverwinterdp', name: 'commons.hadoop-framework', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.zookeeper', version: '1.0-SNAPSHOT'
 
   compile group: 'com.neverwinterdp', name: 'commons.elasticsearch', version: '1.0-SNAPSHOT'
 
@@ -70,8 +71,8 @@ def doRelease(String releaseDir) {
 
 
   def dependencyJars = [ 
-    "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "queuengin", "sparkngin",
-    "demandspike", "commons.elasticsearch",
+    "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",
+    "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
 
     "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava", "javassist",
     'guice', 'javax.inject', 'hazelcast', 'aopalliance',
