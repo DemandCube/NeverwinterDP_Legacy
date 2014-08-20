@@ -21,3 +21,11 @@ compile:
 checkout-dependencies:
 	./neverwinterdp.sh checkout
 
+# Generate the javadoc in
+#       $build/docs/javadoc/
+docs:
+        ./gradlew javadoc
+                
+gradle-help:
+        ./gradlew -q tasks
+
