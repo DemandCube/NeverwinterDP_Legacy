@@ -1,9 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'eclipse' 
 apply plugin: 'maven' 
-apply plugin: 'wrapper'
 
 archivesBaseName = 'neverwinterdp'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
 
 eclipse {
   project {
