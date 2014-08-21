@@ -78,7 +78,7 @@ def doRelease(String releaseDir) {
     "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",
     "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
 
-    "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava", "javassist",
+    "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava-16.0.1", "javassist",
     'guice', 'javax.inject', 'hazelcast', 'aopalliance',
     "kafka", "scala-library",
     'zookeeper', 'zkclient',

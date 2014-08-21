@@ -15,11 +15,15 @@ function HttpCluster(config) {
     ClusterShell.module.install(
       "module install " +
       "  --member-role " + this.config.serverRole +
-      "  --autostart --module HttpGateway" +
+      "  --autostart --module Http" +
       "  -Pmodule.data.drop=true" +
-      "  -Phttp-listen-port=" + this.config.listenPort +
-      "  -Phttp-www-dir=" + this.config.webappDir
-
+      "  -Phttp:port=" + this.config.listenPort +
+      "  -Phttp:www-dir=" + this.config.webappDir +
+      "  -Phttp:route.names=cluster-rest,yarn-app-history" +
+      "  -Phttp:route.cluster-rest.handler=com.neverwinterdp.server.gateway.http.HttpGatewayRouteHandler" +
+      "  -Phttp:route.cluster-rest.path=/cluster/rest" +
+      "  -Phttp:route.yarn-app-history.handler=com.neverwinterdp.hadoop.yarn.app.history.AppHistoryRouteHandler" +
+      "  -Phttp:route.yarn-app-history.path=/yarn-app/history.*" 
     ) ;
   };
 
@@ -30,10 +34,15 @@ function HttpCluster(config) {
       ClusterShell.module.install(
         "module install " +
         "  --member-name " +  server +
-        "  --autostart --module HttpGateway" +
+        "  --autostart --module Http" +
         "  -Pmodule.data.drop=true" +
-        "  -Phttp-listen-port=" + (this.config.listenPort + i) +
-        "  -Phttp-www-dir=" + this.config.webappDir
+        "  -Phttp:port=" + (this.config.listenPort + i) +
+        "  -Phttp:www-dir=" + this.config.webappDir +
+        "  -Phttp:route.names=cluster-rest,yarn-app-history" +
+        "  -Phttp:route.cluster-rest.handler=com.neverwinterdp.server.gateway.http.HttpGatewayRouteHandler" +
+        "  -Phttp:route.cluster-rest.path=/cluster/rest" +
+      "  -Phttp:route.yarn-app-history.handler=com.neverwinterdp.hadoop.yarn.app.history.AppHistoryRouteHandler" +
+      "  -Phttp:route.yarn-app-history.path=/yarn-app/history.*" 
       ) ;
     }
   } ;
