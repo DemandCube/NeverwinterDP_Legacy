@@ -29,7 +29,6 @@ Neverwinter was designed and written from the ground up for reliability, scalabi
 Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm the Data pipeline integrates with Logstash, Ganglia and Nagios Integration.  It's a replacement for flume but also can be integrated with it.
 
 
-
 It Supports:
 
 1. Batch Analytics
