@@ -18,7 +18,6 @@ Community
 
 
 
-
 WHAT IS NEVERWINTER DP?
 =======================
 NeverwinterDP is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log/event data.
