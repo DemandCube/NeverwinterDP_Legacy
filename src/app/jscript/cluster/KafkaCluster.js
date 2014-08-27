@@ -15,7 +15,7 @@ function KafkaCluster(config) {
     ClusterShell.module.install(
       "module install " +
       "  --member-role " + this.config.serverRole +
-      "  --autostart --module --Kafka --timeout 30000" +
+      "  --autostart --module Kafka --timeout 30000" +
       "  -Pmodule.data.drop=true" +
       //"-Pkafka:broker.id": "1",
       "  -Pkafka:port=" + this.config.port +

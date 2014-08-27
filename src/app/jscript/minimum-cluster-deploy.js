@@ -10,49 +10,64 @@ var appDir = java.lang.System.getProperty("app.dir") ;
 
 var HTTP_CONFIG = {
   listenPort: 8080, 
-  //webappDir: appDir + "/webapp",
-  webappDir:  appDir + "/../../../src/main/webapp",
+  webappDir: appDir + "/webapp",
   serverRole: "generic", 
   servers: ["generic"]
 };
 
+/*
 var ES_CONFIG = {
   serverRole: "elasticsearch", 
-  servers: ["elasticsearch1", "elasticsearch2"]
+  servers: ["elasticsearch-1"]
+};
+*/
+
+var ES_CONFIG = {
+  serverRole: "generic", 
+  servers: ["generic"]
 };
 
+var ZOOKEEPER_CONFIG = {
+  listenPort: 2181, serverRole: "zookeeper", servers: ["zookeeper-1"]
+};
 
 var KAFKA_CONFIG = {
   port: 9092, 
-  zookeeperConnect: "127.0.0.1:2181",
+  zookeeperConnect: "zookeeper-1:2181",
   serverRole: "kafka", 
-  servers: ["kafka1", "kafka2", "kafka3"],
-  kafkaConnect: "127.0.0.1:9092,127.0.0.1:9093,127.0.0.1:9094"
+  servers: ["kafka-1", "kafka-2"],
+  kafkaConnect: "kafka-1:9092,kafka-2:9092"
 };
 
 var KAFKA_CONSUMER_CONFIG = {
   serverRole: "generic", 
   servers: ["generic"],
-  zookeeperConnect: "127.0.0.1:2181"
+  zookeeperConnect: "zookeeper-1:2181"
 };
+
 
 var SPARKNGIN_CONFIG = {
   serverRole: "sparkngin", 
-  servers: ["sparkngin1"],
+  servers: ["sparkngin-1"],
   httpListenPort: 7080,
   forwarderClass: "com.neverwinterdp.sparkngin.http.KafkaMessageForwarder",
   kafkaBroker: KAFKA_CONFIG.kafkaConnect,
-  sparknginConnect: "127.0.0.1:7080"
+  sparknginConnect: "sparkngin-1:7080"
+};
+
+var RING_BEARER_CONFIG = {
+  serverRole: "generic",
+  servers: ["generic"]
 };
 
 var ClusterEnv = {
   httpCluster: new HttpCluster(HTTP_CONFIG) ,
   esCluster: new ElasticSearchCluster(ES_CONFIG) ,
-  zkCluster: new ZookeeperCluster() ,
+  zkCluster: new ZookeeperCluster(ZOOKEEPER_CONFIG) ,
   kafkaCluster: new KafkaCluster(KAFKA_CONFIG),
   kafkaConsumerCluster: new KafkaConsumerCluster(KAFKA_CONSUMER_CONFIG),
   sparknginCluster: new SparknginCluster(SPARKNGIN_CONFIG),
-  ringbearerCluster: new RingBearerCluster(),
+  ringbearerCluster: new RingBearerCluster(RING_BEARER_CONFIG),
 
   install: function() {
     this.httpCluster.installByServer() ;

@@ -3,7 +3,7 @@ ScriptRunner.require("classpath:util/assert.js");
 ScriptRunner.require("classpath:cluster/cluster.js");
 
 if(typeof MAX_DURATION == 'undefined') MAX_DURATION = 60000 ;
-if(typeof KAFKA_BROKER == 'undefined') KAFKA_BROKER = "127.0.0.1:9092" ;
+if(typeof KAFKA_BROKER == 'undefined') KAFKA_BROKER = "kafka-1:9092,kafka-2:9092" ;
 
 SHELL.exec(":echo MAX_DURATION = " + MAX_DURATION) ;
 SHELL.exec(":echo KAFKA_BROKER = " + KAFKA_BROKER) ;

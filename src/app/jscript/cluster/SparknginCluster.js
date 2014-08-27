@@ -15,7 +15,7 @@ function SparknginCluster(config) {
     console.h1("Install the module sparkngin on the sparkngin role servers") ;
     ClusterShell.module.install(
       "module install " +
-      "  --member-role " + this.serverConfig.serverRole +
+      "  --member-role " + this.config.serverRole +
       "  --autostart --module Sparkngin" +
       "  -Pmodule.data.drop=true" +
       "  -Psparkngin:http-listen-port=" + this.config.httpListenPort +
