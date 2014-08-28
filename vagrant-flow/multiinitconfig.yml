@@ -1,6 +1,6 @@
 ---
 :sshPrivateKeyPath: ./tmp/DemandCubePlaybooks/roles/teamaccess/files/teamaccess
-:digitalOceanToken: 4af329d2baa4686af5ef372006389680197d1be905db948043679961a050b3ad
+:digitalOceanToken: TOKENGOESHERE
 :intnetName: neverwinterDP
 machines:
 - name: genericVF
