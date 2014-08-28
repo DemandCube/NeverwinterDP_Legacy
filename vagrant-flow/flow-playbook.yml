@@ -1,0 +1,3 @@
+---
+:playbook: tmp/DemandCubePlaybooks/main.yml
+:inventory: vagrant-flow_ansible_inventory

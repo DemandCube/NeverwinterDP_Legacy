@@ -1,0 +1,17 @@
+---
+:sshPrivateKeyPath: ./tmp/DemandCubePlaybooks/roles/teamaccess/files/teamaccess
+:digitalOceanToken: TOKENGOESHERE
+:intnetName: neverwinterDP
+machines:
+- name: generic-vf
+  ram: 512MB
+- name: elasticsearch-vf
+  ram: 512MB
+- name: zookeeper-vf
+  ram: 512MB
+- name: kafka-vf
+  ram: 512MB
+- name: sparkngin-vf
+  ram: 512MB
+- name: ringbearer-vf
+  ram: 512MB
