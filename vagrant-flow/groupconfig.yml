@@ -1,15 +1,15 @@
 generic:
-- generic-vf
+- genericVF
 elasticsearch:
-- elasticsearch-vf
+- elasticsearchVF
 zookeeper:
-- zookeeper-vf
+- zookeeperVF
 kafka:
-- kafka-vf
+- kafkaVF
 sparkngin:
-- sparkngin-vf
+- sparknginVF
 ringbearer:
-- ringbearer-vf
+- ringbearerVF
 neverwinterdp:children:
 - generic
 - elasticsearch
