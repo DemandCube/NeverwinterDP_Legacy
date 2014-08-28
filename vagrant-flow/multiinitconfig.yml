@@ -1,0 +1,23 @@
+---
+:sshPrivateKeyPath: ./tmp/DemandCubePlaybooks/roles/teamaccess/files/teamaccess
+:digitalOceanToken: TOKENGOESHERE
+:intnetName: neverwinterDP
+machines:
+- name: genericVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
+- name: elasticsearchVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
+- name: zookeeperVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
+- name: kafkaVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
+- name: sparknginVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
+- name: ringbearerVF
+  ram: 512MB
+  digitalOceanRegion: nyc2
