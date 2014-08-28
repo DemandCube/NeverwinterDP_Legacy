@@ -7,7 +7,7 @@
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
-DIGITAL_OCEAN_TOKEN="4af329d2baa4686af5ef372006389680197d1be905db948043679961a050b3ad"
+DIGITAL_OCEAN_TOKEN="TOKENGOESHERE"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
