@@ -84,6 +84,11 @@ task vagrant(dependsOn: 'dist')  << {
     from "${buildDir}/distributions"
     into "${vagrantBuildDir}/vagrant/apps/java"
   }
+
+  copy {
+    from "${buildDir}/../../apps/rpm"
+    into "${vagrantBuildDir}/vagrant/apps/rpm"
+  }
 }
 
 def doRelease(String releaseDir) {
