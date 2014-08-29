@@ -89,6 +89,7 @@ public class RingBearerClusterBuilder {
     gateway.execute(
         "module install --member-role generic -Pmodule.data.drop=true --autostart --module KafkaConsumer"
     ) ;
+    
     gateway.execute(
         "module install" +
         "  --member-role sparkngin" +
