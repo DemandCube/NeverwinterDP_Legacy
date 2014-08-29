@@ -3,7 +3,8 @@ ScriptRunner.require("cluster/ClusterShell.js");
 function KafkaConsumerCluster(config) {
   this.DEFAULT_CONFIG = {
     serverRole: "generic", 
-    servers: ["generic"]
+    servers: ["generic"] ,
+    zookeeperConnect: "127.0.0.1:2181"
   };
 
   this.config =  config != undefined ? config : this.DEFAULT_CONFIG ;
@@ -14,7 +15,8 @@ function KafkaConsumerCluster(config) {
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module KafkaConsumer" +
-      "  -Pmodule.data.drop=true"
+      "  -Pmodule.data.drop=true" +
+      "  -Pkafka:zookeeper.connect=" + this.config.zookeeperConnect
     ) ;
   };
 
@@ -26,7 +28,8 @@ function KafkaConsumerCluster(config) {
         "module install " +
         "  --member-name " + server +
         "  --autostart --module KafkaConsumer" +
-        "  -Pmodule.data.drop=true"
+        "  -Pmodule.data.drop=true" +
+        "  -Pkafka:zookeeper.connect=" + this.config.zookeeperConnect
       ) ;
     }
   };

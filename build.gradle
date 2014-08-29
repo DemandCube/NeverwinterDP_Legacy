@@ -4,6 +4,10 @@ apply plugin: 'maven'
 
 archivesBaseName = 'neverwinterdp'
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
 eclipse {
   project {
     name = 'NeverwinterDP'
@@ -63,12 +67,30 @@ task release (dependsOn: 'build') << {
   doRelease(releaseDir) ;
 }
 
+task dist(type: Tar, dependsOn: 'release') {
+  description = "Tars the bin distribution."
+  compression = Compression.GZIP
+  from "${buildDir}/release/NeverwinterDP"
+}
+
+task vagrant(dependsOn: 'dist')  << {
+  def vagrantBuildDir = "${buildDir}/vagrant"
+  copy {
+    from "vagrant"
+    into "${vagrantBuildDir}"
+  }
+
+  copy {
+    from "${buildDir}/distributions"
+    into "${vagrantBuildDir}/vagrant/apps/java"
+  }
+}
+
 def doRelease(String releaseDir) {
   println "\n\n"
   println "*************************************************"
   println "Preparing the release directory ${releaseDir}"
   println "*************************************************"
-
 
   def dependencyJars = [ 
     "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",

@@ -1,0 +1,165 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#Requirement 
+#  vagrant plugin install vagrant-hostmanager
+#  vagrant plugin install vagrant-digitalocean
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+DIGITAL_OCEAN_TOKEN="TOKENGOESHERE"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  
+  Vagrant.require_version ">= 1.4.3"
+
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = false
+  config.hostmanager.ignore_private_ip = false
+
+  config.vm.synced_folder  "./vagrant", "/vagrant", disabled: false
+  config.vm.provision :shell, path: "bootstrap/post-install.sh"
+
+  #VirtualBox provider
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "generic"
+    vb.customize ["modifyvm", :id, "--memory", "350"]
+    # vb.customize ["modifyvm", :id, "--cpus", "2"]
+  end
+
+  #digitalOcean provider
+  config.vm.provider "digital_ocean" do |provider, override|
+    override.ssh.private_key_path = './teamaccess/teamaccess'
+    provider.token  = DIGITAL_OCEAN_TOKEN
+    provider.region = 'NYC2'
+    provider.image  = 'CentOS 6.5 x64'
+    provider.size   = '512MB'
+    provider.private_networking = true
+  end
+
+
+  #Generic server
+  config.vm.define :generic do | generic |    
+    generic.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
+    # Create a private network
+    generic.vm.network "forwarded_port", guest: 8080, host: 8080
+    generic.vm.hostname = "generic"
+    
+    #VirtualBox provider
+    generic.vm.provider "virtualbox" do |provider, override|
+      provider.name = "generic"
+      override.vm.network :private_network, ip: "192.168.1.2", virtualbox__intnet: "neverwinterDP"
+    end
+
+    #digitalOcean provider. TODO: Find a better way to fix the hostname
+    generic.vm.provider "digital_ocean" do |provider, override|
+      override.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+        if hostname = (vm.ssh_info && vm.ssh_info[:host])
+          `vagrant ssh generic -c "/sbin/ifconfig eth1" | grep "inet addr" | tail -n 1 | egrep -o "[0-9\.]*" | head -n 1 2>&1`.split("\n").first[/(\d+\.\d+\.\d+\.\d+)/, 1]
+        end
+      end
+    end
+
+    generic.vm.provision :shell, 
+      inline: "/bin/su -s /bin/bash -c '/opt/NeverwinterDP/bin/service.sh -Pserver.name=generic -Pserver.roles=generic,elasticsearch,ringbearer' neverwinterdp"
+  end
+
+  #Elasticsearch servers
+  #(1..1).each do |i|
+  #  config.vm.define "elasticsearch-#{i}" do | elasticsearch |    
+  #    elasticsearch.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
+  #    
+  #    # Create a private network
+  #    elasticsearch.vm.network :private_network, ip: "192.168.1.#{i + 10}", virtualbox__intnet: "neverwinterDP"
+  #    elasticsearch.vm.hostname = "elasticsearch-#{i}"
+  
+  #    #VirtualBox provider
+  #    elasticsearch.vm.provider "virtualbox" do |vb|
+  #      vb.name = "elasticsearch-#{i}"
+  #    end
+  #  end
+  #end
+
+  #Zookeeper servers
+  (1..1).each do |i|
+    config.vm.define "zookeeper-#{i}" do | zookeeper |    
+      zookeeper.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
+      # Create a private network
+      zookeeper.vm.hostname = "zookeeper-#{i}"
+
+      #VirtualBox provider
+      zookeeper.vm.provider "virtualbox" do |provider, override|
+        override.vm.network :private_network, ip: "192.168.1.#{i + 20}", virtualbox__intnet: "neverwinterDP"
+        provider.name = "zookeeper-#{i}"
+      end
+
+      #digitalOcean provider. TODO: Find a better way to fix the hostname
+      zookeeper.vm.provider "digital_ocean" do |provider, override|
+        override.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+          if hostname = (vm.ssh_info && vm.ssh_info[:host])
+            `vagrant ssh zookeeper-#{i} -c "/sbin/ifconfig eth1" | grep "inet addr" | tail -n 1 | egrep -o "[0-9\.]*" | head -n 1 2>&1`.split("\n").first[/(\d+\.\d+\.\d+\.\d+)/, 1]
+          end
+        end
+      end
+
+      zookeeper.vm.provision :shell, 
+        inline: "/bin/su -s /bin/bash -c '/opt/NeverwinterDP/bin/service.sh' neverwinterdp"
+    end
+  end
+
+  #Kafka servers
+  (1..2).each do |i|
+    config.vm.define "kafka-#{i}" do | kafka |    
+      kafka.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
+      
+      # Create a private network
+      kafka.vm.hostname = "kafka-#{i}"
+
+      #VirtualBox provider
+      kafka.vm.provider "virtualbox" do |provider, override|
+        override.vm.network :private_network, ip: "192.168.1.#{i + 30}", virtualbox__intnet: "neverwinterDP"
+        provider.name = "kafka-#{i}"
+      end
+
+      #digitalOcean provider. TODO: Find a better way to fix the hostname
+      kafka.vm.provider "digital_ocean" do |provider, override|
+        override.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+          if hostname = (vm.ssh_info && vm.ssh_info[:host])
+            `vagrant ssh kafka-#{i} -c "/sbin/ifconfig eth1" | grep "inet addr" | tail -n 1 | egrep -o "[0-9\.]*" | head -n 1 2>&1`.split("\n").first[/(\d+\.\d+\.\d+\.\d+)/, 1]
+          end
+        end
+      end
+
+      kafka.vm.provision :shell, 
+        inline: "/bin/su -s /bin/bash -c '/opt/NeverwinterDP/bin/service.sh' neverwinterdp"
+    end
+  end
+
+  #Sparkngin servers
+  (1..1).each do |i|
+    config.vm.define "sparkngin-#{i}" do | sparkngin |    
+      sparkngin.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
+      
+      # Create a private network
+      sparkngin.vm.hostname = "sparkngin-#{i}"
+
+      #VirtualBox provider
+      sparkngin.vm.provider "virtualbox" do |provider, override|
+        override.vm.network :private_network, ip: "192.168.1.#{i + 40}", virtualbox__intnet: "neverwinterDP"
+        provider.name = "sparkngin-#{i}"
+      end
+
+      #digitalOcean provider. TODO: Find a better way to fix the hostname
+      sparkngin.vm.provider "digital_ocean" do |provider, override|
+        override.hostmanager.ip_resolver = proc do |vm, resolving_vm|
+          if hostname = (vm.ssh_info && vm.ssh_info[:host])
+            `vagrant ssh sparkngin-#{i} -c "/sbin/ifconfig eth1" | grep "inet addr" | tail -n 1 | egrep -o "[0-9\.]*" | head -n 1 2>&1`.split("\n").first[/(\d+\.\d+\.\d+\.\d+)/, 1]
+          end
+        end
+      end
+
+      sparkngin.vm.provision :shell, 
+        inline: "/bin/su -s /bin/bash -c '/opt/NeverwinterDP/bin/service.sh' neverwinterdp"
+    end
+  end
+end

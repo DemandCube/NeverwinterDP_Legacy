@@ -44,4 +44,4 @@ function runShell {
 }
 
 echo "runShell $@"
-runShell $@
+runShell "$@"

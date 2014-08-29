@@ -1,0 +1,7 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP-Commons/zookeeper/build'
+let g:netrw_dirhist_2='/Users/Tuan/Projects/DemandCube/NeverwinterDP/NeverwinterDP-Commons/hadoop-framework/build'
+let g:netrw_dirhist_3='/Users/Tuan/Projects/DemandCube/neverwinterdpLauncher/DemandCubePlaybooks/roles/neverwinterdp/generic/templates'
+let g:netrw_dirhist_4='/Users/Tuan/Projects/DemandCube/neverwinterdpLauncher/DemandCubePlaybooks/roles/neverwinterdp/generic'
+let g:netrw_dirhist_5='/Users/Tuan/Projects/DemandCube/test/bootstrap'

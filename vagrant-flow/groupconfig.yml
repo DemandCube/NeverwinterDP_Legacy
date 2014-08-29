@@ -1,0 +1,22 @@
+generic:
+- genericVF
+elasticsearch:
+- elasticsearchVF
+zookeeper:
+- zookeeperVF
+kafka:
+- kafkaVF
+sparkngin:
+- sparknginVF
+ringbearer:
+- ringbearerVF
+neverwinterdp:children:
+- generic
+- elasticsearch
+- zookeeper
+- kafka
+- sparkngin
+- ringbearer
+reboot:children:
+- neverwinterdp
+

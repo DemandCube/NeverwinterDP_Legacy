@@ -17,7 +17,6 @@ Community
 - [Repo Listing] (http://demandcube.github.io/)
 
 
-
 WHAT IS NEVERWINTER DP?
 =======================
 NeverwinterDP is a distributed, reliable, and available service for efficiently collecting, aggregating, and moving large amounts of log/event data.
@@ -27,7 +26,6 @@ Neverwinter is an open source distributed data ingestion system/framework for ca
 Neverwinter was designed and written from the ground up for reliability, scalability, and operational maintainability to support the growing needs of event and message data collection at scale to support startups and enterprise organizations.
 
 Neverwinter - The real-time log/data pipeline. Sparkngin(Nginx) Kafka, Scribengin, leveraging processing in Hadoop and Storm the Data pipeline integrates with Logstash, Ganglia and Nagios Integration.  It's a replacement for flume but also can be integrated with it.
-
 
 
 It Supports:
