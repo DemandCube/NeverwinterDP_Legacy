@@ -86,8 +86,8 @@ task vagrant(dependsOn: 'dist')  << {
   }
 
   copy {
-    from "${buildDir}/../../apps/rpm"
-    into "${vagrantBuildDir}/vagrant/apps/rpm"
+    from "${buildDir}/../../apps"
+    into "${vagrantBuildDir}/vagrant/apps"
   }
 }
 

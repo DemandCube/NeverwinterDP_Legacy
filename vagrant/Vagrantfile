@@ -43,6 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     generic.vm.box = "demandcube/centos-65_x86_64-VB-4.3.8"
     # Create a private network
     generic.vm.network "forwarded_port", guest: 8080, host: 8080
+    generic.vm.network "forwarded_port", guest: 10001, host: 10001
     generic.vm.hostname = "generic"
     
     #VirtualBox provider

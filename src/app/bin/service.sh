@@ -35,8 +35,9 @@ if $cygwin; then
 fi
 
 #Yourkit Profiler
-YOURKIT_LIB="/Users/Tuan/Tools/YourKit-2013.app/bin/mac/libyjpagent.jnilib"
-#YOURKIT_OPTS="-agentpath:$YOURKIT_LIB=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=NeverwinterDP"
+#YOURKIT_LIB="/Users/Tuan/Tools/YourKit-2013.app/bin/mac/libyjpagent.jnilib"
+YOURKIT_LIB="/opt/Yourkit-2014/bin/linux-x86-64/libyjpagent.so"
+YOURKIT_OPTS="-agentpath:$YOURKIT_LIB=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=NeverwinterDP"
 
 JAVA_OPTS="-Xshare:auto -Xms128m -Xmx256m -XX:-UseSplitVerifier"
 
