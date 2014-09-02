@@ -143,6 +143,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       
       # Create a private network
       sparkngin.vm.hostname = "sparkngin-#{i}"
+      sparkngin.vm.network "forwarded_port", guest: 10001, host: (10040 + i)
 
       #VirtualBox provider
       sparkngin.vm.provider "virtualbox" do |provider, override|
