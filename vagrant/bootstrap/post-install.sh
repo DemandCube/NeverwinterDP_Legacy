@@ -30,3 +30,7 @@ sudo tar -zxf  /vagrant/apps/java/neverwinterdp-*.tgz -C /opt/NeverwinterDP
 sudo chown -R neverwinterdp /opt/NeverwinterDP
 sudo chgrp -R neverwinterdp /opt/NeverwinterDP
 
+printHeader "Install Yourkit to /opt"
+sudo cp -R  /vagrant/apps/java/Yourkit-2014 /opt
+sudo chown -R neverwinterdp /opt/Yourkit-2014
+sudo chgrp -R neverwinterdp /opt/Yourkit-2014

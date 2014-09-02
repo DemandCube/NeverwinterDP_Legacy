@@ -34,6 +34,10 @@ if $cygwin; then
   APP_DIR=`cygpath --absolute --windows "$APP_DIR"`
 fi
 
+#Yourkit Profiler
+YOURKIT_LIB="/Users/Tuan/Tools/YourKit-2013.app/bin/mac/libyjpagent.jnilib"
+#YOURKIT_OPTS="-agentpath:$YOURKIT_LIB=disablestacktelemetry,disableexceptiontelemetry,builtinprobes=none,delay=10000,sessionname=NeverwinterDP"
+
 JAVA_OPTS="-Xshare:auto -Xms128m -Xmx1536m -XX:-UseSplitVerifier" 
 APP_OPT="-Dapp.dir=$APP_DIR -Duser.dir=$APP_DIR"
 LOG_OPT="-Dlog4j.configuration=file:$APP_DIR/config/single-jvm-log4j.properties"
@@ -41,7 +45,7 @@ LOG_OPT="-Dlog4j.configuration=file:$APP_DIR/config/single-jvm-log4j.properties"
 MAIN_CLASS="com.neverwinterdp.server.MultiServer"
 
 function startServer {
-  nohup $JAVACMD -Djava.ext.dirs=$APP_DIR/libs $APP_OPT $LOG_OPT $MAIN_CLASS "$@" <&- &>/dev/null &
+  nohup $JAVACMD -Djava.ext.dirs=$APP_DIR/libs $APP_OPT $YOURKIT_OPTS $LOG_OPT $MAIN_CLASS "$@" <&- &>/dev/null &
   #printf '%d' $! > $SERVER_NAME.pid
 }
 
