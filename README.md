@@ -16,6 +16,10 @@ Community
 - [Kanban Board of Issues] (https://huboard.com/DemandCube/NeverwinterDP/#/)
 - [Repo Listing] (http://demandcube.github.io/)
 
+STATUS
+======
+ Alpha - Currently the project is under active core development and not ready for production.
+
 
 WHAT IS NEVERWINTER DP?
 =======================
