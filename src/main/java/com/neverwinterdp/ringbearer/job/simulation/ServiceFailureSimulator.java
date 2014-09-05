@@ -12,7 +12,6 @@ import com.neverwinterdp.server.gateway.MemberSelector;
 import com.neverwinterdp.server.service.ServiceRegistration;
 import com.neverwinterdp.server.shell.Console;
 import com.neverwinterdp.server.shell.ShellContext;
-import com.neverwinterdp.util.JSONSerializer;
 
 public class ServiceFailureSimulator extends TimerTask {
   final static public String NAME = "service-failure" ;
@@ -66,7 +65,7 @@ public class ServiceFailureSimulator extends TimerTask {
       stop.setTargetService(module, serviceId);
       ServiceCommandResult<ServiceRegistration> stopResult = client.execute(stop, member) ;
       
-      out.println("ServiceFailureSimulator: Stop " + serviceId + ", service state = " + stopResult.getResult().getState());
+      out.println("ServiceFailureSimulator: Stop " + serviceId + ", member = " + member.getMemberName() + ", service state = " + stopResult.getResult().getState());
       if(stopResult.hasError()) this.cancel() ;
       
       Thread.sleep(faillureTime);
@@ -74,7 +73,7 @@ public class ServiceFailureSimulator extends TimerTask {
       ServiceCommands.Start start = new ServiceCommands.Start() ;
       start.setTargetService(module, serviceId);
       ServiceCommandResult<ServiceRegistration> startResult = client.execute(start, member) ;
-      out.println("ServiceFailureSimulator: Start " + serviceId + ", service state = " + startResult.getResult().getState());
+      out.println("ServiceFailureSimulator: Start " + serviceId + ", member = " + member.getMemberName() + ", service state = " + startResult.getResult().getState());
       if(startResult.hasError()) this.cancel() ;
     } catch(Exception ex) {
       ex.printStackTrace();

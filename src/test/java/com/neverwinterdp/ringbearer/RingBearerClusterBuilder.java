@@ -3,7 +3,7 @@ package com.neverwinterdp.ringbearer;
 import com.neverwinterdp.server.Server;
 import com.neverwinterdp.server.gateway.ClusterGateway;
 import com.neverwinterdp.server.shell.Shell;
-import com.neverwinterdp.sparkngin.http.NullDevMessageForwarder;
+import com.neverwinterdp.sparkngin.NullDevMessageForwarder;
 import com.neverwinterdp.util.FileUtil;
 /**
  * @author Tuan Nguyen
@@ -13,7 +13,7 @@ public class RingBearerClusterBuilder {
   static {
     System.setProperty("app.dir", "build/cluster") ;
     System.setProperty("app.config.dir", "src/app/config") ;
-    System.setProperty("log4j.configuration", "file:src/app/config/log4j.properties") ;
+    System.setProperty("log4j.configuration", "file:src/test/resources/log4j.properties") ;
   }
   
   public static String TOPIC = "metrics.consumer" ;
@@ -22,16 +22,18 @@ public class RingBearerClusterBuilder {
   public Server[] kafkaServer ;
   public Shell shell ;
   public ClusterGateway gateway ;
+  private String forwarder = NullDevMessageForwarder.class.getName() ;
   
   public RingBearerClusterBuilder() {
     kafkaServer = new Server[1] ;
   }
   
-  public RingBearerClusterBuilder(int numOfKafkaServer) {
-    kafkaServer = new Server[numOfKafkaServer] ;
+  public RingBearerClusterBuilder(String forwarder, int numOfKafkaServer) {
+    this.forwarder = forwarder ;
+    this.kafkaServer = new Server[numOfKafkaServer] ;
   }
 
-  public void start() throws Exception {
+  public void init() throws Exception {
     FileUtil.removeIfExist("build/cluster", false);
     genericServer = Server.create("-Pserver.name=generic", "-Pserver.roles=generic") ;
     zkServer = Server.create("-Pserver.name=zookeeper", "-Pserver.roles=zookeeper") ;
@@ -64,7 +66,10 @@ public class RingBearerClusterBuilder {
  
   public void install() throws Exception {
     gateway.execute(
-      "module install --member-role zookeeper -Pmodule.data.drop=true -Pzk:clientPort=2181 --autostart --module Zookeeper"
+      "module install " + 
+      "  -Pmodule.data.drop=true " + 
+      "  -Pzk:clientPort=2181" + 
+      "  --member-role zookeeper --autostart --module Zookeeper"
     ) ;
 
     String kafkaReplication = kafkaServer.length >= 2 ? "2" : "1" ;
@@ -87,16 +92,20 @@ public class RingBearerClusterBuilder {
       ) ;
     }
     gateway.execute(
-        "module install --member-role generic -Pmodule.data.drop=true --autostart --module KafkaConsumer"
+        "module install " + 
+        "  -Pmodule.data.drop=true " +
+        "  -Pkafka:zookeeper.connect=127.0.0.1:2181" +
+        "  --member-role generic --autostart --module KafkaConsumer"
     ) ;
     
     gateway.execute(
         "module install" +
-        "  --member-role sparkngin" +
-        "  --autostart --module Sparkngin" +
         "  -Pmodule.data.drop=true" +
-        "  -Phttp-listen-port=8181" +
-        "  -Pforwarder-class=" + NullDevMessageForwarder.class.getName()
+        "  -Psparkngin:http-listen-port=8181" +
+        "  -Psparkngin:forwarder-class=" + forwarder +
+        "  -Pkafka-producer:metadata.broker.list=" + getKafkaConnect() + 
+        "  --member-role sparkngin" +
+        "  --autostart --module Sparkngin"
     ) ;
     
     gateway.execute(
@@ -109,18 +118,18 @@ public class RingBearerClusterBuilder {
   
   public void uninstall() {
     shell.execute("module uninstall --member-role ringbearer --timeout 20000 --module RingBearer");
-    shell.execute("module uninstall --member-role sparkngin --timeout 20000 --module Sparkngin");
-    shell.execute("module uninstall --member-role generic --timeout 20000 --module KafkaConsumer");
-    shell.execute("module uninstall --member-role kafka --timeout 20000 --module Kafka");
-    shell.execute("module uninstall --member-role zookeeper --timeout 20000 --module Zookeeper");
+    shell.execute("module uninstall --member-role sparkngin  --timeout 20000 --module Sparkngin");
+    shell.execute("module uninstall --member-role generic    --timeout 20000 --module KafkaConsumer");
+    shell.execute("module uninstall --member-role kafka      --timeout 20000 --module Kafka");
+    shell.execute("module uninstall --member-role zookeeper  --timeout 20000 --module Zookeeper");
   }
   
   public String getKafkaConnect() {
     StringBuilder b = new StringBuilder() ;
     for(int i = 0; i < kafkaServer.length; i++) {
       if(i > 0) b.append(",") ;
-      b.append("127.0.0.1:").append(9092 + i) ;
+      b.append("127.0.0.1:").append(9092 + i);
     }
-    return b.toString() ;
+    return b.toString();
   }
 }

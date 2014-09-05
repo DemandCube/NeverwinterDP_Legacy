@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.codahale.metrics.Timer;
 import com.neverwinterdp.message.Message;
-import com.neverwinterdp.sparkngin.http.HttpMessageClient;
+import com.neverwinterdp.sparkngin.http.HttpSparknginClient;
 import com.neverwinterdp.util.monitor.ApplicationMonitor;
 import com.neverwinterdp.util.monitor.ComponentMonitor;
 
@@ -13,7 +13,7 @@ public class HttpSparknginMessageDriver implements MessageDriver {
   private ApplicationMonitor appMonitor ;
   private ComponentMonitor   driverMonitor ;
   private String topic ;
-  private HttpMessageClient client ;
+  private HttpSparknginClient client ;
   
   public HttpSparknginMessageDriver(ApplicationMonitor appMonitor) {
     this.appMonitor = appMonitor ;
@@ -27,7 +27,7 @@ public class HttpSparknginMessageDriver implements MessageDriver {
         int separatorIdx = selConnect.lastIndexOf(":") ;
         String host = selConnect.substring(0, separatorIdx) ;
         int port = Integer.parseInt(selConnect.substring(separatorIdx + 1));
-        client = new HttpMessageClient (host, port, 300) ;
+        client = new HttpSparknginClient (host, port, 300) ;
       }
     } catch(Exception ex) {
       throw new RuntimeException("Sparkngin Driver Error", ex) ;
