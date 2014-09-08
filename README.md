@@ -733,4 +733,4 @@ About Your Company
 
 ![Analytic](https://img.ndp.demandcube.com/v1/DemandCube/NeverwinterDP/ "NeverwinterDP Analytics")
 
-![Tracking Pixel Service](http://107.170.53.15:7080/tracking/pixel?site=github.com&webpage=NeverwinterDP)
+Tracking pixel: ![Tracking Pixel Service](http://107.170.53.15:7080/tracking/pixel?site=github.com&webpage=NeverwinterDP)
