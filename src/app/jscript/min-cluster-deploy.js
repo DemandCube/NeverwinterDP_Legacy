@@ -50,7 +50,7 @@ var SPARKNGIN_CONFIG = {
   serverRole: "sparkngin", 
   servers: ["sparkngin-1"],
   httpListenPort: 7080,
-  forwarderClass: "com.neverwinterdp.sparkngin.http.KafkaMessageForwarder",
+  forwarderClass: "com.neverwinterdp.sparkngin.KafkaMessageForwarder",
   kafkaBroker: KAFKA_CONFIG.kafkaConnect,
   sparknginConnect: "sparkngin-1:7080"
 };
