@@ -8,7 +8,8 @@ Community
 ======
   [Join us] (https://github.com/DemandCube/NeverwinterDP/blob/master/README.md#join-us-if) if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
 
-- [Developer Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- [Join the Developer Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- [Join the User Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp-user)
 - IRC channel #neverwinterdp on irc.freenode.net
 - [Google Hangout] (http://www.google.com/hangouts/)
   - It's what commiters use to chat directly but have to connect with us first on the mailing list, then request an invite there.
