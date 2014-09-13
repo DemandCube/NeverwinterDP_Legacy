@@ -2,7 +2,7 @@ NeverwinterDP - NDP
 =============
 - A [DemandCube](https://github.com/DemandCube) Project
 
-NeverwinterDP (NDP) the Big Data Pipeline for Hadoop and Data Systems, designed to reliably scale to billions of events.
+NeverwinterDP (NDP) the Lambda Architecture based Big Data Pipeline for Hadoop and Data Systems, designed for operational reliability at the scale of billions of events.
 
 Community
 ======
