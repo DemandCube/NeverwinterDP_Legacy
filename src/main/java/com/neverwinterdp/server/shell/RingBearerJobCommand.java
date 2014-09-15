@@ -1,16 +1,12 @@
 package com.neverwinterdp.server.shell;
 
-import java.util.Map;
-
 import com.beust.jcommander.Parameter;
 import com.neverwinterdp.ringbearer.job.send.MessageSender;
 import com.neverwinterdp.ringbearer.job.send.MessageSenderConfig;
 import com.neverwinterdp.ringbearer.job.simulation.ServiceFailureSimulator;
 import com.neverwinterdp.server.gateway.Command;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
-import com.neverwinterdp.util.monitor.snapshot.ApplicationMonitorSnapshot;
-import com.neverwinterdp.util.monitor.snapshot.MetricFormater;
-import com.neverwinterdp.util.monitor.snapshot.TimerSnapshot;
+import com.neverwinterdp.yara.MetricPrinter;
+import com.neverwinterdp.yara.MetricRegistry;
 
 @ShellCommandConfig(name = "ringbearer:job")
 public class RingBearerJobCommand extends ShellCommand {
@@ -23,13 +19,10 @@ public class RingBearerJobCommand extends ShellCommand {
     public void execute(Shell shell, ShellContext ctx, Command command) throws Exception {
       MessageSenderConfig config = new MessageSenderConfig() ;
       command.mapAll(config);
-      ApplicationMonitor appMonitor = new ApplicationMonitor() ;
-      MessageSender sender = new MessageSender(appMonitor, config, ctx.getClusterGateway()) ;
+      MetricRegistry mRegistry = new MetricRegistry() ;
+      MessageSender sender = new MessageSender(mRegistry, config, ctx.getClusterGateway()) ;
       sender.run();
-      ApplicationMonitorSnapshot snapshot = appMonitor.snapshot() ;
-      Map<String, TimerSnapshot> timers = snapshot.getRegistry().getTimers() ;
-      MetricFormater formater = new MetricFormater("  ") ;
-      ctx.console().println(formater.format(timers));
+      new MetricPrinter(ctx.console().getConsoleAppendable()).print(mRegistry); ;
     }
   }
   

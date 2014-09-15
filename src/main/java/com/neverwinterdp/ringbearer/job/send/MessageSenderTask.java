@@ -8,7 +8,7 @@ import java.util.TimerTask;
 import org.slf4j.Logger;
 
 import com.neverwinterdp.message.Message;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
 
 public class MessageSenderTask implements Runnable, Serializable {  
   Logger logger ;
@@ -20,10 +20,10 @@ public class MessageSenderTask implements Runnable, Serializable {
   protected MessageDriver messageDriver ;
   
   
-  public MessageSenderTask(String id, ApplicationMonitor monitor, MessageSenderConfig config) {
+  public MessageSenderTask(String id, MetricRegistry mRegistry, MessageSenderConfig config) {
     this.taskId = id ;
     this.config = config ;
-    messageDriver = config.driverConfig.createDriver(monitor) ;
+    messageDriver = config.driverConfig.createDriver(mRegistry) ;
     
     messageGenerator = new MessageGenerator() ;
     messageGenerator.setIdPrefix(taskId);

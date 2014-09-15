@@ -3,21 +3,18 @@ package com.neverwinterdp.ringbearer.job.send;
 import java.util.List;
 import java.util.Map;
 
-import com.codahale.metrics.Timer;
 import com.neverwinterdp.message.Message;
 import com.neverwinterdp.sparkngin.http.HttpSparknginClient;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
-import com.neverwinterdp.util.monitor.ComponentMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
+import com.neverwinterdp.yara.Timer;
 
 public class HttpSparknginMessageDriver implements MessageDriver {
-  private ApplicationMonitor appMonitor ;
-  private ComponentMonitor   driverMonitor ;
+  private MetricRegistry mRegistry ;
   private String topic ;
   private HttpSparknginClient client ;
   
-  public HttpSparknginMessageDriver(ApplicationMonitor appMonitor) {
-    this.appMonitor = appMonitor ;
-    driverMonitor   = appMonitor.createComponentMonitor(HttpSparknginMessageDriver.class) ;
+  public HttpSparknginMessageDriver(MetricRegistry mRegistry) {
+    this.mRegistry = mRegistry ;
   }
   
   public void init(Map<String, String> props, List<String> connect, String topic) {
@@ -35,7 +32,7 @@ public class HttpSparknginMessageDriver implements MessageDriver {
   }
   
   public void send(Message message) throws Exception {
-    Timer.Context ctx = driverMonitor.timer("send(Message)").time() ;
+    Timer.Context ctx = mRegistry.timer(HttpSparknginMessageDriver.class.getName(), "send").time() ;
     message.getHeader().setTopic(topic);
     client.send(message, 15000);
     ctx.stop() ;

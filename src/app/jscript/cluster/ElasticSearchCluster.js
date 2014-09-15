@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function ElasticSearchCluster(config) {
   this.DEFAULT_CONFIG = {
@@ -10,7 +10,7 @@ function ElasticSearchCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module ElasticSearch by server role " + this.config.serverRole) ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install" +
       "  --member-role " + this.config.serverRole +
       "  --autostart module ElasticSearch" +
@@ -22,7 +22,7 @@ function ElasticSearchCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module ElasticSearch by server name " + server) ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install" +
         "  --member-name " +server +
         "  --autostart --module ElasticSearch" +
@@ -35,16 +35,10 @@ function ElasticSearchCluster(config) {
     var params = { 
       "member-role": this.config.serverRole,  "module": ["ElasticSearch"], "timeout": 20000 
     }
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module ElasticSearch --timeout 20000" 
-    ) ;
-  };
-
-  this.metric = function() {
-    ClusterShell.server.metric(
-      "server metric --member-role " + this.config.serverRole
     ) ;
   };
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParametersDelegate;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
 
 public class MessageSenderConfig implements Serializable {
   @Parameter(
@@ -41,12 +41,12 @@ public class MessageSenderConfig implements Serializable {
   @ParametersDelegate
   final public MessageDriverConfig driverConfig = new MessageDriverConfig() ;
   
-  public MessageSenderTask createMessageSender(ApplicationMonitor appMonitor, String taskId) {
+  public MessageSenderTask createMessageSender(MetricRegistry appMonitor, String taskId) {
     MessageSenderTask sender = new MessageSenderTask(taskId, appMonitor, this) ;
     return sender ;
   }
   
-  public MessageSenderTask[] createMessageSender(ApplicationMonitor appMonitor) {
+  public MessageSenderTask[] createMessageSender(MetricRegistry appMonitor) {
     MessageSenderTask[] tasks = new MessageSenderTask[numOfTasks];
     for(int i = 0; i < numOfTasks; i++) {
       tasks[i] = new MessageSenderTask("message-sender-task-" + i, appMonitor, this) ;

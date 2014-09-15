@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function SparknginCluster(config) {
   this.SPARKNGIN_DEFAULT_CONFIG = {
@@ -13,7 +13,7 @@ function SparknginCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module sparkngin on the sparkngin role servers") ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module Sparkngin" +
@@ -28,7 +28,7 @@ function SparknginCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module Sparkngin on the " + server + " server") ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install " +
         "  --member-name " +  server +
         "  --autostart --module Sparkngin" +
@@ -41,16 +41,10 @@ function SparknginCluster(config) {
   };
 
   this.uninstall = function() {
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module Sparkngin --timeout 20000"
-    ) ;
-  };
-
-  this.metric = function() {
-    ClusterShell.server.metric(
-      "server metric --member-role " +  this.config.serverRole
     ) ;
   };
 }

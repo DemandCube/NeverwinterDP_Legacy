@@ -7,7 +7,7 @@ import com.neverwinterdp.ringbearer.job.config.RingBearerJob;
 import com.neverwinterdp.server.module.ModuleProperties;
 import com.neverwinterdp.server.service.AbstractService;
 import com.neverwinterdp.util.LoggerFactory;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
 
 public class RingBearerJobService extends AbstractService {
   private Logger logger ;
@@ -16,7 +16,7 @@ public class RingBearerJobService extends AbstractService {
   private ModuleProperties moduleProperties; 
   
   @Inject
-  private ApplicationMonitor appMonitor ;
+  private MetricRegistry mRegistry ;
   
   private RingBeaderJobScheduler jobScheduler ;
   
@@ -35,7 +35,7 @@ public class RingBearerJobService extends AbstractService {
   
   public void start() throws Exception {
     logger.info("Start start()");
-    jobScheduler = new RingBeaderJobScheduler(appMonitor) ;
+    jobScheduler = new RingBeaderJobScheduler(mRegistry) ;
     jobScheduler.start();
     logger.info("Finish start()");
   }

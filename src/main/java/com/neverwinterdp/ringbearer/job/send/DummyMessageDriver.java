@@ -3,24 +3,23 @@ package com.neverwinterdp.ringbearer.job.send;
 import java.util.List;
 import java.util.Map;
 
-import com.codahale.metrics.Timer;
 import com.neverwinterdp.message.Message;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
-import com.neverwinterdp.util.monitor.ComponentMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
+import com.neverwinterdp.yara.Timer;
 
 public class DummyMessageDriver implements MessageDriver {
-  ComponentMonitor driverMonitor ;
+  MetricRegistry mRegistry ;
   private int count ;
   
-  public DummyMessageDriver(ApplicationMonitor appMonitor) {
-    driverMonitor   = appMonitor.createComponentMonitor(HttpSparknginMessageDriver.class) ;
+  public DummyMessageDriver(MetricRegistry mRegistry) {
+    this.mRegistry   = mRegistry;
   }
   
   public void init(Map<String, String> props, List<String> connect, String topic) {
   }
   
   public void send(Message message) throws Exception {
-    Timer.Context ctx = driverMonitor.timer("send(Message)").time() ;
+    Timer.Context ctx = mRegistry.timer(DummyMessageDriver.class.getSimpleName(), "send").time() ;
     count++ ;
     if(count > 0 &&count % 1000 == 0) {
       System.out.println("Sent  " + count + " messages") ;

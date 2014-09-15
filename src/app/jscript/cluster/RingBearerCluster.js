@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function RingBearerCluster(config) {
   this.DEMAND_SPIKE_DEFAULT_CONFIG = {
@@ -10,7 +10,7 @@ function RingBearerCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module RingBearer on the ringbearer role servers") ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module RingBearer" +
@@ -22,7 +22,7 @@ function RingBearerCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module RingBearer on the " + server + " server") ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install " +
         "  --member-name " + server +
         "  --autostart --module RingBearer" +
@@ -33,7 +33,7 @@ function RingBearerCluster(config) {
 
   this.uninstall = function() {
     console.h1("Uninstall the module RingBearer on the server role " + this.config.serverRole) ;
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module RingBearer --timeout 20000"
@@ -52,13 +52,4 @@ function RingBearerCluster(config) {
       }
     }) ;
   } ;
-
-  this.metric = function() {
-    var params = { "member-role": this.config.serverRole, "filter": "*RingBearer*" }
-    ClusterShell.server.metric(
-      "server metric " +
-      "  --member-role " + this.config.serverRole +
-      "  --filter *RingBearer*"
-    ) ;
-  };
 }

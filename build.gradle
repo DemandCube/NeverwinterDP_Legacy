@@ -45,9 +45,11 @@ configurations.all {
 
 dependencies {
   compile group: 'com.neverwinterdp', name: 'commons.utils', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.yara', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.api', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT', classifier: 'js'
+  compile group: 'com.neverwinterdp', name: 'commons.api', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.hadoop-framework', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.zookeeper', version: '1.0-SNAPSHOT'
 
@@ -104,7 +106,7 @@ def doRelease(String releaseDir) {
   println "*************************************************"
 
   def dependencyJars = [ 
-    "commons.utils", "commons.api", "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",
+    "commons.utils", "commons.api", "commons.yara",  "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",
     "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
 
     "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava-16.0.1", "javassist",

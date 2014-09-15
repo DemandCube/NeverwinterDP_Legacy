@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.beust.jcommander.DynamicParameter;
 import com.beust.jcommander.Parameter;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
 
 public class MessageDriverConfig implements Serializable {
   @Parameter(
@@ -36,14 +36,14 @@ public class MessageDriverConfig implements Serializable {
   
   public String getDriver() { return this.driver ; }
   
-  public MessageDriver createDriver(ApplicationMonitor appMonitor) {
+  public MessageDriver createDriver(MetricRegistry mRegistry) {
     MessageDriver mdriver = null ;
     if("kafka".equals(driver)) {
-      mdriver = new KafkaMessageDriver(appMonitor) ;
+      mdriver = new KafkaMessageDriver(mRegistry) ;
     } else if("sparkngin".equals(driver)) {
-        mdriver = new HttpSparknginMessageDriver(appMonitor) ;
+        mdriver = new HttpSparknginMessageDriver(mRegistry) ;
     } else {
-      mdriver = new DummyMessageDriver(appMonitor) ;
+      mdriver = new DummyMessageDriver(mRegistry) ;
     }
     mdriver.init(driverProperties, connect, topic);
     return mdriver ;

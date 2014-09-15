@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function KafkaCluster(config) {
   this.KAFKA_DEFAULT_CONFIG = {
@@ -12,7 +12,7 @@ function KafkaCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module Kafka on the kafka role servers") ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module Kafka --timeout 30000" +
@@ -33,7 +33,7 @@ function KafkaCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module Kafka on the " + server + " server") ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install " +
         "  --member-name " + server +
         "  --autostart --module Kafka --timeout 30000" +
@@ -50,7 +50,7 @@ function KafkaCluster(config) {
   };
 
   this.uninstall = function() {
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module Kafka --timeout 40000"
@@ -65,6 +65,4 @@ function KafkaCluster(config) {
       "  --filter *Kafka*"
     ) ;
   };
-
-
 }

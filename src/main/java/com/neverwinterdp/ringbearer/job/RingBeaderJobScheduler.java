@@ -14,18 +14,18 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import com.neverwinterdp.ringbearer.job.config.RingBearerJob;
 import com.neverwinterdp.server.shell.Shell;
-import com.neverwinterdp.util.monitor.ApplicationMonitor;
+import com.neverwinterdp.yara.MetricRegistry;
 
 public class RingBeaderJobScheduler {
   private AtomicLong idTracker = new AtomicLong() ;
-  private ApplicationMonitor appMonitor ;
+  private MetricRegistry mRegistry ;
   private BlockingQueue<RingBearerJob> jobQueue = new LinkedBlockingQueue<RingBearerJob>() ;
   private Map<String, RingBearerJob> finishedJobs = new LinkedHashMap<String, RingBearerJob>() ;
   private RingBearerJob  runningJob = null ;
   private JobSchedulerThread schedulerThread; 
 
-  public RingBeaderJobScheduler(ApplicationMonitor appMonitor) {
-    this.appMonitor = appMonitor ;
+  public RingBeaderJobScheduler(MetricRegistry mRegistry) {
+    this.mRegistry = mRegistry ;
   }
   
   public boolean submit(RingBearerJob job, long timeout) throws InterruptedException {

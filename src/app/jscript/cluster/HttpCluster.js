@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function HttpCluster(config) {
   this.HTTP_DEFAULT_CONFIG = {
@@ -12,7 +12,7 @@ function HttpCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module HttpGateway by server role " + this.config.serverRole) ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module Http" +
@@ -31,7 +31,7 @@ function HttpCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module HttpGateway by server name " + server) ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install " +
         "  --member-name " +  server +
         "  --autostart --module Http" +
@@ -48,17 +48,10 @@ function HttpCluster(config) {
   } ;
 
   this.uninstall = function() {
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module HttpGateway --timeout 20000"
-    ) ;
-  };
-
-  this.metric = function() {
-    var params = { "member-role": this.config.serverRole }
-    ClusterShell.server.metric(
-      "server metric --member-role " + this.config.serverRole
     ) ;
   };
 }

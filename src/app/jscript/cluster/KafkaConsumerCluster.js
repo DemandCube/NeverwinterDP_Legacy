@@ -1,4 +1,4 @@
-ScriptRunner.require("cluster/ClusterShell.js");
+ScriptRunner.require("classpath:util/io.js");
 
 function KafkaConsumerCluster(config) {
   this.DEFAULT_CONFIG = {
@@ -11,7 +11,7 @@ function KafkaConsumerCluster(config) {
 
   this.installByRole = function() {
     console.h1("Install the module KafkaConsumer") ;
-    ClusterShell.module.install(
+    SHELL.exec(
       "module install " +
       "  --member-role " + this.config.serverRole +
       "  --autostart --module KafkaConsumer" +
@@ -24,7 +24,7 @@ function KafkaConsumerCluster(config) {
     for(var i = 0; i < this.config.servers.length; i++) {
       var server = this.config.servers[i] ;
       console.h1("Install the module KafkaConsumer on the " + server + " server") ;
-      ClusterShell.module.install(
+      SHELL.exec(
         "module install " +
         "  --member-name " + server +
         "  --autostart --module KafkaConsumer" +
@@ -35,7 +35,7 @@ function KafkaConsumerCluster(config) {
   };
 
   this.uninstall = function() {
-    ClusterShell.module.uninstall(
+    SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
       "  --module KafkaConsumer"
