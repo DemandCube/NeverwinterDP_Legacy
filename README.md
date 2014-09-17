@@ -2,13 +2,16 @@ NeverwinterDP - NDP
 =============
 - A [DemandCube](https://github.com/DemandCube) Project
 
-NeverwinterDP (NDP) the Big Data Pipeline for Hadoop and Data Systems, designed to reliably scale to billions of events.
+NeverwinterDP (NDP) the Lambda Architecture based Big Data Pipeline for Hadoop and Data Systems, designed for operational reliability at the scale of billions of events.
 
 Community
 ======
   [Join us] (https://github.com/DemandCube/NeverwinterDP/blob/master/README.md#join-us-if) if you have [Grit] (http://www.ted.com/talks/angela_lee_duckworth_the_key_to_success_grit)
 
-- [Developer Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+- [Join the Developer Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp)
+  - This list is for people who want to contribute code to NeverwinterDP.
+- [Join the User Mailing List](https://groups.google.com/forum/#!forum/neverwinterdp-user)
+  - This list is for usage questions, help, and announcements. 
 - IRC channel #neverwinterdp on irc.freenode.net
 - [Google Hangout] (http://www.google.com/hangouts/)
   - It's what commiters use to chat directly but have to connect with us first on the mailing list, then request an invite there.
