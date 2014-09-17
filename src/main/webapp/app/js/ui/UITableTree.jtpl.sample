@@ -1,0 +1,31 @@
+<div class="UITableTree">
+  <table>
+    <tr data-depth="0" class="collapse level0">
+      <td><span class="toggle"></span>Item 1</td>
+      <td>123</td>
+    </tr>
+    <tr data-depth="1" class="collapse level1">
+      <td><span class="toggle"></span>Item 2</td>
+      <td>123</td>
+    </tr>
+    <tr data-depth="2" class="collapse level2">
+      <td>Item 3</td>
+      <td>123</td>
+    </tr>
+
+    <tr data-depth="1" class="collapse level1">
+      <td>Item 4</td>
+      <td>123</td>
+    </tr>
+
+    <tr data-depth="0" class="collapse level0">
+      <td><span class="toggle"></span>Item 5</td>
+      <td>123</td>
+    </tr>
+
+    <tr data-depth="1" class="collapse level1">
+      <td>Item 6</td>
+      <td>123</td>
+    </tr>
+  </table>
+</div>

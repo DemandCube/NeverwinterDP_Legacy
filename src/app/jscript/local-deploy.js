@@ -62,7 +62,7 @@ var ClusterEnv = {
     this.kafkaConsumerCluster.installByServer() ;
     this.sparknginCluster.installByServer() ;
     this.ringbearerCluster.installByServer() ;
-    ClusterShell.module.list("module list") ;
+    SHELL.exec("module list") ;
   },
 
   uninstall: function() {

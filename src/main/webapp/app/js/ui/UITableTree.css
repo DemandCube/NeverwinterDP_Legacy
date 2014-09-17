@@ -1,0 +1,48 @@
+.UITableTree table {
+  width: 100%;
+  border-collapse:collapse;
+  margin: 0px auto;
+}
+
+.UITableTree th {
+  text-align: center ;
+}
+
+.UITableTree td {
+  border: 1px solid #eee;
+}
+
+.UITableTree .cell-center-align {
+	text-align: center ;
+}
+
+.UITableTree .cell-right-align {
+  text-align: right ;
+}
+
+.UITableTree .level1 td:first-child {
+  padding-left: 15px;
+}
+
+.UITableTree .level2 td:first-child {
+  padding-left: 30px;
+}
+
+.UITableTree .level3 td:first-child {
+  padding-left: 45px;
+}
+
+.UITableTree .level4 td:first-child {
+  padding-left: 60px;
+}
+
+.UITableTree .collapse .toggle {
+  background: url("http://mleibman.github.com/SlickGrid/images/collapse.gif") no-repeat;
+  height: 9px; width: 9px;
+  display: inline-block;   
+}
+.UITableTree .expand .toggle {
+  background: url("http://mleibman.github.com/SlickGrid/images/expand.gif") no-repeat;
+  height: 9px; width: 9px;
+  display: inline-block;   
+}

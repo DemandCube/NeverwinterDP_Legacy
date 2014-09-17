@@ -44,6 +44,7 @@ define([
         fields: [
           { field: "name",   label: "Name", toggled: true, filterable: true },
           { field: "count",   label: "Count", toggled: true, filterable: true },
+          { field: "min",   label: "Min" , toggled: true},
           { field: "max",   label: "Max", toggled: true},
           { 
             field: "mean",   label: "Mean" , toggled: true,
@@ -51,7 +52,12 @@ define([
               getDisplay: function(bean) { return bean.mean.toFixed(2) ; }
             }
           },
-          { field: "min",   label: "Min" , toggled: true},
+          { 
+            field: "stddev",   label: "stddev" , toggled: true,
+            custom: {
+              getDisplay: function(bean) { return bean.stddev.toFixed(2) ; }
+            }
+          },
           { 
             field: "p50",   label: "p50" , toggled: true,
             custom: {
@@ -83,15 +89,9 @@ define([
             }
           },
           { 
-            field: "p999",   label: "p999" , toggled: true,
+            field: "p99.9",   label: "p99.9" , toggled: true,
             custom: {
               getDisplay: function(bean) { return bean.p999.toFixed(2) ; }
-            }
-          },
-          { 
-            field: "stddev",   label: "stddev" , toggled: true,
-            custom: {
-              getDisplay: function(bean) { return bean.stddev.toFixed(2) ; }
             }
           },
           { 
@@ -152,8 +152,8 @@ define([
     onRefresh: function() {
       this.clear() ;
 
-      var results = ClusterGateway.execute('server metric --member-name ' +  this.memberName) ;
-      var metricRegistry = results[0].result.registry ;
+      var results = ClusterGateway.execute('server metric-snapshot --member-name ' +  this.memberName) ;
+      var metricRegistry = results[0].result ;
 
       var asArray = function(map) {
         var holder = [] ;

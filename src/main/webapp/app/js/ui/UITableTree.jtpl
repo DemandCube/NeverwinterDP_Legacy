@@ -1,0 +1,73 @@
+<%function renderTableHeaders(config) {%>
+  <thead>
+    <tr>
+      <%var fields = config.bean.fields ;%>
+      <%var actions = config.bean.actions ;%>
+      <%for(var i = 0; i < fields.length ; i++) { %>
+        <%if(fields[i].toggled != null && fields[i].toggled) { %>
+          <th><%=fields[i].label%></th>
+        <%}%>
+      <%}%>
+      <%if(actions != null) {%>
+          <th>Actions</th>
+      <%}%>
+    </tr>
+  </thead>
+<%}%>
+
+<%function renderNode(config, node, level) { %>
+  <%var fields = config.bean.fields;%>
+  <%var actions = config.bean.actions;%>
+
+  <tr data-depth="<%=level%>" class="collapse level<%= level %>">
+    <%var bean = node.bean ; %>
+    <%for(var j = 0; j < fields.length ; j++) {%>
+    <%  if(fields[j].toggled == null || !fields[j].toggled) continue ;%>
+    <%  var cell = null ; %>
+    <%  if(fields[j].custom != null) {%>
+    <%    cell =  fields[j].custom.getDisplay(bean) ;%>
+    <%  } else {%>
+    <%    cell = bean[fields[j].field] ; %>
+    <%  }%>
+        <td>
+          <%if(j == 0) { %>
+            <%if(node.children.length > 0) { %>
+              <span class="toggle" />
+            <%} else { %>
+              <span style="padding-right: 14px"/>
+            <%} %>
+          <%}%>
+          <%if(fields[j].onClick != null) {%>
+            <a class="onBeanFieldClick ui-action" nodeId="<%=node.id%>" field="<%= j %>"><%= cell%></a>
+          <%} else { %>
+            <%=cell%>
+          <%}%>
+        </td>
+    <%}%>
+
+    <%if(actions != null) {%>
+      <td class="cell-center-align" style="padding: 3px 0px">
+        <%for(var k = 0; k < actions.length; k++) {%>
+        <%  var action = actions[k] ;%>
+            <a class="onBeanAction ui-action" action="<%= k %>"><%=action.label%></a>
+        <%}%>
+      </td>
+    <%}%>
+  </tr>
+  <%renderNodes(config, node.children, level + 1); %>
+<%}%>
+
+<%function renderNodes(config, nodes, level) { %>
+  <%for(var i = 0; i < nodes.length ; i++) {%>
+  <%  renderNode(config, nodes[i], level); %>
+  <%}%>
+<%}%>
+
+<div class="UITableTree">
+  <table>
+    <%renderTableHeaders(config); %>
+    <tbody>
+      <%renderNodes(config, nodes, 0); %>
+    </tbody>
+  </table>
+</div>
