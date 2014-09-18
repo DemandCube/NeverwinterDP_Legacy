@@ -15,11 +15,13 @@
   </thead>
 <%}%>
 
-<%function renderNode(config, node, level) { %>
+<%function renderNode(config, node, level, hidden) { %>
   <%var fields = config.bean.fields;%>
   <%var actions = config.bean.actions;%>
+  <%var cssCollapse = node.collapse ? 'expand' : 'collapse' %>
+  <%var rowDisplay = hidden ? "none": "table-row";%>
 
-  <tr data-depth="<%=level%>" class="collapse level<%= level %>">
+  <tr data-depth="<%=level%>" class="<%=cssCollapse%> level<%= level %>" style="display: <%=rowDisplay%>">
     <%var bean = node.bean ; %>
     <%for(var j = 0; j < fields.length ; j++) {%>
     <%  if(fields[j].toggled == null || !fields[j].toggled) continue ;%>
@@ -54,12 +56,12 @@
       </td>
     <%}%>
   </tr>
-  <%renderNodes(config, node.children, level + 1); %>
+  <%renderNodes(config, node.children, level + 1, node.collapse); %>
 <%}%>
 
-<%function renderNodes(config, nodes, level) { %>
+<%function renderNodes(config, nodes, level, hidden) { %>
   <%for(var i = 0; i < nodes.length ; i++) {%>
-  <%  renderNode(config, nodes[i], level); %>
+  <%  renderNode(config, nodes[i], level, hidden); %>
   <%}%>
 <%}%>
 
@@ -67,7 +69,7 @@
   <table>
     <%renderTableHeaders(config); %>
     <tbody>
-      <%renderNodes(config, nodes, 0); %>
+      <%renderNodes(config, nodes, 0, false); %>
     </tbody>
   </table>
 </div>

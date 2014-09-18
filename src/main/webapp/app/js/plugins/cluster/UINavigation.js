@@ -7,18 +7,16 @@ define([
   'site/UIWorkspace',
   'plugins/cluster/UIListServer',
   'plugins/cluster/UIListModule',
+  'plugins/cluster/UIClusterMetric',
   'plugins/cluster/UIClusterRegistration',
   'plugins/cluster/UIServerRegistration',
   'text!plugins/cluster/UINavigation.jtpl'
 ], function($, _, Backbone, ClusterGateway, UIBreadcumbs, UIWorkspace, UIListServer,
-            UIListModule, UIClusterRegistration, UIServerRegistration, Template) {
+            UIListModule, UIClusterMetric, UIClusterRegistration, UIServerRegistration, Template) {
   var UINavigation = Backbone.View.extend({
 
     initialize: function () {
-      _.bindAll(
-        this, 'render', 'onListServer', 'onListModule',
-        'onServerRegistration', 'onClusterRegistration'
-      ) ;
+      _.bindAll( this, 'render', 'onListServer', 'onListModule', 'onServerRegistration', 'onClusterRegistration') ;
     },
     
     _template: _.template(Template),
@@ -35,6 +33,7 @@ define([
     events: {
       'click .onListServer': 'onListServer',
       'click .onListModule': 'onListModule',
+      'click .onListMetric': 'onListMetric',
       'click .onClusterRegistration': 'onClusterRegistration',
       'click .onServerRegistration': 'onServerRegistration'
     },
@@ -45,6 +44,10 @@ define([
 
     onListModule: function(evt) {
       this._workspace(new UIListModule()) ;
+    },
+
+    onListMetric: function(evt) {
+      this._workspace(new UIClusterMetric()) ;
     },
 
     onClusterRegistration: function(evt) {

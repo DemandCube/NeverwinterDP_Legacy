@@ -10,6 +10,7 @@ define([
     this.id = id ;
     this.bean = bean ;
     this.children = [] ;
+    this.collapse = true ;
 
     this.addChild = function(bean) {
       var node = new Node(this.id + '-' + this.children.length, bean) ;
@@ -24,6 +25,10 @@ define([
         if(node != null) return node ;
       }
       return null ;
+    },
+
+    this.setCollapse = function(nodeId) {
+      this.collapse = collapse ;
     }
   };
 

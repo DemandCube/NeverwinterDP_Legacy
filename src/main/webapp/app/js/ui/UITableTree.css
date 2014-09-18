@@ -20,6 +20,10 @@
   text-align: right ;
 }
 
+.UITableTree .level0 td {
+  background: white !important ;
+}
+
 .UITableTree .level1 td:first-child {
   padding-left: 15px;
 }
@@ -37,12 +41,14 @@
 }
 
 .UITableTree .collapse .toggle {
-  background: url("http://mleibman.github.com/SlickGrid/images/collapse.gif") no-repeat;
+  /*background: url("http://mleibman.github.com/SlickGrid/images/collapse.gif") no-repeat;*/
+  background: url("images/collapse.gif") no-repeat;
   height: 9px; width: 9px;
   display: inline-block;   
 }
 .UITableTree .expand .toggle {
-  background: url("http://mleibman.github.com/SlickGrid/images/expand.gif") no-repeat;
+  /*background: url("http://mleibman.github.com/SlickGrid/images/expand.gif") no-repeat;*/
+  background: url("images/expand.gif") no-repeat;
   height: 9px; width: 9px;
   display: inline-block;   
 }
