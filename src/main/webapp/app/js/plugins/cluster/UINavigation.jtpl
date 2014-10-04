@@ -6,7 +6,8 @@
     <div><a class="ui-action onClusterRegistration">Cluster Registration</a></div>
     <div><a class="ui-action onListModule">Available Module</a></div>
     <div><a class="ui-action onListServer">Available Server</a></div>
-    <div><a class="ui-action onListMetric">Metrics</a></div>
+    <div><a class="ui-action onListMetric">Combined Metrics</a></div>
+    <div><a class="ui-action onYaraMetric">Yara Metrics</a></div>
   </div>
 
   <ul style="margin: 5px; font-size: 1em; border: none" class="UINavigationMenu">

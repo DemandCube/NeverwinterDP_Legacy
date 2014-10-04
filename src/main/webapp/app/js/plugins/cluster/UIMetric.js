@@ -151,7 +151,6 @@ define([
 
     onRefresh: function() {
       this.clear() ;
-
       var results = ClusterGateway.execute('server metric-snapshot --member-name ' +  this.memberName) ;
       var metricRegistry = results[0].result ;
 

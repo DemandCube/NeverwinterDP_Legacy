@@ -5,6 +5,7 @@ ScriptRunner.require("cluster/KafkaCluster.js");
 ScriptRunner.require("cluster/KafkaConsumerCluster.js");
 ScriptRunner.require("cluster/SparknginCluster.js");
 ScriptRunner.require("cluster/RingBearerCluster.js");
+ScriptRunner.require("module/YaraModule.js");
 
 var appDir = java.lang.System.getProperty("app.dir") ;
 
@@ -45,6 +46,12 @@ var SPARKNGIN_CONFIG = {
   sparknginConnect: "127.0.0.1:7080"
 };
 
+var YARA_CONFIG = {
+  rpcPort: 8463, 
+  rpcHost: "127.0.0.1", 
+  server: "generic"
+};
+
 var ClusterEnv = {
   httpCluster: new HttpCluster(HTTP_CONFIG) ,
   esCluster: new ElasticSearchCluster(ES_CONFIG) ,
@@ -53,6 +60,7 @@ var ClusterEnv = {
   kafkaConsumerCluster: new KafkaConsumerCluster(KAFKA_CONSUMER_CONFIG),
   sparknginCluster: new SparknginCluster(SPARKNGIN_CONFIG),
   ringbearerCluster: new RingBearerCluster(),
+  yaraModule: new YaraModule(YARA_CONFIG),
 
   install: function() {
     this.httpCluster.installByServer() ;
@@ -62,6 +70,8 @@ var ClusterEnv = {
     this.kafkaConsumerCluster.installByServer() ;
     this.sparknginCluster.installByServer() ;
     this.ringbearerCluster.installByServer() ;
+
+    this.yaraModule.install() ;
     SHELL.exec("module list") ;
   },
 
@@ -73,6 +83,8 @@ var ClusterEnv = {
     this.zkCluster.uninstall() ;
     this.httpCluster.uninstall() ;
     this.esCluster.uninstall() ;
+
+    this.yaraModule.uninstall() ;
   }
 }
 

@@ -60,9 +60,15 @@ define([
     },
 
     onInit: function(options) {
-      var result = ClusterGateway.execute('server metric-cluster-snapshot') ;
-      var counters = result.result.counters ;
-      var clusterTimers = result.result.timers ;
+      var snapshot = null;
+      console.log("load method: " + options.loadMethod) ;
+      if(options.loadMethod == 'yara') {
+        snapshot = this.loadYaraClusterMetricSnapshot() ;
+      } else {
+        snapshot = this.loadCombineClusterMetricSnapshot() ;
+      }
+      var counters = snapshot.counters ;
+      var clusterTimers = snapshot.timers ;
       for(var name in clusterTimers) {
         var clusterTimer = clusterTimers[name];
         clusterTimer.name = name ;
@@ -76,6 +82,16 @@ define([
           node.addChild(serverTimer) ;
         }
       }
+    },
+
+    loadCombineClusterMetricSnapshot: function() {
+      var result = ClusterGateway.execute('server metric-cluster-snapshot') ;
+      return result.result ;
+    },
+
+    loadYaraClusterMetricSnapshot: function() {
+      var result = ClusterGateway.execute('yara snapshot --member-name generic') ;
+      return result[0].result ;
     }
   });
   

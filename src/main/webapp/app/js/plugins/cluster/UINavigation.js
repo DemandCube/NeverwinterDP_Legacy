@@ -34,6 +34,7 @@ define([
       'click .onListServer': 'onListServer',
       'click .onListModule': 'onListModule',
       'click .onListMetric': 'onListMetric',
+      'click .onYaraMetric': 'onYaraMetric',
       'click .onClusterRegistration': 'onClusterRegistration',
       'click .onServerRegistration': 'onServerRegistration'
     },
@@ -47,7 +48,12 @@ define([
     },
 
     onListMetric: function(evt) {
-      this._workspace(new UIClusterMetric()) ;
+      this._workspace(new UIClusterMetric({loadMethod: 'default'})) ;
+    },
+
+    onYaraMetric: function(evt) {
+      var uiClusterMetric = new UIClusterMetric({loadMethod: 'yara'}) ;
+      this._workspace(uiClusterMetric) ;
     },
 
     onClusterRegistration: function(evt) {

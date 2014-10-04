@@ -45,7 +45,9 @@ configurations.all {
 
 dependencies {
   compile group: 'com.neverwinterdp', name: 'commons.utils', version: '1.0-SNAPSHOT'
-  compile group: 'com.neverwinterdp', name: 'commons.yara', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.buffer', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.yara.core', version: '1.0-SNAPSHOT'
+  compile group: 'com.neverwinterdp', name: 'commons.yara.server', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.api', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT'
   compile group: 'com.neverwinterdp', name: 'commons.cluster', version: '1.0-SNAPSHOT', classifier: 'js'
@@ -106,14 +108,15 @@ def doRelease(String releaseDir) {
   println "*************************************************"
 
   def dependencyJars = [ 
-    "commons.utils", "commons.api", "commons.yara",  "commons.cluster","commons.netty", "commons.hadoop-framework", "commons.zookeeper",
-    "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
+    "commons.utils", "commons.api", "commons.buffer", "commons.yara",  "commons.cluster","commons.netty", 
+    "commons.hadoop-framework", "commons.zookeeper", "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
 
     "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava-16.0.1", "javassist",
     'guice', 'javax.inject', 'hazelcast', 'aopalliance',
     "kafka", "scala-library",
     'zookeeper', 'zkclient',
-    "netty-all", 'jzlib', 'chronicle', "lang-6.1.4",
+    "netty-all", 'jzlib', 
+    'chronicle', "lang-6.4.6", "compiler-2.2.0",
     
     "hadoop-common", "hadoop-hdfs", "hadoop-auth", 
     "hadoop-yarn-api", "hadoop-yarn-common", "hadoop-yarn-client",
@@ -121,8 +124,8 @@ def doRelease(String releaseDir) {
 
     "elasticsearch", "lucene",
     
-    "metrics-core", "metrics-json", "metrics-annotation",
-    "commons-collections", "commons-configuration","commons-lang", "commons-cli",
+    //"metrics-core", "metrics-json", "metrics-annotation",
+    "commons-collections", "commons-configuration","commons-lang3-3.1", "commons-cli",
     "log4j", "slf4j-api", "slf4j-log4j12", "commons-logging"
   ] ;
 
