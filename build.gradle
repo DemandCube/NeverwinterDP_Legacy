@@ -124,7 +124,8 @@ def doRelease(String releaseDir) {
 
     "elasticsearch", "lucene",
     
-    //"metrics-core", "metrics-json", "metrics-annotation",
+    //codahale metric is required by kafka
+    "metrics-core", "metrics-json", "metrics-annotation",
     "commons-collections", "commons-configuration","commons-lang3-3.1", "commons-cli",
     "log4j", "slf4j-api", "slf4j-log4j12", "commons-logging"
   ] ;

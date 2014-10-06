@@ -126,7 +126,7 @@
       <table>
         <%beanConfig.fields.forEach(function(field) { %>
           <tr>
-            <td style="width: 200px"><strong><%=field.label %>:</strong></td>
+            <td style="width: 200px; white-space: nowrap"><strong><%=field.label %>:</strong></td>
             <td>
               <%if(field.custom != null) {%>
                 <%=field.custom.getDisplay(bean)%>

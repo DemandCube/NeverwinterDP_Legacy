@@ -13,7 +13,7 @@ function ElasticSearchCluster(config) {
     SHELL.exec(
       "module install" +
       "  --member-role " + this.config.serverRole +
-      "  --autostart module ElasticSearch" +
+      "  --autostart module ElasticSearch --timeout 30000" +
       "  -Pmodule.data.drop=true"
     ) ;
   };
@@ -25,7 +25,7 @@ function ElasticSearchCluster(config) {
       SHELL.exec(
         "module install" +
         "  --member-name " +server +
-        "  --autostart --module ElasticSearch" +
+        "  --autostart --module ElasticSearch --timeout 30000" +
         "  -Pmodule.data.drop=true"
       ) ;
     }
@@ -38,7 +38,7 @@ function ElasticSearchCluster(config) {
     SHELL.exec(
       "module uninstall " +
       "  --member-role " + this.config.serverRole +
-      "  --module ElasticSearch --timeout 20000" 
+      "  --module ElasticSearch --timeout 30000" 
     ) ;
   };
 }

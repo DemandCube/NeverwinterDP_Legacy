@@ -3,7 +3,9 @@
   <hr/>
 
   <div style="margin: 10px">
-    <div><span class="ui-action onSelectUIComponent" name="UITableDemo">UITable Demo</span></div>
-    <div><span class="ui-action onSelectUIComponent" name="UIBeanDemo">UIBean Demo</span></div>
+    <div><a class="ui-action onSelectCluster">Cluster</a></div>
+    <div><a class="ui-action onSelectNodes">Nodes</a></div>
+    <div><a class="ui-action onSelectIndices">Indices</a></div>
+    <div><a class="ui-action onSelectStats">Stats</a></div>
   </div>
 <div>

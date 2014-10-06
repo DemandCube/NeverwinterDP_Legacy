@@ -12,6 +12,7 @@ define([
         url:  path,
         async: false ,
         error: function(data) {
+          console.log(data) ;
           console.trace() ;
         },
         success: function(data) {  returnData = data ; }
