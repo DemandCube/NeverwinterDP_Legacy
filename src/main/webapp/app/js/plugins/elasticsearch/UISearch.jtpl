@@ -1,0 +1,20 @@
+<div>
+  <div>
+    <div style="padding: 5px 0px; float: right">
+      <strong>Found <%=result.hits.total%> in <%=result.took%> ms</strong>
+    </div>
+
+    <div class="SearchInput">
+      <input name="query" value="<%= queryInput %>" style="width: 400px; height: 20px" /> 
+      <a class="ui-action onSearch">Search</a>
+      <a class="ui-action onSearch">More</a>
+    </div>
+
+    <div style="clear: both"><span/></div>
+    <hr/>
+  </div>
+
+  <div>
+    <div class="UISearchResult"></div>
+  </div>
+<div>

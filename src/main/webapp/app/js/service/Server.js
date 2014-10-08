@@ -19,6 +19,27 @@ define([
       });
       return returnData ;
     },
+
+    /**@memberOf service.Server */
+    syncPOSTJson : function(path, dataObj) {
+      var returnData = null ;
+      $.ajax({ 
+        async: false ,
+        type: "POST",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        url: path,
+        data:  JSON.stringify(dataObj) ,
+        error: function(data) {  
+          console.log("Error:") ; 
+          console.printJSON(data) ; 
+        },
+        success: function(data) {  
+          returnData = data ; 
+        }
+      });
+      return returnData ;
+    },
     
     /**@memberOf service.Server */
     GET : function(request) {
@@ -30,7 +51,8 @@ define([
         data: params ,
         async: false ,
         error: function(data) {  
-          console.debug("Error: \n" + JSON.stringify(data)) ; 
+          console.log("Error:") ; 
+          console.log(data) ; 
         },
         success: function(data) {  returnData = data ; }
       });

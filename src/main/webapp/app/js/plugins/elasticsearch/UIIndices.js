@@ -94,7 +94,7 @@ define([
         label: 'Elasticsearch Indices',
         fields: [
           { 
-            field: "_name",  label: "Name",toggled: true,
+            field: "_name",  label: "Name",toggled: true, filterable: true,
             onClick: function(thisTable, row) {
               var bean = thisTable.getItemOnCurrentPage(row) ;
               //thisTable.UIParent.push(new UINodeDetail( {nodeInfo: bean})) ;

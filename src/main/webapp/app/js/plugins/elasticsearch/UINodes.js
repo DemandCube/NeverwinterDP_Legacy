@@ -33,8 +33,8 @@ define([
               thisTable.UIParent.push(new UINodeDetail( {nodeInfo: bean})) ;
             },
           },
-          { field: "name",  label: "Name",toggled: true },
-          { field: "host",  label: "Host",toggled: true },
+          { field: "name",  label: "Name",toggled: true, filterable: true },
+          { field: "host",  label: "Host",toggled: true, filterable: true },
           { field: "transport_address",  label: "Transport Addr", toggled: true },
           { field: "http_address",  label: "Http Addr", toggled: true }
         ]

@@ -228,15 +228,10 @@ define([
     
     onToggleColumn: function(evt) {
       var fieldName = $(evt.target).attr('name') ;
-      var fields = this.config.bean.fields ;
-      for(var i = 0; i < fields.length; i++) {
-        var fieldConfig = fields[i] ;
-        if(fieldName == fieldConfig.field) {
-          fieldConfig.toggled = !fieldConfig.toggled ;
-          this.renderRows() ;
-          return ;
-        }
-      }
+      var fieldConfig = this._getFieldConfig(fieldName) ;
+      fieldConfig.toggled = !fieldConfig.toggled ;
+      this.renderRows() ;
+      return ;
     },
     
     onSelectDisplayRow: function(evt) {
@@ -324,12 +319,21 @@ define([
       var toolbar = this.$el.find('.UITableDefaultToolbar') ;
       var filterVal = toolbar.find('input.onDfltBeanFilter').val() ;
       if(filterVal != null && filterVal.length > 0) {
+
         var filterField = toolbar.find('select.onDfltBeanFilter').find(':selected').val() ;
+        var fieldConfig = this._getFieldConfig(filterField) ;
         var holder = [] ;
         for(var i = 0;i < this.state.beans.length; i++) {
           var beanState = this.state.beans[i] ;
           var bean = beanState.bean ;
-          if(bean[filterField].indexOf(filterVal) >= 0) {
+          var fieldVal = null ;
+          if(fieldConfig.custom != null) {
+            fieldVal = fieldConfig.custom.getDisplay(bean) ;
+          } else {
+            fieldVal = bean[filterField] ;
+          }
+
+          if(fieldVal.indexOf(filterVal) >= 0) {
             holder.push(beanState) ;
           }
         }
@@ -369,7 +373,19 @@ define([
         text += possible.charAt(Math.floor(Math.random() * possible.length));
       }
       return text;
-    }
+    },
+
+    _getFieldConfig: function(fieldName) {
+      var fields = this.config.bean.fields ;
+      for(var i = 0; i < fields.length; i++) {
+        var fieldConfig = fields[i] ;
+        if(fieldName == fieldConfig.field) {
+          return fieldConfig;;
+        }
+      }
+      return null ;
+    },
+
   });
   
   return UITable ;

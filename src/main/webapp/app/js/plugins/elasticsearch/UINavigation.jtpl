@@ -1,11 +1,19 @@
 <div>
-  <h3 style="margin: 3px 0px">Elasticsearch</h3>
+  <h3 style="margin: 3px 0px">Elasticsearch Info</h3>
   <hr/>
 
   <div style="margin: 10px">
-    <div><a class="ui-action onSelectCluster">Cluster</a></div>
     <div><a class="ui-action onSelectNodes">Nodes</a></div>
     <div><a class="ui-action onSelectIndices">Indices</a></div>
     <div><a class="ui-action onSelectStats">Stats</a></div>
+  </div>
+
+  <h3 style="margin: 3px 0px">Elasticsearch Query</h3>
+  <hr/>
+
+  <div style="margin: 10px">
+    <%for(var i = 0; i < indices.length; i++) { %>
+    <div><a class="ui-action onSelectSearchIndex" name="<%=indices[i]%>"><%=indices[i]%></a></div>
+    <%}%>
   </div>
 <div>

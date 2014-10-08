@@ -2,14 +2,14 @@ define([
   'jquery',
   'underscore', 
   'backbone',
-  'service/ClusterGateway',
   'ui/UIBreadcumbs',
   'site/UIWorkspace',
   'plugins/elasticsearch/ESGateway',
   'plugins/elasticsearch/UINodes',
   'plugins/elasticsearch/UIIndices',
+  'plugins/elasticsearch/UISearch',
   'text!plugins/elasticsearch/UINavigation.jtpl'
-], function($, _, Backbone, ClusterGateway, UIBreadcumbs, UIWorkspace, ESGateway, UINodes, UIIndices, Template) {
+], function($, _, Backbone, UIBreadcumbs, UIWorkspace, ESGateway, UINodes, UIIndices, UISearch, Template) {
   var UINavigation = Backbone.View.extend({
 
     initialize: function () {
@@ -20,15 +20,18 @@ define([
     
     render: function() {
       var params = { 
+         indices: ESGateway.index.available()
       } ;
       $(this.el).html(this._template(params));
       $(this.el).trigger("create") ;
+      this.onSelectNodes(null) ;
     },
 
     events: {
       'click .onSelectCluster': 'onSelectCluster',
       'click .onSelectNodes': 'onSelectNodes',
       'click .onSelectIndices': 'onSelectIndices',
+      'click .onSelectSearchIndex': 'onSelectSearchIndex',
       'click .onSelectStats': 'onSelectStats'
     },
 
@@ -38,12 +41,16 @@ define([
     },
 
     onSelectNodes: function(evt) {
-      console.log('on select nodes...') ;
       this._workspace(new UINodes({})) ;
     },
 
     onSelectIndices: function(evt) {
       this._workspace(new UIIndices({})) ;
+    },
+
+    onSelectSearchIndex: function(evt) {
+      var index = $(evt.target).attr('name') ;
+      this._workspace(new UISearch({index: index})) ;
     },
 
     onSelectStats: function(evt) {

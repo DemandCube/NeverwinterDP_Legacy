@@ -24,7 +24,7 @@ public class HttpSparknginMessageDriver implements MessageDriver {
         int separatorIdx = selConnect.lastIndexOf(":") ;
         String host = selConnect.substring(0, separatorIdx) ;
         int port = Integer.parseInt(selConnect.substring(separatorIdx + 1));
-        client = new JSONHttpSparknginClient (host, port, 300) ;
+        client = new JSONHttpSparknginClient (host, port, 300, true) ;
       }
     } catch(Exception ex) {
       throw new RuntimeException("Sparkngin Driver Error", ex) ;
