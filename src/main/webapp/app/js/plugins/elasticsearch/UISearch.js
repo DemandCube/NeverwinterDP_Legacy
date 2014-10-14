@@ -14,7 +14,7 @@ define([
       this.indexQuery = ESGateway.query.indexQuery(index) ;
       this.uiSearchResult = this.buildUISearchResult() ;
       this._search(this.queryInput, false) ;
-      _.bindAll(this, 'render') ;
+      _.bindAll(this, 'render', 'onSearch') ;
     },
     
     _template: _.template(Template),
@@ -32,12 +32,26 @@ define([
     },
 
     events: {
-      'click .onSearch': 'onSearch'
+      'click .onSearch': 'onSearch',
+      'keyup .onSearchInput': 'onSearchInput',
+      'click .onMore': 'onMore',
     },
 
     onSearch: function(evt) {
       this.queryInput = $(evt.target).parents('.SearchInput').find('input').val() ;
       this._search(this.queryInput, true) ;
+    },
+
+    onSearchInput: function(evt) {
+      if(evt.keyCode == 13) {
+        this.queryInput = $(evt.target).val();
+        this._search(this.queryInput, true) ;
+      }
+    },
+
+    onMore: function(evt) {
+      var moreOptionsBlock = $(evt.target).parents('.SearchInput').find('.MoreOptions');
+      moreOptionsBlock.toggle() ;
     },
 
     _search: function(query, render) {

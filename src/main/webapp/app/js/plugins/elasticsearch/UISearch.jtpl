@@ -1,17 +1,24 @@
 <div>
-  <div>
+  <div class="SearchInput">
     <div style="padding: 5px 0px; float: right">
       <strong>Found <%=result.hits.total%> in <%=result.took%> ms</strong>
     </div>
 
-    <div class="SearchInput">
-      <input name="query" value="<%= queryInput %>" style="width: 400px; height: 20px" /> 
-      <a class="ui-action onSearch">Search</a>
-      <a class="ui-action onSearch">More</a>
+    <div>
+      <a class="ui-action onMore">
+         <span class="ui-icon  ui-icon-carat-1-s" style="display: inline-block; vertical-align: middle"/>
+      </a>
+      <input class="onSearchInput" name="query" value="<%= queryInput %>" style="width: 400px; height: 20px" /> 
+      <a class="ui-action onSearch">
+        <span class="ui-icon  ui-icon-search" style="display: inline-block; vertical-align: middle"/>
+      </a>
     </div>
 
     <div style="clear: both"><span/></div>
-    <hr/>
+    <hr style="margin-bottom: 5px"/>
+    <div class="MoreOptions" style="display: none; border: 1px solid #bbb">
+      More
+    </div>
   </div>
 
   <div>

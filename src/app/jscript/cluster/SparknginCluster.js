@@ -20,6 +20,7 @@ function SparknginCluster(config) {
       "  -Pmodule.data.drop=true" +
       "  -Psparkngin:http-listen-port=" + this.config.httpListenPort +
       "  -Psparkngin:forwarder-class=" + this.config.forwarderClass +
+      "  -Psparkngin:forwarder-reconnect=30000" +
       "  -Pkafka-producer:metadata.broker.list=" + this.config.kafkaBroker
     ) ;
   };
@@ -35,6 +36,7 @@ function SparknginCluster(config) {
         "  -Pmodule.data.drop=true" +
         "  -Psparkngin:http-listen-port=" + (this.config.httpListenPort + i) +
         "  -Psparkngin:forwarder-class=" + this.config.forwarderClass +
+        "  -Psparkngin:forwarder-reconnect=30000" +
         "  -Pkafka-producer:metadata.broker.list=" + this.config.kafkaBroker
       ) ;
     }
