@@ -27,31 +27,37 @@ function printHeader() {
 }
 
 function runGradle() {
+  COMMAND=$1
+  shift
+  
   printHeader "NeverwinterDP-Commons"
-  echo "NeverwinterDP-Commons: gradle $@" 
-  cd $APP_DIR/NeverwinterDP-Commons && gradle $@
+  echo "NeverwinterDP-Commons: $COMMAND $@" 
+  cd $APP_DIR/NeverwinterDP-Commons && $COMMAND $@
   
   printHeader "Queuengin"
-  echo "Queuengin: gradle $@"
-  cd $APP_DIR/Queuengin && gradle $@
+  echo "Queuengin: $COMMAND $@"
+  cd $APP_DIR/Queuengin && $COMMAND $@
   
   printHeader "Sparkngin"
-  echo "Sparkngin: gradle $@"
-  cd $APP_DIR/Sparkngin && gradle $@
+  echo "Sparkngin: $COMMAND $@"
+  cd $APP_DIR/Sparkngin && $COMMAND $@
   
   printHeader "Scribengin"
-  echo "Scribengin: gradle $@"
-  cd $APP_DIR/Scribengin && gradle $@
+  echo "Scribengin: $COMMAND $@"
+  cd $APP_DIR/Scribengin && $COMMAND $@
   
   printHeader "DemandSpike"
-  echo "DemandSpike: gradle $@"
-  cd $APP_DIR/DemandSpike && gradle $@
+  echo "DemandSpike: $COMMAND $@"
+  cd $APP_DIR/DemandSpike && $COMMAND $@
   
   printHeader "NeverwinterDP"
-  echo "NeverwinterDP: gradle $@"
-  cd $APP_DIR/NeverwinterDP && gradle $@
+  echo "NeverwinterDP: $COMMAND $@"
+  cd $APP_DIR/NeverwinterDP && $COMMAND $@
   cd $APP_DIR
+  echo $@
 }
+
+
 
 function runGit() { 
   
@@ -124,7 +130,9 @@ COMMAND=$1
 shift
 
 if [ "$COMMAND" = "gradle" ] ; then
-  runGradle $@
+  runGradle $COMMAND $@
+elif [ "$COMMAND" = "gradlew"  ] ; then
+  runGradle "./gradlew" $@
 elif [ "$COMMAND" = "git" ] ; then
   runGit $@
 elif [ "$COMMAND" = "release" ] ; then
