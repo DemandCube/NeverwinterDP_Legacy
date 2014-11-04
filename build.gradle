@@ -111,7 +111,8 @@ def doRelease(String releaseDir) {
     "commons.utils", "commons.api", "commons.buffer", "commons.yara",  "commons.cluster","commons.netty", 
     "commons.hadoop-framework", "commons.zookeeper", "queuengin", "sparkngin", "demandspike", "commons.elasticsearch",
 
-    "jackson-core-2.2.2", "jackson-databind", "jackson-annotations", "jcommander", "reflections", "guava-16.0.1", "javassist",
+    "jackson-core-2.4.3", "jackson-databind-2.4.3", "jackson-annotations-2.4.3", "jackson-datatype-protobuf", 
+    "jcommander", "reflections", "guava-16.0.1", "javassist",
     'guice', 'javax.inject', 'hazelcast', 'aopalliance',
     "kafka", "scala-library",
     'zookeeper', 'zkclient',

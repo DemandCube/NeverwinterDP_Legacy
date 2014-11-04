@@ -62,12 +62,14 @@ define([
 
     buildUISearchResult: function() {
       var mapping = this.indexQuery.mapping ;
+      var fields = [] ;
       //since the field name is dynamic according to index name and type, use this trick to get the field names
-      var mappings = mapping[Object.keys(mapping)[0]] ;
-      var record = mappings[Object.keys(mappings)[0]] ;
-      var properties = record[Object.keys(record)[0]] ;
-      var fields = properties[Object.keys(properties)[0]] ;
-
+      if(Object.keys(mapping).length > 0) {
+        var mappings = mapping[Object.keys(mapping)[0]] ;
+        var record = mappings[Object.keys(mappings)[0]] ;
+        var properties = record[Object.keys(record)[0]] ;
+        fields = properties[Object.keys(properties)[0]] ;
+      }
       var config = {
         toolbar: {
           dflt: {
@@ -80,6 +82,7 @@ define([
           fields: [ ]
         }
       };
+
       //console.printJSON(fields) ;
       var configFields = config.bean.fields ;
       for(var fieldName in fields) {
